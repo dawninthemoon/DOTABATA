@@ -13,5 +13,23 @@ MonoBehaviour:
   m_Name: Move
   m_EditorClassIdentifier: 
   clipInfo:
-    sprites: []
+    sprites:
+    - {fileID: 21300000, guid: ad9cbbc0219db9f4b88d107e32abc82e, type: 3}
+    - {fileID: 21300000, guid: 7e3b649e1f36e8f44a2c71ec20a4efa1, type: 3}
+    - {fileID: 21300000, guid: 2c08aa17290c2c24699d531ac33effbe, type: 3}
+    - {fileID: 21300000, guid: 668b4f667f49c7b4e8005d7bdeed9359, type: 3}
+    - {fileID: 21300000, guid: 04e49484ac8c562438c85504533dfb8c, type: 3}
+    - {fileID: 21300000, guid: 3879b289ce118a3499b18cc7aec304b5, type: 3}
+    - {fileID: 21300000, guid: 03f215d509e72d1468d20d8c55728818, type: 3}
+    - {fileID: 21300000, guid: 9f624513c708a084eb045a5f4cda28b8, type: 3}
+    - {fileID: 21300000, guid: efd20aac5cf7ea941937545cf09e5418, type: 3}
+    - {fileID: 21300000, guid: bf17619d412952b4b93841966f369c3c, type: 3}
+    - {fileID: 21300000, guid: 564d15f0c421c8c4b924b217b26d632c, type: 3}
+    - {fileID: 21300000, guid: 344aa06a1ffce294bbb615c1adec19de, type: 3}
+    - {fileID: 21300000, guid: 900b89afa299c5644a4d0e90102eba79, type: 3}
+    - {fileID: 21300000, guid: 1401ec5ef560f1744b12de943d77cabe, type: 3}
+    - {fileID: 21300000, guid: cc1c0c2b14573c64980d8309f8ce9b33, type: 3}
+    - {fileID: 21300000, guid: f3fad3cf1fba93143b395436ea1d8708, type: 3}
+    - {fileID: 21300000, guid: 0d961f94eaa209d40a941006fb31b701, type: 3}
+    - {fileID: 21300000, guid: 45508e3d10cc0e94e98d3421d8243409, type: 3}
     events: []

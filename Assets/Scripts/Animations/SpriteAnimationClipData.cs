@@ -9,15 +9,11 @@ public struct SpriteAnimationEventInfo
     public string eventName;
 }
 
-[System.Serializable]
-public struct SpriteAnimationClipInfo
-{
-    public Sprite[] sprites;
-    public SpriteAnimationEventInfo[] events;
-}
-
 [CreateAssetMenu(fileName = "NewSpriteAnimClip", menuName = "ScriptableObjects/Animation/Clip")]
 public class SpriteAnimationClipData : ScriptableObject
 {
-    public SpriteAnimationClipInfo clipInfo;
+    public int framePerSec = 10;
+    public bool loop;
+    public Sprite[] sprites;
+    public SpriteAnimationEventInfo[] events;
 }
