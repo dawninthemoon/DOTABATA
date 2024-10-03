@@ -26,6 +26,6 @@ public class CharacterUnit : MonoBehaviour
             transform.position += moveVector * Time.deltaTime;
         }
 
-        characterRenderer.ProcessInput(input);
+        characterRenderer.ProcessInput(input, Input.GetMouseButtonDown(0));
     }
 }

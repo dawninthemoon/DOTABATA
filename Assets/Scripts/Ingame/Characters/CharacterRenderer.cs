@@ -27,6 +27,8 @@ public class CharacterRenderer : MonoBehaviour
     {
         _currentState = State.Idle;
         _defaultAnimationIndex = -1;
+
+        armAnimator.SetEndCallback("Fire", () => armAnimator.ChangeAnimation("Idle"));
     }
 
     private void Update()
@@ -64,9 +66,14 @@ public class CharacterRenderer : MonoBehaviour
         }
     }
 
-    public void ProcessInput(Vector2 input)
+    public void ProcessInput(Vector2 input, bool fired)
     {
         bool isMoving = input.sqrMagnitude > 0f;
         _currentState = isMoving ? State.Move : State.Idle;
+
+        if (fired)
+        {
+            armAnimator.ChangeAnimation("Fire");
+        }
     }
 }

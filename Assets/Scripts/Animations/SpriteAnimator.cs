@@ -16,6 +16,7 @@ public class SpriteAnimator : MonoBehaviour
     private float _counter;
 
     private SpriteAnimatorInfo _clipInfo;
+    private Dictionary<string, Action> _endCallbackDictionary;
 
     public SpriteRenderer Renderer => spriteRenderer;
     public string CurrentAnimationName => _currentAnimationName;
@@ -27,6 +28,11 @@ public class SpriteAnimator : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
         StartAnimation();
+    }
+
+    private void Awake()
+    {
+        _endCallbackDictionary = new();
     }
 
     private void StartAnimation()
@@ -58,6 +64,7 @@ public class SpriteAnimator : MonoBehaviour
             }
             else
             {
+                OnAnimationEnd();
                 return;
             }
         }
@@ -92,12 +99,27 @@ public class SpriteAnimator : MonoBehaviour
 
     public void SetEndCallback(string animationName, Action callback)
     {
-
+        if (!_endCallbackDictionary.ContainsKey(animationName))
+        {
+            _endCallbackDictionary.Add(animationName, callback);
+        }
+        else
+        {
+            _endCallbackDictionary[animationName] = callback;
+        }
     }
 
-    public void SetEventCallback(string animationName, string eventName, Action callback)
+    public void SetEventCallback(string eventName, Action callback)
     {
         
+    }
+
+    private void OnAnimationEnd()
+    {
+        if (_endCallbackDictionary.TryGetValue(_currentAnimationName, out Action callback))
+        {
+            callback?.Invoke();
+        }
     }
 
     private SpriteAnimatorInfo FindClipInfo(string animationName)
