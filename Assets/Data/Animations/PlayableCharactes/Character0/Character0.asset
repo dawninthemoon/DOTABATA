@@ -14,13 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultAnimationName: Idle
   data:
-  - animationName: Idle
+  - animationName: Idle_Down
     clip: {fileID: 11400000, guid: 68c3ab2c4384f4544867715bd1a715f4, type: 2}
-  - animationName: Move
-    clip: {fileID: 11400000, guid: 13e43b90c2ef1a64492d5fdd5d00ef66, type: 2}
+  - animationName: Idle_Right
+    clip: {fileID: 11400000, guid: ce36ab48ebb51d448a062fd671158e49, type: 2}
+  - animationName: Idle_Up
+    clip: {fileID: 11400000, guid: 68c3ab2c4384f4544867715bd1a715f4, type: 2}
   - animationName: Fire
     clip: {fileID: 11400000, guid: c07b319ca8b448f4e841db73df3db29b, type: 2}
   - animationName: Down
     clip: {fileID: 11400000, guid: fad58397cc01cd04f8c2d7b5625466e1, type: 2}
   - animationName: Freeze
     clip: {fileID: 11400000, guid: 7489a7ced6af4e94cb4822f076bab235, type: 2}
+  - animationName: Move_Down
+    clip: {fileID: 11400000, guid: 482e30d660f948048a97caf7b427be73, type: 2}
+  - animationName: Move_RIght
+    clip: {fileID: 11400000, guid: 86e98edcc94be9848928cde3ddba370d, type: 2}
+  - animationName: Move_Up
+    clip: {fileID: 11400000, guid: 8429994d1c43e234394583fa34069e6a, type: 2}

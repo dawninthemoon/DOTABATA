@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct SpriteAnimatorInfo
+public class SpriteAnimatorInfo
 {
     public string animationName;
     public SpriteAnimationClipData clip;

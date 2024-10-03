@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d3e9783ba771841a8afe9e6b25e1af, type: 3}
+  m_Name: Character0Arm
+  m_EditorClassIdentifier: 
+  defaultAnimationName: Idle
+  data:
+  - animationName: Idle
+    clip: {fileID: 11400000, guid: 80b3c52821be5ca46b89a1f1f5eea3e8, type: 2}
+  - animationName: Fire
+    clip: {fileID: 11400000, guid: ba435a49e588dda499d38d6ce85bbc9c, type: 2}

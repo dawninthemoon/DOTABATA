@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
+  m_Name: Arm_Fire
+  m_EditorClassIdentifier: 
+  framePerSec: 10
+  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: ececc1a1b75f1c146ba9cbd6b84c840e, type: 3}
+  - {fileID: 21300000, guid: e1007aeeb3ccbd64cb0549dc2c89f1ba, type: 3}
+  - {fileID: 21300000, guid: c3cd2fca3fba08545bbf0a72535fd87e, type: 3}
+  - {fileID: 21300000, guid: 6e979607ed305f04da2a5998b5ff7942, type: 3}
+  - {fileID: 21300000, guid: dc015658b4acfad4cbbc0d41b8564138, type: 3}
+  - {fileID: 21300000, guid: 3018cca830c83424f853992b9b838c17, type: 3}
+  - {fileID: 21300000, guid: d22ebc2f3a4d7d945ac312a3a8b06cc8, type: 3}
+  - {fileID: 21300000, guid: e3064637ea58b8d4abe0ca20e56f26aa, type: 3}
+  - {fileID: 21300000, guid: 2af99b43c186de04a83ff533b5024916, type: 3}
+  - {fileID: 21300000, guid: 59d9391d9af93944290b7c4b021813c5, type: 3}
+  - {fileID: 21300000, guid: 48b5903395bc37740a23744f4c085054, type: 3}
+  - {fileID: 21300000, guid: b408a45fb916ba746b584e45755c495b, type: 3}
+  events: []
