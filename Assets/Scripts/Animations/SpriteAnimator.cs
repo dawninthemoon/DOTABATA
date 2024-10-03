@@ -15,6 +15,8 @@ public class SpriteAnimator : MonoBehaviour
     private int _spriteIndex;
     private float _counter;
 
+    private SpriteAnimatorInfo _clipInfo;
+
     public SpriteRenderer Renderer => spriteRenderer;
     public string CurrentAnimationName => _currentAnimationName;
     
@@ -35,35 +37,51 @@ public class SpriteAnimator : MonoBehaviour
 
     private void Update()
     {
-        var clipInfo = FindClipInfo(_currentAnimationName);
-        if (clipInfo is null)
+        if (_clipInfo is null)
         {
             return;
         }
 
         _counter += Time.deltaTime;
-        if (_counter < 1f / clipInfo.clip.framePerSec)
+        if (_counter < 1f / _clipInfo.clip.framePerSec)
         {
             return;
         }
 
         _counter = 0f;
 
-        if (clipInfo.clip.loop && _spriteIndex >= clipInfo.clip.sprites.Length)
+        if (_spriteIndex >= _clipInfo.clip.sprites.Length)
         {
-            _spriteIndex = 0;
-        }
-        else
-        {
-            return;
+            if (_clipInfo.clip.loop)
+            {
+                _spriteIndex = 0;
+            }
+            else
+            {
+                return;
+            }
         }
 
-        var sprite = clipInfo.clip.sprites[_spriteIndex];
+        var sprite = _clipInfo.clip.sprites[_spriteIndex];
         spriteRenderer.sprite = sprite;
+
+        ++_spriteIndex;
     }
 
     public void ChangeAnimation(string animationName, bool resetIndex = true)
     {
+        if (_currentAnimationName.Equals(animationName))
+        {
+            return;
+        }
+        
+        var clipInfo = FindClipInfo(animationName);
+        if (clipInfo is null)
+        {
+            return;
+        }
+        _clipInfo = clipInfo;
+
         _currentAnimationName = animationName;
         _counter = 999f;
         if (resetIndex)
@@ -84,7 +102,15 @@ public class SpriteAnimator : MonoBehaviour
 
     private SpriteAnimatorInfo FindClipInfo(string animationName)
     {
-        var clipData = animatorData.data.Where(x => x.animationName.Equals(animationName)).SingleOrDefault();
+        SpriteAnimatorInfo clipData = null;
+        foreach (var data in animatorData.data)
+        {
+            if (data.animationName.Equals(animationName))
+            {
+                clipData = data;
+                break;
+            }
+        }
         return clipData;
     }
 }

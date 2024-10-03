@@ -25,7 +25,7 @@ public class CharacterRenderer : MonoBehaviour
 
     private void Start()
     {
-        _currentState = (State)System.Enum.Parse(typeof(State), bodyAnimator.CurrentAnimationName);
+        _currentState = State.Idle;
         _defaultAnimationIndex = -1;
     }
 
@@ -47,21 +47,26 @@ public class CharacterRenderer : MonoBehaviour
         {
             int animationIndex = Mathf.Clamp(Mathf.FloorToInt(angle / 180f * 3f), 0, SuffixArray.Length - 1);
 
+            string animationName = _currentState.ToString();
             if (_defaultAnimationIndex != animationIndex)
             {
                 _defaultAnimationIndex = animationIndex;
-
-                string animationName = _currentState.ToString();
-                if (_currentState == State.Idle || _currentState == State.Move)
-                {
-                    animationName += SuffixArray[_defaultAnimationIndex];
-                }
-
-                bodyAnimator.ChangeAnimation(animationName, resetIndex: false);
             }
+
+            if (_currentState == State.Idle || _currentState == State.Move)
+            {
+                animationName += SuffixArray[_defaultAnimationIndex];
+            }
+            bodyAnimator.ChangeAnimation(animationName, resetIndex: (_currentState != State.Move));
 
             Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
             bodyAnimator.transform.localScale = bodyScale;
         }
+    }
+
+    public void ProcessInput(Vector2 input)
+    {
+        bool isMoving = input.sqrMagnitude > 0f;
+        _currentState = isMoving ? State.Move : State.Idle;
     }
 }

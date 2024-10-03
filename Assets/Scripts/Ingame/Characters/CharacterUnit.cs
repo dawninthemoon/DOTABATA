@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class CharacterUnit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float moveSpeed;
+    [SerializeField]
+    private CharacterRenderer characterRenderer;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Vector2 input;
+        ControlInput();
+        void ControlInput()
+        {
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+        }
+
+        UpdatePosiiton();
+        void UpdatePosiiton()
+        {
+            Vector3 moveVector = input.normalized * moveSpeed; 
+            transform.position += moveVector * Time.deltaTime;
+        }
+
+        characterRenderer.ProcessInput(input);
     }
 }

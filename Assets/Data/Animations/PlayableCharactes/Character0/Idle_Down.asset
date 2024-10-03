@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Idle_Down
   m_EditorClassIdentifier: 
   framePerSec: 10
-  loop: 1
+  loop: 0
   sprites:
   - {fileID: 21300000, guid: 74292b6e0cf10e843beb0618a5a269a4, type: 3}
   events: []
