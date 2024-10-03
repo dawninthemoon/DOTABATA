@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Move_Up
   m_EditorClassIdentifier: 
   framePerSec: 10
-  loop: 0
+  loop: 1
   sprites:
-  - {fileID: 21300000, guid: 53f0d65feabd3b24890ec3e537cfd693, type: 3}
-  - {fileID: 21300000, guid: ce7bdee73cbda7a469055f8aa0c00d0b, type: 3}
-  - {fileID: 21300000, guid: d58b51b9bc5d3d548a7a2a52cf063a98, type: 3}
-  - {fileID: 21300000, guid: 77539ed460f484e46bb340f5b038f8cc, type: 3}
-  - {fileID: 21300000, guid: 4df1b85874928584d9cf9698c02fe59c, type: 3}
-  - {fileID: 21300000, guid: 1861b43dd8b1e0c48be0c8f3732d32f9, type: 3}
+  - {fileID: 21300000, guid: 900b89afa299c5644a4d0e90102eba79, type: 3}
+  - {fileID: 21300000, guid: 1401ec5ef560f1744b12de943d77cabe, type: 3}
+  - {fileID: 21300000, guid: cc1c0c2b14573c64980d8309f8ce9b33, type: 3}
+  - {fileID: 21300000, guid: f3fad3cf1fba93143b395436ea1d8708, type: 3}
+  - {fileID: 21300000, guid: 0d961f94eaa209d40a941006fb31b701, type: 3}
+  - {fileID: 21300000, guid: 45508e3d10cc0e94e98d3421d8243409, type: 3}
   events: []

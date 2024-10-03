@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Move_Down
   m_EditorClassIdentifier: 
   framePerSec: 10
-  loop: 0
+  loop: 1
   sprites:
-  - {fileID: 21300000, guid: 7646c6067182b2d4e9ac025f4dcc34ec, type: 3}
-  - {fileID: 21300000, guid: f1e7de054a901874eb51b2f09b84263a, type: 3}
-  - {fileID: 21300000, guid: f81b19ddd90343a47804063349be9df3, type: 3}
-  - {fileID: 21300000, guid: 51ced5918f410bc42b35aeb115da8508, type: 3}
-  - {fileID: 21300000, guid: b628016a2fde214439362b4de438bb61, type: 3}
-  - {fileID: 21300000, guid: 726eb723f4e9526449d10fb9bc9d6e17, type: 3}
+  - {fileID: 21300000, guid: ad9cbbc0219db9f4b88d107e32abc82e, type: 3}
+  - {fileID: 21300000, guid: 7e3b649e1f36e8f44a2c71ec20a4efa1, type: 3}
+  - {fileID: 21300000, guid: 2c08aa17290c2c24699d531ac33effbe, type: 3}
+  - {fileID: 21300000, guid: 668b4f667f49c7b4e8005d7bdeed9359, type: 3}
+  - {fileID: 21300000, guid: 04e49484ac8c562438c85504533dfb8c, type: 3}
+  - {fileID: 21300000, guid: 3879b289ce118a3499b18cc7aec304b5, type: 3}
   events: []

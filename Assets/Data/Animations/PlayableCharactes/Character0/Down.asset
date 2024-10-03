@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
   m_Name: Down
   m_EditorClassIdentifier: 
-  clipInfo:
-    sprites:
-    - {fileID: 21300000, guid: 89050d69115979749abda8a2d5946a5d, type: 3}
-    - {fileID: 21300000, guid: efbb4a7e681d5f24b893d6839068c552, type: 3}
-    - {fileID: 21300000, guid: ef4d014fb36dcb94a9ee895a5896f0e9, type: 3}
-    - {fileID: 21300000, guid: 5cf926fc4eab210458121284be4bdebf, type: 3}
-    - {fileID: 21300000, guid: 70439b8b279562047aa3729ff11d119b, type: 3}
-    - {fileID: 21300000, guid: 19f7e71063141e6428de4e3b948d06e6, type: 3}
-    events: []
+  framePerSec: 12
+  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: 89050d69115979749abda8a2d5946a5d, type: 3}
+  - {fileID: 21300000, guid: efbb4a7e681d5f24b893d6839068c552, type: 3}
+  - {fileID: 21300000, guid: ef4d014fb36dcb94a9ee895a5896f0e9, type: 3}
+  - {fileID: 21300000, guid: 5cf926fc4eab210458121284be4bdebf, type: 3}
+  - {fileID: 21300000, guid: 70439b8b279562047aa3729ff11d119b, type: 3}
+  - {fileID: 21300000, guid: 19f7e71063141e6428de4e3b948d06e6, type: 3}
+  events: []
