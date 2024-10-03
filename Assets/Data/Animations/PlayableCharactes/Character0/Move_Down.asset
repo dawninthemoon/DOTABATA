@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
+  m_Name: Move_Down
+  m_EditorClassIdentifier: 
+  framePerSec: 10
+  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: 7646c6067182b2d4e9ac025f4dcc34ec, type: 3}
+  - {fileID: 21300000, guid: f1e7de054a901874eb51b2f09b84263a, type: 3}
+  - {fileID: 21300000, guid: f81b19ddd90343a47804063349be9df3, type: 3}
+  - {fileID: 21300000, guid: 51ced5918f410bc42b35aeb115da8508, type: 3}
+  - {fileID: 21300000, guid: b628016a2fde214439362b4de438bb61, type: 3}
+  - {fileID: 21300000, guid: 726eb723f4e9526449d10fb9bc9d6e17, type: 3}
+  events: []
