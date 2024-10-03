@@ -13,7 +13,7 @@ public class CharacterRenderer : MonoBehaviour
         Down,
     }
 
-    private static readonly string[] SuffixArray = { "_Down", "Right", "Up", };
+    private static readonly string[] SuffixArray = { "_Down", "_Right", "_Up", };
 
     [SerializeField]
     private SpriteAnimator bodyAnimator;
@@ -39,19 +39,9 @@ public class CharacterRenderer : MonoBehaviour
         ChangeArmDirection();
         void ChangeArmDirection()
         {
-            armAnimator.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+            armAnimator.Renderer.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            bodyAnimator.ChangeAnimation("Idle_Down");
-        }
-               if (Input.GetKeyDown(KeyCode.X))
-        {
-            bodyAnimator.ChangeAnimation("Idle_Up");
-        }
-
-        /*
         ChangeBodyDirection();
         void ChangeBodyDirection()
         {
@@ -59,18 +49,19 @@ public class CharacterRenderer : MonoBehaviour
 
             if (_defaultAnimationIndex != animationIndex)
             {
+                _defaultAnimationIndex = animationIndex;
+
                 string animationName = _currentState.ToString();
                 if (_currentState == State.Idle || _currentState == State.Move)
                 {
-                    animationName += SuffixArray[animationIndex];
+                    animationName += SuffixArray[_defaultAnimationIndex];
                 }
 
-                bodyAnimator.Renderer.sprite = _bodySpriteTemp[animationIndex];
-
-                Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
-                bodyAnimator.transform.localScale = bodyScale;
+                bodyAnimator.ChangeAnimation(animationName, resetIndex: false);
             }
+
+            Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
+            bodyAnimator.transform.localScale = bodyScale;
         }
-        */
     }
 }

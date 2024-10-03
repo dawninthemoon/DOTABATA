@@ -47,11 +47,15 @@ public class SpriteAnimator : MonoBehaviour
             return;
         }
 
-        _counter -= 1f / clipInfo.clip.framePerSec;
+        _counter = 0f;
 
-        if (_spriteIndex >= clipInfo.clip.sprites.Length)
+        if (clipInfo.clip.loop && _spriteIndex >= clipInfo.clip.sprites.Length)
         {
             _spriteIndex = 0;
+        }
+        else
+        {
+            return;
         }
 
         var sprite = clipInfo.clip.sprites[_spriteIndex];

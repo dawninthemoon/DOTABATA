@@ -15,7 +15,7 @@ MonoBehaviour:
   defaultAnimationName: Idle
   data:
   - animationName: Idle_Down
-    clip: {fileID: 11400000, guid: 68c3ab2c4384f4544867715bd1a715f4, type: 2}
+    clip: {fileID: 11400000, guid: 3315c2cefbfa47942bb55194ecbf4443, type: 2}
   - animationName: Idle_Right
     clip: {fileID: 11400000, guid: ce36ab48ebb51d448a062fd671158e49, type: 2}
   - animationName: Idle_Up
