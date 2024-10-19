@@ -8,7 +8,6 @@ public class CharacterRenderer : MonoBehaviour
     {
         Idle,
         Move,
-        Fire,
         Freeze,
         Down,
     }
@@ -19,16 +18,17 @@ public class CharacterRenderer : MonoBehaviour
     private SpriteAnimator bodyAnimator;
     [SerializeField]
     private SpriteAnimator armAnimator;
-
-    private State _currentState;
+    [field: SerializeField]
+    public Transform BulletTransform { get; private set; }
+    public State CurrentState { get; private set; }
     private int _defaultAnimationIndex;
 
     private void Start()
     {
-        _currentState = State.Idle;
+        CurrentState = State.Idle;
         _defaultAnimationIndex = -1;
 
-        armAnimator.SetEndCallback("Fire", () => armAnimator.ChangeAnimation("Idle"));
+        armAnimator.SetEndCallback("Fire", ChangeToIdle);
     }
 
     private void Update()
@@ -49,17 +49,17 @@ public class CharacterRenderer : MonoBehaviour
         {
             int animationIndex = Mathf.Clamp(Mathf.FloorToInt(angle / 180f * 3f), 0, SuffixArray.Length - 1);
 
-            string animationName = _currentState.ToString();
+            string animationName = CurrentState.ToString();
             if (_defaultAnimationIndex != animationIndex)
             {
                 _defaultAnimationIndex = animationIndex;
             }
 
-            if (_currentState == State.Idle || _currentState == State.Move)
+            if (CurrentState == State.Idle || CurrentState == State.Move)
             {
                 animationName += SuffixArray[_defaultAnimationIndex];
             }
-            bodyAnimator.ChangeAnimation(animationName, resetIndex: (_currentState != State.Move));
+            bodyAnimator.ChangeAnimation(animationName, forceReset: (CurrentState != State.Move));
 
             Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
             bodyAnimator.transform.localScale = bodyScale;
@@ -69,11 +69,17 @@ public class CharacterRenderer : MonoBehaviour
     public void ProcessInput(Vector2 input, bool fired)
     {
         bool isMoving = input.sqrMagnitude > 0f;
-        _currentState = isMoving ? State.Move : State.Idle;
+        CurrentState = isMoving ? State.Move : State.Idle;
 
         if (fired)
         {
-            armAnimator.ChangeAnimation("Fire");
+            armAnimator.ChangeAnimation("Fire", forceReset: true);
         }
+    }
+
+    private void ChangeToIdle()
+    {
+        CurrentState = State.Idle;
+        armAnimator.ChangeAnimation("Idle");
     }
 }

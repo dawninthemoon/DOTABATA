@@ -6,6 +6,13 @@ public class CharacterUnit : UnitBase
 {
     [SerializeField]
     private CharacterRenderer characterRenderer;
+    [SerializeField]
+    private BulletTest testBulletPrefab;
+
+    private void Start()
+    {
+        testBulletPrefab.gameObject.SetActive(false);
+    }
 
     private void Update()
     {
@@ -24,6 +31,25 @@ public class CharacterUnit : UnitBase
             transform.position += moveVector * Time.deltaTime;
         }
 
-        characterRenderer.ProcessInput(input, Input.GetMouseButtonDown(0));
+        bool fired = Input.GetMouseButtonDown(0) && CanAttack();
+        if (fired)
+        {
+            Fire();
+        }
+        characterRenderer.ProcessInput(input, fired);
+
+        ProcessAttackWaitTimer();
+    }
+    private void Fire()
+    {
+        var bullet = Instantiate(testBulletPrefab);
+        bullet.transform.position = characterRenderer.BulletTransform.position;
+
+        Vector2 mousePosition = RieslingUtils.ExMouse.GetMouseWorldPosition();
+        Vector2 dir = (mousePosition - (Vector2)transform.position).normalized;
+
+        bullet.Initialize(dir, 1000f);
+
+        OnAttack();
     }
 }

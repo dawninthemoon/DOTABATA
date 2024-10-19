@@ -75,23 +75,22 @@ public class SpriteAnimator : MonoBehaviour
         ++_spriteIndex;
     }
 
-    public void ChangeAnimation(string animationName, bool resetIndex = true)
+    public void ChangeAnimation(string animationName, bool forceReset = true)
     {
-        if (_currentAnimationName.Equals(animationName))
+        if (!_currentAnimationName.Equals(animationName))
         {
-            return;
+            var clipInfo = FindClipInfo(animationName);
+            if (clipInfo is null)
+            {
+                return;
+            }
+            _clipInfo = clipInfo;
+    
+            _currentAnimationName = animationName;
         }
-        
-        var clipInfo = FindClipInfo(animationName);
-        if (clipInfo is null)
-        {
-            return;
-        }
-        _clipInfo = clipInfo;
 
-        _currentAnimationName = animationName;
         _counter = 999f;
-        if (resetIndex)
+        if (forceReset)
         {
             _spriteIndex = 0;
         }
