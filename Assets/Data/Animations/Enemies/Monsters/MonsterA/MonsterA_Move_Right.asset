@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
+  m_Name: MonsterA_Move_Right
+  m_EditorClassIdentifier: 
+  framePerSec: 10
+  loop: 1
+  sprites:
+  - {fileID: 21300000, guid: 7cbe5dc1fa124eb46b98fe14160db7ea, type: 3}
+  - {fileID: 21300000, guid: 93c8bbe023d7f8d4a8ed494c77312cae, type: 3}
+  - {fileID: 21300000, guid: 8c88c62ac1b43cb4a9a3d7e80738bf7f, type: 3}
+  - {fileID: 21300000, guid: 83fb55f0ca32a654592fbb253fbbbaa8, type: 3}
+  - {fileID: 21300000, guid: cd1921bdfb77a4c4a9cd725237ccf3e1, type: 3}
+  events: []

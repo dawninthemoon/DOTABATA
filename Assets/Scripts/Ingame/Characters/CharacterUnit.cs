@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterUnit : MonoBehaviour
+public class CharacterUnit : UnitBase
 {
-    [SerializeField]
-    private float moveSpeed;
     [SerializeField]
     private CharacterRenderer characterRenderer;
 

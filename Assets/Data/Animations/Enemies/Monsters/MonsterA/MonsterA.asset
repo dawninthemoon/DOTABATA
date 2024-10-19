@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d3e9783ba771841a8afe9e6b25e1af, type: 3}
+  m_Name: MonsterA
+  m_EditorClassIdentifier: 
+  defaultAnimationName: Idle_Up
+  data:
+  - animationName: Idle_Up
+    clip: {fileID: 11400000, guid: d03c833fa0973b846adbe8423d143d9a, type: 2}
+  - animationName: Idle_Right
+    clip: {fileID: 11400000, guid: c04bb415337c449469e1d49be542d8aa, type: 2}
+  - animationName: Idle_Down
+    clip: {fileID: 11400000, guid: 5fc81a9c35067914ab7bcc0907313ee7, type: 2}
+  - animationName: Move_Up
+    clip: {fileID: 11400000, guid: 0b0f3a734cf36fb47853073059fb9d56, type: 2}
+  - animationName: Move_Right
+    clip: {fileID: 11400000, guid: ff3c8a2dc2dc4f44d8f809fa258a1717, type: 2}
+  - animationName: Move_Down
+    clip: {fileID: 11400000, guid: bbe41559a9c848e4da0ac82c7a0c3a43, type: 2}
+  - animationName: Die
+    clip: {fileID: 11400000, guid: aa0e541aec1c28f4396852c330b92f2b, type: 2}
