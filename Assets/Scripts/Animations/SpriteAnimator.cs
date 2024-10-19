@@ -75,7 +75,7 @@ public class SpriteAnimator : MonoBehaviour
         ++_spriteIndex;
     }
 
-    public void ChangeAnimation(string animationName, bool forceReset = true)
+    public void ChangeAnimation(string animationName, bool resetIndex = true)
     {
         if (!_currentAnimationName.Equals(animationName))
         {
@@ -87,10 +87,10 @@ public class SpriteAnimator : MonoBehaviour
             _clipInfo = clipInfo;
     
             _currentAnimationName = animationName;
+            _counter = 999f;
         }
 
-        _counter = 999f;
-        if (forceReset)
+        if (resetIndex)
         {
             _spriteIndex = 0;
         }

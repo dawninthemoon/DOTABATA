@@ -59,7 +59,7 @@ public class CharacterRenderer : MonoBehaviour
             {
                 animationName += SuffixArray[_defaultAnimationIndex];
             }
-            bodyAnimator.ChangeAnimation(animationName, forceReset: (CurrentState != State.Move));
+            bodyAnimator.ChangeAnimation(animationName, resetIndex: (CurrentState != State.Move));
 
             Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
             bodyAnimator.transform.localScale = bodyScale;
@@ -73,7 +73,7 @@ public class CharacterRenderer : MonoBehaviour
 
         if (fired)
         {
-            armAnimator.ChangeAnimation("Fire", forceReset: true);
+            armAnimator.ChangeAnimation("Fire", resetIndex: true);
         }
     }
 
