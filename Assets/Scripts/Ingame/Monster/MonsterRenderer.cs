@@ -52,7 +52,7 @@ public class MonsterRenderer : MonoBehaviour
             {
                 animationName += SuffixArray[_defaultAnimationIndex];
             }
-            animator.ChangeAnimation(animationName, resetIndex: (_currentState != State.Move));
+            animator.ChangeAnimation(animationName, forceReset: (_currentState != State.Move));
 
             Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
             animator.transform.localScale = bodyScale;
