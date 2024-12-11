@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Combat
+{
+    [System.Serializable]
+    public class SpriteAnimatorInfo
+    {
+        public string animationName;
+        public SpriteAnimationClipData clip;
+    }
+
+    [CreateAssetMenu(fileName = "NewSpriteAnimator", menuName = "ScriptableObjects/Animation/Animator")]
+    public class SpriteAnimatorData : ScriptableObject
+    {
+        public string defaultAnimationName;
+        public SpriteAnimatorInfo[] data;
+    }
+}

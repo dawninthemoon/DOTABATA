@@ -4,7 +4,8 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Linq;
 
-namespace RieslingUtils {
+namespace Game.Utils 
+{
     public static class ExVector {
         public static float GetRadian(Vector2 u, Vector2 v) {
             Vector2 diff = v - u;

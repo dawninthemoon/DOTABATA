@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using RieslingUtils;
 using UnityEngine;
+using Game.Core;
 
 public class Test : MonoBehaviour
 {
@@ -27,7 +27,7 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        Vector2 mousePosition = RieslingUtils.ExMouse.GetMouseWorldPosition();
+        Vector2 mousePosition = Game.Utils.ExMouse.GetMouseWorldPosition();
 
         Vector2 diff = mousePosition - (Vector2)transform.position;
         float angle = Vector2.Angle(Vector2.down, diff);
