@@ -1,34 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Utils;
 using UnityEngine;
 
 namespace Combat
 {
     public class EnemyManager : MonoBehaviour
     {
-        [SerializeField]
-        private VehicleTest vehicleArea;
-        [SerializeField]
-        private int enemySpawnCount;
-        [SerializeField]
-        private MonsterUnit testPrefab;
-        [SerializeField]
-        private CharacterUnit testUnit;
+        private ObjectPool<MonsterUnit_Legacy> _monsterObjectPool;
 
-        [ContextMenu("StartWave")]
-        public void StartWave()
+        private void Awake()
         {
-            for (int i = 0; i < enemySpawnCount; ++i)
-            {
-                CreateEnemy();
-            }
-            void CreateEnemy()
-            {
-                Vector2 pos = vehicleArea.GetRandomArea();
-                var monster = Instantiate(testPrefab);
-                monster.Initialize(pos);
-                monster.SetTarget(testUnit);
-            }
+
         }
     }
 }

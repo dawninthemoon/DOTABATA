@@ -19,7 +19,7 @@ namespace Combat
 
         public void Initialize()
         {
-            
+
         }
     }
 }

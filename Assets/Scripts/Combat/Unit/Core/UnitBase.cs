@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class UnitBase : MonoBehaviour, ITargetable, IEffectAttachable
+    public abstract class UnitBase : MonoBehaviour, ITargetable, IEffectAttachable
     {
         [SerializeField]
         private Transform _effectRoot;
