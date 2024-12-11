@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class ITargetable : MonoBehaviour
+    public class EffectBase : MonoBehaviour
     {
-
+        
     }
 }
