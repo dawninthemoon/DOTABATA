@@ -13,8 +13,6 @@ namespace Combat
         private float attackRange;
         private CharacterUnit _selectedTarget;
 
-        private StaticDataMonster _data;
-
         public void Initialize(Vector2 position)
         {
             gameObject.SetActive(true);
@@ -36,7 +34,7 @@ namespace Combat
             else
             {
                 Vector3 dir = (_selectedTarget.GetPosition() - GetPosition()).normalized;
-                transform.position += dir * moveSpeed * Time.deltaTime;
+                transform.position += dir * Time.deltaTime;
 
                 monsterRenderer.ChangeState(EnemyRenderer.State.Move);
             }

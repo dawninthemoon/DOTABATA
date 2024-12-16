@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.StaticData;
 using UnityEngine;
 
 namespace Combat
@@ -7,7 +8,12 @@ namespace Combat
     public class StageTester : MonoBehaviour
     {
         [SerializeField]
-        private StageManager _stageManager;
+        private StageManager stageManager;
+
+        private void Awake()
+        {
+            StaticDataManager.Instance.Initialize();
+        }
 
         private void Start()
         {
@@ -16,7 +22,7 @@ namespace Combat
 
         private void StartStage()
         {
-
+            stageManager.Initialize();
         }
     }
 }

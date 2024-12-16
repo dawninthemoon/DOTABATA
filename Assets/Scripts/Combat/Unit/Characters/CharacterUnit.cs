@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.StaticData;
 using UnityEngine;
 
 namespace Combat
@@ -11,25 +12,38 @@ namespace Combat
         [SerializeField]
         private BulletTest testBulletPrefab;
 
+        private InputStatus _inputStatus;
+        
+        private StaticDataCharacter _data;
+        public StaticDataCharacter Data => _data;
+
+        protected override float _attackSpeed => _data.attackSpeed;
+
         private void Start()
         {
             testBulletPrefab.gameObject.SetActive(false);
         }
 
-        private void Update()
+        public void Initialize(int characterKey)
         {
-            Vector2 input;
-            ControlInput();
-            void ControlInput()
-            {
-                input.x = Input.GetAxisRaw("Horizontal");
-                input.y = Input.GetAxisRaw("Vertical");
-            }
+            gameObject.SetActive(true);
+
+            _data = StaticDataManager.Instance.GetCharacterDataByKey(characterKey);
+        }
+
+        public void SetInput(InputStatus status)
+        {
+            _inputStatus = status;
+        }
+
+        public override void Progress()
+        {
+            base.Progress();
 
             UpdatePosiiton();
             void UpdatePosiiton()
             {
-                Vector3 moveVector = input.normalized * moveSpeed; 
+                Vector3 moveVector = _inputStatus.direction.normalized * _data.moveSpeed; 
                 transform.position += moveVector * Time.deltaTime;
             }
 
@@ -38,10 +52,11 @@ namespace Combat
             {
                 Fire();
             }
-            characterRenderer.ProcessInput(input, fired);
+            characterRenderer.ProcessInput(_inputStatus.direction, fired);
 
             ProcessAttackWaitTimer();
         }
+
         private void Fire()
         {
             var bullet = Instantiate(testBulletPrefab);

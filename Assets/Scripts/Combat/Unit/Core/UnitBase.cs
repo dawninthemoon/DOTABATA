@@ -9,10 +9,7 @@ namespace Combat
     {
         [SerializeField]
         private Transform _effectRoot;
-        [SerializeField]
-        protected float moveSpeed;
-        [SerializeField]
-        private float attackSpeed;
+        protected virtual float _attackSpeed => 1f;
 
         public Transform EffectRoot => _effectRoot;
         private float _attackWaitTimer;
@@ -21,6 +18,11 @@ namespace Combat
         public void SetDependency(StageManager stageManager)
         {
             _stageManager = stageManager;
+        }
+
+        public virtual void Progress()
+        {
+            
         }
 
         public Vector2 GetPosition()
@@ -45,7 +47,7 @@ namespace Combat
 
         protected virtual void OnAttack()
         {
-            _attackWaitTimer = 1f / attackSpeed;
+            _attackWaitTimer = 1f / _attackSpeed;
         }
 
         protected virtual void ProcessAttackWaitTimer()

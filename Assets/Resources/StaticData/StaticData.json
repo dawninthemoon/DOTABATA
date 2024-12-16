@@ -1,0 +1,96 @@
+{
+  "StaticDataCharacter": [
+    {
+      "keyIndex": 0,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1
+    },
+    {
+      "keyIndex": 1,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1
+    },
+    {
+      "keyIndex": 2,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1
+    },
+    {
+      "keyIndex": 3,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1
+    },
+    {
+      "keyIndex": 4,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1
+    },
+    {
+      "keyIndex": 5,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1
+    }
+  ],
+  "StaticDataEnemy": [
+    {
+      "keyIndex": 0,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0
+    },
+    {
+      "keyIndex": 1,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0
+    },
+    {
+      "keyIndex": 2,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0
+    },
+    {
+      "keyIndex": 3,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0
+    },
+    {
+      "keyIndex": 4,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0
+    },
+    {
+      "keyIndex": 5,
+      "hp": 100,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0
+    }
+  ]
+}

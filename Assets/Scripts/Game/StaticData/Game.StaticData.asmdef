@@ -1,0 +1,17 @@
+{
+    "name": "Game.StaticData",
+    "rootNamespace": "Game.StaticData",
+    "references": [
+        "GUID:88f8c797bca08784c8de92eec0bf8090",
+        "GUID:2d4e30b67e675c746a4cb80b9ee74f79"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
