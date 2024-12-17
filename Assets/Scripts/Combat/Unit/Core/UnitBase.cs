@@ -10,10 +10,12 @@ namespace Combat
         [SerializeField]
         private Transform _effectRoot;
         protected virtual float _attackSpeed => 1f;
+        public virtual TargetFaction Faction => TargetFaction.None;
 
-        public Transform EffectRoot => _effectRoot;
+        public Transform EffectRoot => (_effectRoot != null) ? _effectRoot : transform;
         private float _attackWaitTimer;
         protected StageManager _stageManager;
+        public event System.Action<UnitBase> OnDisappear;
 
         public void SetDependency(StageManager stageManager)
         {

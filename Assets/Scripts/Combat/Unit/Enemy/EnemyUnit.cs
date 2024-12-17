@@ -5,10 +5,12 @@ using Game.StaticData;
 
 namespace Combat
 {
-    public class EnemyUnit : UnitBase
+    public class EnemyUnit : UnitBase, ITargetable
     {
         protected StaticDataEnemy _data;
         public StaticDataEnemy Data => _data;
+
+        public override TargetFaction Faction => TargetFaction.Enemy;
 
         public void Initialize(int enemyKey)
         {

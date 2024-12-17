@@ -4,10 +4,17 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class TargeterBase : MonoBehaviour
+    public abstract class TargeterBase : MonoBehaviour
     {
-        private List<ITargetable> _targetList;
+        protected List<ITargetable> _targetList = new();
+        public List<ITargetable> TargetList => _targetList;
+
         protected ITargetable _currentTarget;
         public ITargetable CurrentTarget => _currentTarget;
+
+        protected virtual void Awake()
+        {
+            gameObject.layer = LayerMask.NameToLayer("Targeter");
+        }
     }
 }

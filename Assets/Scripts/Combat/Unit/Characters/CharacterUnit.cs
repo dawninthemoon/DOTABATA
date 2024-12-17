@@ -10,9 +10,13 @@ namespace Combat
         [SerializeField]
         private CharacterRenderer characterRenderer;
         [SerializeField]
+        private ColliderTargeter targeter;
+
+        [SerializeField]
         private BulletTest testBulletPrefab;
 
         private InputStatus _inputStatus;
+        public override TargetFaction Faction => TargetFaction.Character;
         
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
@@ -29,6 +33,9 @@ namespace Combat
             gameObject.SetActive(true);
 
             _data = StaticDataManager.Instance.GetCharacterDataByKey(characterKey);
+
+            targeter.Reset();
+            targeter.SetDetectRange(100f);
         }
 
         public void SetInput(InputStatus status)
