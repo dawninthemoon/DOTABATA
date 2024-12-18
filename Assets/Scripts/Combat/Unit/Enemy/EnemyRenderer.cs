@@ -10,6 +10,7 @@ namespace Combat
         {
             Idle,
             Move,
+            Attack,
             Die,
         }
 
@@ -34,7 +35,7 @@ namespace Combat
             }
         }
 
-        public void UpdateAnimator(UnitBase target)
+        public void UpdateAnimator(ITargetable target)
         {
             Vector2 diff = target.GetPosition() - (Vector2)transform.position;
             float angle = Vector2.Angle(Vector2.down, diff);

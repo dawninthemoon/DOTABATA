@@ -37,5 +37,6 @@ namespace Game.StaticData
         public float moveSpeed;
         public float attackSpeed;
         public MonsterMoveType moveType;
+        public float attackRange;
     }
 }

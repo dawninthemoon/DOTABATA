@@ -26,12 +26,10 @@ namespace Combat
             SetValidChecker(ValidChecker);
         }
 
-        public void Reset()
+        public override void Reset()
         {
             _detectCollider.enabled = false;
             _detectCollider.enabled = true;
-            _targetList.Clear();
-            _currentTarget = null;
         }
 
         public void Initialize(float detectRange)

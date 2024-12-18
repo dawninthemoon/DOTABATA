@@ -7,11 +7,27 @@ namespace Combat
 {
     public class EnemyManager : MonoBehaviour
     {
-        private ObjectPool<MonsterUnit_Legacy> _monsterObjectPool;
+        [Header("Temp"), SerializeField]
+        private EnemyUnit enemyPrefab_Test;
+
+        private ObjectPool<EnemyUnit> _enemyObjectPool;
+        private List<EnemyUnit> _enemyList;
 
         private void Awake()
         {
+            _enemyList = new();
+        }
 
+        public EnemyUnit CreateEnemy(int enemyKey, StageManager stageManager)
+        {
+            EnemyUnit instance = Instantiate(enemyPrefab_Test);
+
+            instance.SetDependency(stageManager);
+            instance.Initialize(enemyKey);
+
+            _enemyList.Add(instance);
+
+            return instance;
         }
     }
 }

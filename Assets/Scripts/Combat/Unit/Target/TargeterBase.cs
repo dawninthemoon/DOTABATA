@@ -16,5 +16,11 @@ namespace Combat
         {
             gameObject.layer = LayerMask.NameToLayer("Targeter");
         }
+
+        public virtual void Reset()
+        {
+            _targetList.Clear();
+            _currentTarget = null;
+        }
     }
 }

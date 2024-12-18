@@ -8,37 +8,43 @@ namespace Combat
     {
     #region Managers
         private EnemyManager _enemyManager;
+        public EnemyManager EnemyManager => _enemyManager;
+
+        private CharacterManager _characterManager;
+        public CharacterManager CharacterManager => _characterManager;
+
         private EffectManager _effectManager;
+        private EffectManager EffectManager => _effectManager;
+
         private WaveManager _waveManager;
+        private WaveManager WaveManager => _waveManager;
     #endregion
 
-        [SerializeField, Header("Temp")]
-        private CharacterUnit characterPrefab;
-
-        private CharacterUnit _characterUnit;
+        private CharacterUnit _myCharacter;
         private InputProcessor _inputProcessor;
 
         private void Awake()
         {
-            _enemyManager = GetComponent<EnemyManager>();
-            _effectManager = GetComponent<EffectManager>();
+            _enemyManager = GetComponentInChildren<EnemyManager>();
+            _characterManager = GetComponentInChildren<CharacterManager>();
+            _effectManager = GetComponentInChildren<EffectManager>();
             _waveManager = new();
             _inputProcessor = new();
         }
 
         public void Initialize()
         {
-            _characterUnit = Instantiate(characterPrefab);
-            _characterUnit.SetDependency(this);
-            _characterUnit.Initialize(0);
+            _myCharacter = _characterManager.CreateCharacter(0, this);
+
+            _enemyManager.CreateEnemy(0, this);
         }
 
         private void Update()
         {
             _inputProcessor.ProcessInput();
             
-            _characterUnit.SetInput(_inputProcessor.Status);
-            _characterUnit.Progress();
+            _myCharacter.SetInput(_inputProcessor.Status);
+            _myCharacter.Progress();
         }
     }
 }
