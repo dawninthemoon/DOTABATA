@@ -50,7 +50,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "moveType": 0
+      "moveType": 0,
+      "attackRange": 30
     },
     {
       "keyIndex": 1,
@@ -58,7 +59,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "moveType": 0
+      "moveType": 0,
+      "attackRange": 30
     },
     {
       "keyIndex": 2,
@@ -66,7 +68,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "moveType": 0
+      "moveType": 0,
+      "attackRange": 30
     },
     {
       "keyIndex": 3,
@@ -74,7 +77,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "moveType": 0
+      "moveType": 0,
+      "attackRange": 30
     },
     {
       "keyIndex": 4,
@@ -82,7 +86,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "moveType": 0
+      "moveType": 0,
+      "attackRange": 30
     },
     {
       "keyIndex": 5,
@@ -90,7 +95,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "moveType": 0
+      "moveType": 0,
+      "attackRange": 30
     }
   ]
 }

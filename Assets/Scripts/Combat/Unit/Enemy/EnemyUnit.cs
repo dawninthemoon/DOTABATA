@@ -8,17 +8,25 @@ namespace Combat
     public class EnemyUnit : UnitBase, ITargetable
     {
         [SerializeField]
+        private EnemyTargeter targeter;
+        [SerializeField]
         private EnemyRenderer enemyRenderer;
         protected EnemyAgent _agent;
 
         protected StaticDataEnemy _data;
         public StaticDataEnemy Data => _data;
 
+        public override int MaxHP => _data.hp;
+        public override int AttackPower => _data.attack;
+        public override float AttackSpeed => _data.attackSpeed;
+        public override int Damage => AttackPower;
+
         public override TargetFaction Faction => TargetFaction.Enemy;
 
         private void Awake()
         {
             _agent = GetComponent<EnemyAgent>();
+            _agent.Initialize(targeter, this, _data.attackRange);
         }
 
         private void OnEnable()
@@ -38,6 +46,13 @@ namespace Combat
             _data = StaticDataManager.Instance.GetEnemyDataByKey(enemyKey);
             gameObject.SetActive(true);
             enemyRenderer.ChangeState(EnemyRenderer.State.Idle);
+
+            InitializeStatus();
+        }
+
+        private void InitializeStatus()
+        {
+            _health = MaxHP;
         }
 
         private void OnMovementRequested(Vector2 dir)
@@ -55,28 +70,7 @@ namespace Combat
         private void Update()
         {  
             _agent.Progress(_stageManager);
-
-        /*
-            var selectedTarget = _agent.CurrentTarget;
-            if (selectedTarget == null)
-            {
-                return;
-            }
-
-            if (Vector2.Distance(selectedTarget.GetPosition(), GetPosition()) < _data.attackRange)
-            {
-                enemyRenderer.ChangeState(EnemyRenderer.State.Idle);
-            }
-            else
-            {
-                Vector3 dir = (selectedTarget.GetPosition() - GetPosition()).normalized;
-                transform.position += dir * Time.deltaTime;
-
-                enemyRenderer.ChangeState(EnemyRenderer.State.Move);
-            }
-
-            enemyRenderer.UpdateAnimator(selectedTarget);
-        */
+            enemyRenderer.UpdateAnimator(targeter.CurrentTarget);
         }
     }
 }

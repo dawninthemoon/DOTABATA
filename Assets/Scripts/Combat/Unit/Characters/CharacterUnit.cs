@@ -17,13 +17,16 @@ namespace Combat
 
         private InputStatus _inputStatus;
         public override TargetFaction Faction => TargetFaction.Character;
-        
+
+        public override int MaxHP => _data.hp;
+        public override int AttackPower => _data.attack;
+        public override float AttackSpeed => _data.attackSpeed;
+        public override int Damage => AttackPower;
+
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
 
-        protected override float _attackSpeed => _data.attackSpeed;
-
-        private void Start()
+        protected override void Start()
         {
             testBulletPrefab.gameObject.SetActive(false);
         }
@@ -34,8 +37,15 @@ namespace Combat
 
             _data = StaticDataManager.Instance.GetCharacterDataByKey(characterKey);
 
+            InitializeStatus();
+
             targeter.Reset();
             targeter.SetDetectRange(100f);
+        }
+
+        private void InitializeStatus()
+        {
+            _health = MaxHP;
         }
 
         public void SetInput(InputStatus status)
@@ -72,7 +82,7 @@ namespace Combat
             Vector2 mousePosition = Game.Utils.ExMouse.GetMouseWorldPosition();
             Vector2 dir = (mousePosition - (Vector2)transform.position).normalized;
 
-            bullet.Initialize(dir, 1000f);
+            bullet.Initialize(dir, Damage, 1000f);
 
             OnAttack();
         }

@@ -6,17 +6,19 @@ namespace Combat
 {
     public class EnemyAgent : MonoBehaviour
     {
-        [SerializeField]
-        private EnemyTargeter targeter;
-
         public event System.Action<Vector2> OnMovementRequested;
         public event System.Action<ITargetable> OnAttackRequested;
-        public ITargetable CurrentTarget => targeter.CurrentTarget;
+        public ITargetable CurrentTarget => _targeter.CurrentTarget;
+
+        private EnemyTargeter _targeter;
+        private EnemyUnit _self;
 
         private AIData _aiData = new();
 
-        public void Initialize(EnemyUnit self, float attackRange)
+        public void Initialize(EnemyTargeter targeter, EnemyUnit self, float attackRange)
         {
+            _targeter = targeter;
+            _self = self;
             _aiData.attackRange = attackRange;
         }
 
@@ -27,13 +29,16 @@ namespace Combat
 
         private void PerformDetection(StageManager stageManager) 
         {
-            targeter.FindTarget(stageManager.CharacterManager);
+            _targeter.FindTarget(stageManager.CharacterManager);
 
-            // Temp
-            var currentTarget = targeter.CurrentTarget;
-            if (currentTarget != null)
+            var currentTarget = _targeter.CurrentTarget;
+            if (Vector2.Distance(currentTarget.GetPosition(), _self.GetPosition()) < _aiData.attackRange)
             {
-                Vector3 dir = (currentTarget.GetPosition() - (Vector2)transform.position).normalized;
+                OnAttackRequested?.Invoke(currentTarget);
+            }
+            else
+            {
+                Vector3 dir = (currentTarget.GetPosition() - _self.GetPosition()).normalized;
                 OnMovementRequested?.Invoke(dir);
             }
         }

@@ -9,13 +9,24 @@ namespace Combat
     {
         [SerializeField]
         private Transform _effectRoot;
-        protected virtual float _attackSpeed => 1f;
         public virtual TargetFaction Faction => TargetFaction.None;
+
+        protected int _health;
+
+        public virtual int MaxHP { get; }
+        public virtual int AttackPower { get; }
+        public virtual float AttackSpeed { get; }
+        public virtual int Damage { get; }
 
         public Transform EffectRoot => (_effectRoot != null) ? _effectRoot : transform;
         private float _attackWaitTimer;
         protected StageManager _stageManager;
         public event System.Action<UnitBase> OnDisappear;
+
+        protected virtual void Start()
+        {
+            
+        }
 
         public void SetDependency(StageManager stageManager)
         {
@@ -42,6 +53,31 @@ namespace Combat
             SetPosition(GetPosition() + position);
         }
 
+        public void Release()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void ReceiveDamage(int damage, UnitBase attacker = null)
+        {
+            _health -= damage;
+            if (IsDie())
+            {
+                OnDie(attacker);
+                Release();
+            }
+        }
+
+        protected virtual bool IsDie()
+        {
+            return _health <= 0;
+        }
+
+        protected virtual void OnDie(UnitBase attacker)
+        {
+            
+        }
+
         public bool CanAttack()
         {
             return _attackWaitTimer <= 0f;
@@ -49,7 +85,7 @@ namespace Combat
 
         protected virtual void OnAttack()
         {
-            _attackWaitTimer = 1f / _attackSpeed;
+            _attackWaitTimer = 1f / AttackSpeed;
         }
 
         protected virtual void ProcessAttackWaitTimer()
