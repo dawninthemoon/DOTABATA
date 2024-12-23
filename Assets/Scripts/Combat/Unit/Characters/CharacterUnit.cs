@@ -22,6 +22,7 @@ namespace Combat
         public override int AttackPower => _data.attack;
         public override float AttackSpeed => _data.attackSpeed;
         public override int Damage => AttackPower;
+        public float MoveSpeed => _data.moveSpeed;
 
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
