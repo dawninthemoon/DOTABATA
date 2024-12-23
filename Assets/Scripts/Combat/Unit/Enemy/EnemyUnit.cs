@@ -69,7 +69,7 @@ namespace Combat
 
         private void Update()
         {  
-            _agent.Progress(_stageManager);
+            _agent.Progress(_combatManager);
             enemyRenderer.UpdateAnimator(targeter.CurrentTarget);
         }
     }

@@ -22,14 +22,14 @@ namespace Combat
             _aiData.attackRange = attackRange;
         }
 
-        public void Progress(StageManager stageManager)
+        public void Progress(CombatManager combatManager)
         {
-            PerformDetection(stageManager);
+            PerformDetection(combatManager);
         }
 
-        private void PerformDetection(StageManager stageManager) 
+        private void PerformDetection(CombatManager combatManager) 
         {
-            _targeter.FindTarget(stageManager.CharacterManager);
+            _targeter.FindTarget(combatManager.CharacterManager);
 
             var currentTarget = _targeter.CurrentTarget;
             if (Vector2.Distance(currentTarget.GetPosition(), _self.GetPosition()) < _aiData.attackRange)

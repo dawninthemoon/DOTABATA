@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class StageManager : MonoBehaviour
+    public class CombatManager : MonoBehaviour
     {
     #region Managers
         private EnemyManager _enemyManager;
@@ -22,6 +22,9 @@ namespace Combat
 
         private ActionManager _actionManager;
         public ActionManager ActionManager => _actionManager;
+
+        private ProjectileManager _projectileManager;
+        public ProjectileManager ProjectileManager => _projectileManager;
     #endregion
 
         private CharacterUnit _myCharacter;
@@ -32,8 +35,9 @@ namespace Combat
             _enemyManager = GetComponentInChildren<EnemyManager>();
             _characterManager = GetComponentInChildren<CharacterManager>();
             _effectManager = GetComponentInChildren<EffectManager>();
+            _projectileManager = GetComponentInChildren<ProjectileManager>();
             _waveManager = new();
-            _actionManager = new();
+            _actionManager = new(this);
             _inputProcessor = new();
         }
 

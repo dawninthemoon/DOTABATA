@@ -19,5 +19,5 @@ public enum ActionType
 {
     None = -1,
     DefaultMove = 0,
-    Yuri_Fire = 100,
+    Fire = 1,
 }

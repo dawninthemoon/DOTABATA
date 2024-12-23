@@ -20,7 +20,7 @@ namespace Combat
 
         public Transform EffectRoot => (_effectRoot != null) ? _effectRoot : transform;
         private float _attackWaitTimer;
-        protected StageManager _stageManager;
+        protected CombatManager _combatManager;
         public event System.Action<UnitBase> OnDisappear;
 
         protected virtual void Start()
@@ -28,9 +28,9 @@ namespace Combat
             
         }
 
-        public void SetDependency(StageManager stageManager)
+        public void SetDependency(CombatManager stageManager)
         {
-            _stageManager = stageManager;
+            _combatManager = stageManager;
         }
 
         public virtual void Progress()
@@ -83,7 +83,7 @@ namespace Combat
             return _attackWaitTimer <= 0f;
         }
 
-        protected virtual void OnAttack()
+        public virtual void OnAttack()
         {
             _attackWaitTimer = 1f / AttackSpeed;
         }

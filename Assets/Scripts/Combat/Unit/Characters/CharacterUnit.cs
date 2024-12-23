@@ -13,9 +13,6 @@ namespace Combat
         [SerializeField]
         private ColliderTargeter targeter;
 
-        [SerializeField]
-        private BulletTest testBulletPrefab;
-
         private InputStatus _inputStatus;
         public override TargetFaction Faction => TargetFaction.Character;
 
@@ -28,12 +25,9 @@ namespace Combat
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
 
-        protected ActionManager _actionManager;
+        public Transform BulletTransform => characterRenderer.BulletTransform;
 
-        protected override void Start()
-        {
-            testBulletPrefab.gameObject.SetActive(false);
-        }
+        protected ActionManager _actionManager;
 
         public void SetActionManager(ActionManager actionManager)
         {
@@ -69,8 +63,8 @@ namespace Combat
             var moveAction = _actionManager.GetActionInstance(this, InputType.Direction) as MovementAction;
             moveAction.SetDirection(_inputStatus.direction);
             moveAction.Execute(this);
-            
-            bool fired = Input.GetMouseButtonDown(0) && CanAttack();
+                
+            bool fired = _inputStatus.mouseDown && CanAttack();
             if (fired)
             {
                 Fire();
@@ -82,15 +76,17 @@ namespace Combat
 
         private void Fire()
         {
-            var bullet = Instantiate(testBulletPrefab);
-            bullet.transform.position = characterRenderer.BulletTransform.position;
-
             Vector2 mousePosition = Game.Utils.ExMouse.GetMouseWorldPosition();
             Vector2 dir = (mousePosition - (Vector2)transform.position).normalized;
 
-            bullet.Initialize(dir, Damage, 1000f);
+            var fireAction = _actionManager.GetActionInstance(this, InputType.LeftClick) as FireAction;
+            fireAction.SetDirection(dir);
+            fireAction.Execute(this);
+        }
 
-            OnAttack();
+        public override void OnAttack()
+        {
+            base.OnAttack();
         }
     }
 }

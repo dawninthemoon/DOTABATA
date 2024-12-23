@@ -18,11 +18,11 @@ namespace Combat
             _enemyList = new();
         }
 
-        public EnemyUnit CreateEnemy(int enemyKey, StageManager stageManager)
+        public EnemyUnit CreateEnemy(int enemyKey, CombatManager combatManager)
         {
             EnemyUnit instance = Instantiate(enemyPrefab_Test);
 
-            instance.SetDependency(stageManager);
+            instance.SetDependency(combatManager);
             instance.Initialize(enemyKey);
 
             _enemyList.Add(instance);

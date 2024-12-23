@@ -8,10 +8,12 @@ namespace Combat.Actions
 {
     public class ActionManager 
     {
+        private CombatManager _combatManager;
         private Dictionary<ActionType, ActionBase> _actionDictionary;
 
-        public ActionManager()
+        public ActionManager(CombatManager combatManager)
         {
+            _combatManager = combatManager;
             Initialize();
         }
 
@@ -20,7 +22,13 @@ namespace Combat.Actions
             _actionDictionary = new Dictionary<ActionType, ActionBase>()
             {
                 { ActionType.DefaultMove, new MovementAction()},
+                { ActionType.Fire, new FireAction() },
             };
+
+            foreach (var action in _actionDictionary.Values)
+            {
+                action.SetDependency(_combatManager);
+            }
         }
 
         public ActionBase GetActionInstance(ActionType type)

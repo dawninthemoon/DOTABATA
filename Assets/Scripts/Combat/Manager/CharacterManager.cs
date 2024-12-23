@@ -22,7 +22,7 @@ namespace Combat
             return _characterList;
         }
 
-        public CharacterUnit CreateCharacter(int characterKey, StageManager stageManager)
+        public CharacterUnit CreateCharacter(int characterKey, CombatManager stageManager)
         {
             var characterUnit = Instantiate(characterPrefab);
             

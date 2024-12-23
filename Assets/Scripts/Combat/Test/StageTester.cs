@@ -8,7 +8,7 @@ namespace Combat
     public class StageTester : MonoBehaviour
     {
         [SerializeField]
-        private StageManager stageManager;
+        private CombatManager combatManager;
 
         private void Awake()
         {
@@ -22,7 +22,7 @@ namespace Combat
 
         private void StartStage()
         {
-            stageManager.Initialize();
+            combatManager.Initialize();
         }
     }
 }

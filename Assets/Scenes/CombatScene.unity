@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 129943125}
   - component: {fileID: 129943126}
   m_Layer: 0
-  m_Name: StageManager
+  m_Name: CombatManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +155,7 @@ Transform:
   - {fileID: 417994379}
   - {fileID: 1780983154}
   - {fileID: 1899873333}
+  - {fileID: 1347530506}
   m_Father: {fileID: 1789579633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &129943126
@@ -317,7 +318,6 @@ MonoBehaviour:
   _effectRoot: {fileID: 745938214}
   characterRenderer: {fileID: 1800000668}
   targeter: {fileID: 1886689973}
-  testBulletPrefab: {fileID: 493960226}
 --- !u!4 &294596044
 Transform:
   m_ObjectHideFlags: 0
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3829849211b689f44b847d8dbddb0cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageManager: {fileID: 129943126}
+  combatManager: {fileID: 129943126}
 --- !u!1 &1232027461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,6 +1266,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a128d4c9cabf04cb9f24bb253669b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1347530505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347530506}
+  - component: {fileID: 1347530507}
+  m_Layer: 0
+  m_Name: ProjectileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347530506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347530505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 129943125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347530507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347530505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 266d2467b0fd6e94896c1ed62aceee9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testBulletPrefab: {fileID: 493960226}
 --- !u!1 &1352728601
 GameObject:
   m_ObjectHideFlags: 0
