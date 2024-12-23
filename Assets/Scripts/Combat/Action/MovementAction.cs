@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Combat.Action
+namespace Combat.Actions
 {
     public class MovementAction : ActionBase
     {
@@ -13,7 +13,7 @@ namespace Combat.Action
             _direction = dir;
         }
 
-        public override void Use(CharacterUnit actor)
+        public override void Execute(CharacterUnit actor)
         {
             Vector2 moveVector = _direction.normalized * actor.MoveSpeed; 
             actor.AddPosition(moveVector * Time.deltaTime);

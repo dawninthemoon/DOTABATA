@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Combat.Actions;
 using Game.StaticData;
 using UnityEngine;
 
@@ -27,9 +28,16 @@ namespace Combat
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
 
+        protected ActionManager _actionManager;
+
         protected override void Start()
         {
             testBulletPrefab.gameObject.SetActive(false);
+        }
+
+        public void SetActionManager(ActionManager actionManager)
+        {
+            _actionManager = actionManager;
         }
 
         public void Initialize(int characterKey)
@@ -58,13 +66,10 @@ namespace Combat
         {
             base.Progress();
 
-            UpdatePosiiton();
-            void UpdatePosiiton()
-            {
-                Vector3 moveVector = _inputStatus.direction.normalized * _data.moveSpeed; 
-                transform.position += moveVector * Time.deltaTime;
-            }
-
+            var moveAction = _actionManager.GetActionInstance(this, InputType.Direction) as MovementAction;
+            moveAction.SetDirection(_inputStatus.direction);
+            moveAction.Execute(this);
+            
             bool fired = Input.GetMouseButtonDown(0) && CanAttack();
             if (fired)
             {

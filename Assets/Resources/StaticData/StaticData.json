@@ -43,6 +43,20 @@
       "attackSpeed": 1
     }
   ],
+  "StaticDataCharacterAction": [
+    {
+      "keyIndex": 0,
+      "actionType": 0,
+      "inputType": 0,
+      "characterKey": 0
+    },
+    {
+      "keyIndex": 1,
+      "actionType": 100,
+      "inputType": 1,
+      "characterKey": 0
+    }
+  ],
   "StaticDataEnemy": [
     {
       "keyIndex": 0,

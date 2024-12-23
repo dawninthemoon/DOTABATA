@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Combat.Action
+namespace Combat.Actions
 {
     public abstract class ActionBase
     {
-        public abstract void Use(CharacterUnit actor);
+        public abstract void Execute(CharacterUnit actor);
     }
 }

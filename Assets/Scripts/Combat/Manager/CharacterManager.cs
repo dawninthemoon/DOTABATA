@@ -27,6 +27,7 @@ namespace Combat
             var characterUnit = Instantiate(characterPrefab);
             
             characterUnit.SetDependency(stageManager);
+            characterUnit.SetActionManager(stageManager.ActionManager);
             characterUnit.Initialize(characterKey);
 
             _characterList.Add(characterUnit);

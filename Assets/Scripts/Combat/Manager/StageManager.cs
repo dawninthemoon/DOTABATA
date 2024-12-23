@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Combat.Actions;
 using UnityEngine;
 
 namespace Combat
@@ -18,6 +19,9 @@ namespace Combat
 
         private WaveManager _waveManager;
         private WaveManager WaveManager => _waveManager;
+
+        private ActionManager _actionManager;
+        public ActionManager ActionManager => _actionManager;
     #endregion
 
         private CharacterUnit _myCharacter;
@@ -29,6 +33,7 @@ namespace Combat
             _characterManager = GetComponentInChildren<CharacterManager>();
             _effectManager = GetComponentInChildren<EffectManager>();
             _waveManager = new();
+            _actionManager = new();
             _inputProcessor = new();
         }
 
