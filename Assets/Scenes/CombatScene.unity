@@ -1671,7 +1671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1004418921}
-  animatorData: {fileID: 11400000, guid: 7aa603ce12383b8448004d00e9eb714a, type: 2}
+  animatorData: {fileID: 11400000, guid: 7b965a996301fcf4198d84e50a20f718, type: 2}
 --- !u!1 &1833835180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 1232027463}
-  animatorData: {fileID: 11400000, guid: bbe2cbdcaf7eb5b4fafe12a4c81cb6c9, type: 2}
+  animatorData: {fileID: 11400000, guid: 590fbb4e7a1804546a1975e7985ccea5, type: 2}
 --- !u!1 &1886689970
 GameObject:
   m_ObjectHideFlags: 0

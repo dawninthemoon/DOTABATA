@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
+  m_Name: Down
+  m_EditorClassIdentifier: 
+  framePerSec: 12
+  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: 8b885f5dd428133419f6a03b4f27daf2, type: 3}
+  - {fileID: 21300000, guid: b4d6b0e8f27d9124490131251eda8ba0, type: 3}
+  - {fileID: 21300000, guid: 99cede0cffb7a434cb736a7f0e130233, type: 3}
+  - {fileID: 21300000, guid: d0b2dc01d78307a4f904ce1cfd8a90f1, type: 3}
+  - {fileID: 21300000, guid: f85d2a1a1f53a6647b5200ca6f2386af, type: 3}
+  - {fileID: 21300000, guid: 65e46e35e23c6f64bac607bdfc661409, type: 3}
+  events: []

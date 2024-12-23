@@ -15,6 +15,6 @@ MonoBehaviour:
   defaultAnimationName: Idle
   data:
   - animationName: Idle
-    clip: {fileID: 11400000, guid: 80b3c52821be5ca46b89a1f1f5eea3e8, type: 2}
+    clip: {fileID: 11400000, guid: 06d33053a78f99f4f82313b323e6fa87, type: 2}
   - animationName: Fire
-    clip: {fileID: 11400000, guid: ba435a49e588dda499d38d6ce85bbc9c, type: 2}
+    clip: {fileID: 11400000, guid: 28adabee5edb8f747a8d3f1a7b648ce6, type: 2}
