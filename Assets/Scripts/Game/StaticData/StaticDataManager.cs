@@ -14,6 +14,7 @@ namespace Game.StaticData
         private StaticDataCharacterList _characterDataList = new();
         private StaticDataEnemyList _monsterDataList = new();
         private StaticDataCharacterActionList _characterActionList = new();
+        private StaticDataWeaponList _weaponList = new();
 
         public void Initialize()
         {
@@ -23,8 +24,10 @@ namespace Game.StaticData
             _characterDataList.LoadData(jObject);
             _monsterDataList.LoadData(jObject);
             _characterActionList.LoadData(jObject);
+            _weaponList.LoadData(jObject);
         }
 
+    #region Get
         public StaticDataCharacter GetCharacterDataByKey(int characterKey)
         {
             return _characterDataList.DataByKey.TryGetValue(characterKey, out var data) ? data : null;
@@ -39,5 +42,11 @@ namespace Game.StaticData
         {
             return _characterActionList.DataDictionary.TryGetValue(characterKey, inputType, out var data) ? data : null;
         }
+
+        public StaticDataWeapon GetWeaponDataByKey(int weaponKey)
+        {
+            return _weaponList.DataByKey.TryGetValue(weaponKey, out var data) ? data : null;
+        }
+    #endregion
     }
 }

@@ -22,12 +22,12 @@ namespace Combat
             return _characterList;
         }
 
-        public CharacterUnit CreateCharacter(int characterKey, CombatManager stageManager)
+        public CharacterUnit CreateCharacter(int characterKey, CombatManager combatManager)
         {
             var characterUnit = Instantiate(characterPrefab);
             
-            characterUnit.SetDependency(stageManager);
-            characterUnit.SetActionManager(stageManager.ActionManager);
+            characterUnit.SetDependency(combatManager);
+            characterUnit.SetActionManager(combatManager.ActionManager);
             characterUnit.Initialize(characterKey);
 
             _characterList.Add(characterUnit);

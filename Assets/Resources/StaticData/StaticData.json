@@ -5,42 +5,8 @@
       "hp": 100,
       "attack": 10,
       "moveSpeed": 100,
-      "attackSpeed": 1
-    },
-    {
-      "keyIndex": 1,
-      "hp": 100,
-      "attack": 10,
-      "moveSpeed": 100,
-      "attackSpeed": 1
-    },
-    {
-      "keyIndex": 2,
-      "hp": 100,
-      "attack": 10,
-      "moveSpeed": 100,
-      "attackSpeed": 1
-    },
-    {
-      "keyIndex": 3,
-      "hp": 100,
-      "attack": 10,
-      "moveSpeed": 100,
-      "attackSpeed": 1
-    },
-    {
-      "keyIndex": 4,
-      "hp": 100,
-      "attack": 10,
-      "moveSpeed": 100,
-      "attackSpeed": 1
-    },
-    {
-      "keyIndex": 5,
-      "hp": 100,
-      "attack": 10,
-      "moveSpeed": 100,
-      "attackSpeed": 1
+      "attackSpeed": 1,
+      "weaponKey": 0
     }
   ],
   "StaticDataCharacterAction": [
@@ -57,10 +23,24 @@
       "characterKey": 0
     }
   ],
+  "StaticDataWeapon": [
+    {
+      "keyIndex": 0,
+      "magazineSize": 8,
+      "spareMagazines": 4,
+      "reloadTime": 1.2,
+      "attack": 6,
+      "attackSpeed": 1,
+      "bulletSpeed": 200,
+      "bulletRange": 1500,
+      "knockbackPower": 0,
+      "spread": 3
+    }
+  ],
   "StaticDataEnemy": [
     {
       "keyIndex": 0,
-      "hp": 100,
+      "hp": 15,
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,

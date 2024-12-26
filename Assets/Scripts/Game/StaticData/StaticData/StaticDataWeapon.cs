@@ -1,13 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Game.StaticData
 {
-    public class StaticDataCharacterList : StaticDataWrapper<StaticDataCharacter>
+    public class StaticDataWeaponList : StaticDataWrapper<StaticDataWeapon>
     {
-        private Dictionary<int, StaticDataCharacter> _dataByKey;
-        public Dictionary<int, StaticDataCharacter> DataByKey => _dataByKey;
+        private Dictionary<int, StaticDataWeapon> _dataByKey;
+        public Dictionary<int, StaticDataWeapon> DataByKey => _dataByKey;
 
         protected override void OnInitialized()
         {
@@ -23,13 +23,17 @@ namespace Game.StaticData
     }
 
     [Serializable]
-    public class StaticDataCharacter
+    public class StaticDataWeapon
     {
         public int keyIndex;
-        public int hp;
+        public int magazineSize;
+        public int spareMagazines;
+        public float reloadTime;
         public int attack;
-        public float moveSpeed;
         public float attackSpeed;
-        public int weaponKey;
+        public float bulletSpeed;
+        public float bulletRange;
+        public float knockbackPower;
+        public int spread;
     }
 }

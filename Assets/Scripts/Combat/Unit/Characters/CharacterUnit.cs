@@ -17,16 +17,17 @@ namespace Combat
         public override TargetFaction Faction => TargetFaction.Character;
 
         public override int MaxHP => _data.hp;
-        public override int AttackPower => _data.attack;
-        public override float AttackSpeed => _data.attackSpeed;
+        public override int AttackPower => _weapon.Data.attack;
+        public override float AttackSpeed => _weapon.Data.attackSpeed;
         public override int Damage => AttackPower;
         public float MoveSpeed => _data.moveSpeed;
 
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
 
-        public Transform BulletTransform => characterRenderer.BulletTransform;
+        protected WeaponBase _weapon;
 
+        public Transform BulletTransform => characterRenderer.BulletTransform;
         protected ActionManager _actionManager;
 
         public void SetActionManager(ActionManager actionManager)
@@ -39,6 +40,8 @@ namespace Combat
             gameObject.SetActive(true);
 
             _data = StaticDataManager.Instance.GetCharacterDataByKey(characterKey);
+            _weapon = new WeaponBase();
+            _weapon.Initialize(_data.weaponKey);
 
             InitializeStatus();
 
@@ -80,13 +83,17 @@ namespace Combat
             Vector2 dir = (mousePosition - (Vector2)transform.position).normalized;
 
             var fireAction = _actionManager.GetActionInstance(this, InputType.LeftClick) as FireAction;
-            fireAction.SetDirection(dir);
-            fireAction.Execute(this);
+            if (fireAction != null)
+            {
+                fireAction.SetDirection(dir);
+                fireAction.Execute(this);
+            }
         }
 
         public override void OnAttack()
         {
             base.OnAttack();
+            _weapon.OnAttack();
         }
     }
 }

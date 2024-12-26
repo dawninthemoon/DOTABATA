@@ -18,6 +18,8 @@ namespace Combat
 
         [SerializeField]
         private SpriteAnimator animator;
+        [SerializeField]
+        private SpriteAnimator armAnimator;
         private State _currentState;
         private int _defaultAnimationIndex;
 
@@ -25,6 +27,8 @@ namespace Combat
         {
             _currentState = State.Idle;
             _defaultAnimationIndex = -1;
+
+            armAnimator.SetEndCallback("Fire", ChangeToIdle);
         }
 
         public void ChangeState(State state)
@@ -39,6 +43,12 @@ namespace Combat
         {
             Vector2 diff = target.GetPosition() - (Vector2)transform.position;
             float angle = Vector2.Angle(Vector2.down, diff);
+
+            ChangeArmDirection();
+            void ChangeArmDirection()
+            {
+                armAnimator.Renderer.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
+            }
 
             ChangeBodyDirection();
             void ChangeBodyDirection()
@@ -60,6 +70,11 @@ namespace Combat
                 Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
                 animator.transform.localScale = bodyScale;
             }
+        }
+
+        private void ChangeToIdle()
+        {
+            armAnimator.ChangeAnimation("Idle");
         }
     }
 }

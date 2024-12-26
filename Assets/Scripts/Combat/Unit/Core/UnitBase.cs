@@ -28,9 +28,9 @@ namespace Combat
             
         }
 
-        public void SetDependency(CombatManager stageManager)
+        public void SetDependency(CombatManager combatManager)
         {
-            _combatManager = stageManager;
+            _combatManager = combatManager;
         }
 
         public virtual void Progress()
