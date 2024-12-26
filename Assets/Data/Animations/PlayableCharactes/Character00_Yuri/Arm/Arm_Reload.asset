@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
+  m_Name: Arm_Reload
+  m_EditorClassIdentifier: 
+  framePerSec: 12
+  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: 4d7f5a9630a1abf4cbd874b7acd4690a, type: 3}
+  - {fileID: 21300000, guid: 28abc08624d906d4a89ca4c57a639afe, type: 3}
+  - {fileID: 21300000, guid: d25323d2bbbe80e4bb69d19d9106c12f, type: 3}
+  - {fileID: 21300000, guid: d3bcf465caa400543b4e77a13c17b438, type: 3}
+  - {fileID: 21300000, guid: 20b1e1429ea37754390ccf439f5b170f, type: 3}
+  - {fileID: 21300000, guid: c19f4e5865ec4de4ab49907f91243508, type: 3}
+  - {fileID: 21300000, guid: d5968813f76964040818ab2fd2086f88, type: 3}
+  - {fileID: 21300000, guid: 0bb7cf3b6e94ac146ab87a68c44b8d97, type: 3}
+  - {fileID: 21300000, guid: c2c18f265c3198e41aaf48b854ad8a83, type: 3}
+  - {fileID: 21300000, guid: 8b27967da947cb347b7ee1cd88032ee2, type: 3}
+  events: []

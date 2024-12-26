@@ -6,12 +6,19 @@ namespace Combat
 {
     public class CharacterRenderer : MonoBehaviour
     {
-        public enum State
+        public enum BodyState
         {
             Idle,
             Move,
             Freeze,
             Down,
+        }
+
+        public enum ArmState
+        {
+            Idle,
+            Fire,
+            Reload,
         }
 
         private static readonly string[] SuffixArray = { "_Down", "_Right", "_Up", };
@@ -22,12 +29,12 @@ namespace Combat
         private SpriteAnimator armAnimator;
         [field: SerializeField]
         public Transform BulletTransform { get; private set; }
-        public State CurrentState { get; private set; }
+        public BodyState CurrentState { get; private set; }
         private int _defaultAnimationIndex;
 
         private void Start()
         {
-            CurrentState = State.Idle;
+            CurrentState = BodyState.Idle;
             _defaultAnimationIndex = -1;
 
             armAnimator.SetEndCallback("Fire", ChangeToIdle);
@@ -57,31 +64,34 @@ namespace Combat
                     _defaultAnimationIndex = animationIndex;
                 }
 
-                if (CurrentState == State.Idle || CurrentState == State.Move)
+                if (CurrentState == BodyState.Idle || CurrentState == BodyState.Move)
                 {
                     animationName += SuffixArray[_defaultAnimationIndex];
                 }
-                bodyAnimator.ChangeAnimation(animationName, resetIndex: (CurrentState != State.Move));
+                bodyAnimator.ChangeAnimation(animationName, resetIndex: (CurrentState != BodyState.Move));
 
                 Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
                 bodyAnimator.transform.localScale = bodyScale;
             }
         }
 
-        public void ProcessInput(Vector2 input, bool fired)
+        public void ProcessInput(Vector2 input, ArmState armState)
         {
             bool isMoving = input.sqrMagnitude > 0f;
-            CurrentState = isMoving ? State.Move : State.Idle;
+            CurrentState = isMoving ? BodyState.Move : BodyState.Idle;
 
-            if (fired)
+            switch (armState)
             {
-                armAnimator.ChangeAnimation("Fire", resetIndex: true);
+            case ArmState.Fire:
+            case ArmState.Reload:
+                armAnimator.ChangeAnimation(armState.ToString(), resetIndex: true);
+                break;
             }
         }
 
         private void ChangeToIdle()
         {
-            CurrentState = State.Idle;
+            CurrentState = BodyState.Idle;
             armAnimator.ChangeAnimation("Idle");
         }
     }

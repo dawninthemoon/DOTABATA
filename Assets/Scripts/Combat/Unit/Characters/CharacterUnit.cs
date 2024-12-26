@@ -26,6 +26,7 @@ namespace Combat
         public StaticDataCharacter Data => _data;
 
         protected WeaponBase _weapon;
+        public WeaponBase Weapon => _weapon;
 
         public Transform BulletTransform => characterRenderer.BulletTransform;
         protected ActionManager _actionManager;
@@ -41,7 +42,7 @@ namespace Combat
 
             _data = StaticDataManager.Instance.GetCharacterDataByKey(characterKey);
             _weapon = new WeaponBase();
-            _weapon.Initialize(_data.weaponKey);
+            _weapon.Initialize(_data.weaponKey, this);
 
             InitializeStatus();
 
@@ -67,27 +68,33 @@ namespace Combat
             moveAction.SetDirection(_inputStatus.direction);
             moveAction.Execute(this);
                 
-            bool fired = _inputStatus.mouseDown && CanAttack();
-            if (fired)
+            CharacterRenderer.ArmState armState = CharacterRenderer.ArmState.Idle;
+            if (_inputStatus.mouseDown)
             {
-                Fire();
+                if (_weapon.CanAttack())
+                {
+                    if (CanAttack())
+                    {
+                        armState = CharacterRenderer.ArmState.Fire;
+                        _weapon.Fire(GetPosition(), _actionManager);
+                    }
+                }
+                else
+                {
+                    if (_weapon.TryReload())
+                    {
+                        armState = CharacterRenderer.ArmState.Reload;
+                    }
+                }
             }
-            characterRenderer.ProcessInput(_inputStatus.direction, fired);
+            characterRenderer.ProcessInput(_inputStatus.direction, armState);
 
             ProcessAttackWaitTimer();
         }
 
-        private void Fire()
+        public virtual bool CanAttackWithWeapon()
         {
-            Vector2 mousePosition = Game.Utils.ExMouse.GetMouseWorldPosition();
-            Vector2 dir = (mousePosition - (Vector2)transform.position).normalized;
-
-            var fireAction = _actionManager.GetActionInstance(this, InputType.LeftClick) as FireAction;
-            if (fireAction != null)
-            {
-                fireAction.SetDirection(dir);
-                fireAction.Execute(this);
-            }
+            return _weapon.CanAttack() && CanAttack();
         }
 
         public override void OnAttack()

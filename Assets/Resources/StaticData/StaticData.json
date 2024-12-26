@@ -31,10 +31,10 @@
       "reloadTime": 1.2,
       "attack": 6,
       "attackSpeed": 1,
-      "bulletSpeed": 200,
+      "bulletSpeed": 1000,
       "bulletRange": 1500,
       "knockbackPower": 0,
-      "spread": 3
+      "spreadDegree": 3
     }
   ],
   "StaticDataEnemy": [

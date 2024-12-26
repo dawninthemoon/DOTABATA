@@ -78,7 +78,7 @@ namespace Combat
             
         }
 
-        public bool CanAttack()
+        public virtual bool CanAttack()
         {
             return _attackWaitTimer <= 0f;
         }

@@ -18,3 +18,5 @@ MonoBehaviour:
     clip: {fileID: 11400000, guid: 06d33053a78f99f4f82313b323e6fa87, type: 2}
   - animationName: Fire
     clip: {fileID: 11400000, guid: 28adabee5edb8f747a8d3f1a7b648ce6, type: 2}
+  - animationName: Reload
+    clip: {fileID: 11400000, guid: b4c16f0d3afbe4d49b60d026f55c5408, type: 2}

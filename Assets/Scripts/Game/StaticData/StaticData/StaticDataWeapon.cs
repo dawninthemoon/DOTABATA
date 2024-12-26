@@ -34,6 +34,6 @@ namespace Game.StaticData
         public float bulletSpeed;
         public float bulletRange;
         public float knockbackPower;
-        public int spread;
+        public int spreadDegree;
     }
 }

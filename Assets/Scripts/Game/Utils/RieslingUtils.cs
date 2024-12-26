@@ -16,6 +16,22 @@ namespace Game.Utils
             return GetRadian(u, v) * Mathf.Rad2Deg;
         }
 
+        public static Vector2 AddDegree(this Vector2 dir, float degree)
+        {
+            float radian = degree * Mathf.Deg2Rad;
+            radian += Mathf.Atan2(dir.y, dir.x);
+            Vector2 newDir = new Vector2(Mathf.Cos(radian), Mathf.Sin(radian)).normalized;
+            return newDir;
+        }
+
+        public static Vector3 AddDegree(this Vector3 dir, float degree)
+        {
+            float radian = degree * Mathf.Deg2Rad;
+            radian += Mathf.Atan2(dir.y, dir.x);
+            Vector3 newDir = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian)).normalized;
+            return newDir;
+        }
+
         public static Vector2 ChangeXPos(this Vector2 origin, float xValue) {
             Vector2 newVector = new Vector2(xValue, origin.y);
             return newVector;

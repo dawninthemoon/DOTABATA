@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Utils;
 
 namespace Combat.Actions
 {
@@ -17,7 +18,9 @@ namespace Combat.Actions
         {
             Vector3 bulletPos = actor.BulletTransform.position;
             var bullet = _combatManager.ProjectileManager.CreateProjectile(bulletPos);
-            bullet.Initialize(_direction, actor.Damage, 1000f);
+
+            float spreadAmount = Random.Range(-actor.Weapon.SpreadDegree, actor.Weapon.SpreadDegree);
+            bullet.Initialize(_direction.AddDegree(spreadAmount), actor.Damage, actor.Weapon.BulletSpeed);
 
             actor.OnAttack();
         }
