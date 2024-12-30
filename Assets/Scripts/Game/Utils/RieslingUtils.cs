@@ -175,8 +175,8 @@ namespace Game.Utils
     }
 
     public static class ExCollection {
-        public static T GetRandomElement<T>(this IList<T> list) where T : class {
-            T result = null;
+        public static T GetRandomElement<T>(this IList<T> list) {
+            T result = default(T);
             int numOfElements = list.Count;
             if (numOfElements > 0) {
                 int randomIndex = Random.Range(0, numOfElements);

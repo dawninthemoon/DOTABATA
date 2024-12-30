@@ -17,8 +17,8 @@ namespace Combat
         private EffectManager _effectManager;
         private EffectManager EffectManager => _effectManager;
 
-        private WaveManager _waveManager;
-        private WaveManager WaveManager => _waveManager;
+        private StageManager _stageManager;
+        private StageManager WaveManager => _stageManager;
 
         private ActionManager _actionManager;
         public ActionManager ActionManager => _actionManager;
@@ -36,7 +36,7 @@ namespace Combat
             _characterManager = GetComponentInChildren<CharacterManager>();
             _effectManager = GetComponentInChildren<EffectManager>();
             _projectileManager = GetComponentInChildren<ProjectileManager>();
-            _waveManager = new();
+            _stageManager = GetComponentInChildren<StageManager>();
             _actionManager = new(this);
             _inputProcessor = new();
         }
@@ -44,8 +44,7 @@ namespace Combat
         public void Initialize()
         {
             _myCharacter = _characterManager.CreateCharacter(0, this);
-
-            _enemyManager.CreateEnemy(0, this);
+            _stageManager.StartStage(0);
         }
 
         private void Update()

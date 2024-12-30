@@ -38,5 +38,6 @@ namespace Game.StaticData
         public float attackSpeed;
         public MonsterMoveType moveType;
         public float attackRange;
+        public int spawnCost;
     }
 }

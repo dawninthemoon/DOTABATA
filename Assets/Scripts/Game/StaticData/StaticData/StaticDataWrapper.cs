@@ -11,6 +11,7 @@ namespace Game.StaticData
     public class StaticDataWrapper<T>
     {
         protected List<T> _dataList;
+        public List<T> DataList => _dataList;
 
         public void LoadData(JObject jObject)
         {
