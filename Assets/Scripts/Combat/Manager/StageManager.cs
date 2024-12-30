@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game.StaticData;
+using Game.Utils;
 using UnityEngine;
 
 namespace Combat
@@ -12,6 +13,15 @@ namespace Combat
         {
             public Vector2 topLeft;
             public Vector2 bottomRight;
+            public Vector2 offset;
+
+            public Vector2 GetRandomPosition()
+            {
+                float x = Random.Range(topLeft.x, bottomRight.x);
+                float y = Random.Range(bottomRight.y, topLeft.y);
+
+                return new Vector2(x, y) + offset;
+            }
         }
 
         [SerializeField]
@@ -25,9 +35,13 @@ namespace Combat
         private StaticDataStage _stage;
         private CombatManager _combatManager;
 
-        public StageManager(CombatManager combatManager)
+        public void SetDependency(CombatManager combatManager)
         {
             _combatManager = combatManager;
+        }
+
+        public void Initialize()
+        {
             _waveProcessing = false;
         }
 
@@ -47,6 +61,7 @@ namespace Combat
             {
                 EnemyUnit enemyInstance = _combatManager.EnemyManager.CreateEnemy(selectedKey, _combatManager);
                 enemyInstance.Initialize(selectedKey);
+                enemyInstance.transform.position = GetRandomSpawnPosition();
             }
         }
 
@@ -57,7 +72,6 @@ namespace Combat
                 return;
             }
 
-            
         }
 
         public int GetCurrentCost()
@@ -65,5 +79,38 @@ namespace Combat
             int cost = _stage.initialCost + _stage.costIncrease * _currentWave;
             return cost;
         }
+
+        public Vector2 GetRandomSpawnPosition()
+        {
+            var area = spawnAreaList.GetRandomElement();
+            Vector2 randPos = area.GetRandomPosition();
+            return randPos;
+        }
+
+    #if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (spawnAreaList is null)
+            {
+                return;
+            }
+
+            Color defaultColor = Gizmos.color;
+            Gizmos.color = Color.green;
+
+            foreach (var area in spawnAreaList)
+            {
+                Vector2 center = new Vector2(area.bottomRight.x - area.topLeft.x, area.topLeft.y - area.bottomRight.y) / 2f;
+                center.x += area.topLeft.x;
+                center.y += area.bottomRight.y;
+
+                Vector2 size = new Vector2(area.bottomRight.x - area.topLeft.x, area.topLeft.y - area.bottomRight.y);
+                
+                Gizmos.DrawWireCube(center + area.offset, size);
+            }
+
+            Gizmos.color = defaultColor;
+        }
+    #endif
     }
 }

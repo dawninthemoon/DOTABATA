@@ -39,10 +39,14 @@ namespace Combat
             _stageManager = GetComponentInChildren<StageManager>();
             _actionManager = new(this);
             _inputProcessor = new();
+
+            _stageManager.SetDependency(this);
         }
 
         public void Initialize()
         {
+            _stageManager.Initialize();
+
             _myCharacter = _characterManager.CreateCharacter(0, this);
             _stageManager.StartStage(0);
         }
