@@ -45,7 +45,7 @@ namespace Combat
 
         private void Update()
         {
-            if (_clipInfo is null)
+            if ((_clipInfo is null) || (spriteRenderer is null))
             {
                 return;
             }
@@ -75,6 +75,11 @@ namespace Combat
             spriteRenderer.sprite = sprite;
 
             ++_spriteIndex;
+        }
+
+        public void SetActiveState(bool state)
+        {
+            spriteRenderer.enabled = state;
         }
 
         public void ChangeAnimation(string animationName, bool resetIndex = true)

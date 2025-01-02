@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Combat;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 namespace Combat
@@ -17,6 +18,11 @@ namespace Combat
 
         public void FindTarget(CharacterManager characterManager)
         {
+            if (_currentTarget != null && !_currentTarget.CanTarget())
+            {
+                _currentTarget = null;
+            }
+
             var characterList = characterManager.GetCharacterList();
             if (characterList.Count == 0)
             {
@@ -24,7 +30,13 @@ namespace Combat
                 return;
             }
 
-            _currentTarget = characterList[0];
+            foreach (var target in characterList)
+            {
+                if (target.CanTarget())
+                {
+                    _currentTarget = target;
+                }
+            }
         }
     }
 }

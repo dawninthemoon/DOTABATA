@@ -16,5 +16,5 @@ MonoBehaviour:
   data:
   - animationName: Idle
     clip: {fileID: 11400000, guid: 6c0a7e675ab4e7149bda310c66e7f099, type: 2}
-  - animationName: Fire
+  - animationName: Attack
     clip: {fileID: 11400000, guid: de5a3672e7303014497a074603d077d6, type: 2}

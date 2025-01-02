@@ -14,6 +14,7 @@ namespace Combat
         protected int _health;
 
         public virtual int MaxHP { get; }
+        public int CurrentHP => _health;
         public virtual int AttackPower { get; }
         public virtual float AttackSpeed { get; }
         public virtual int Damage { get; }
@@ -58,13 +59,12 @@ namespace Combat
             gameObject.SetActive(false);
         }
 
-        public void ReceiveDamage(int damage, UnitBase attacker = null)
+        public virtual void ReceiveDamage(int damage, UnitBase attacker = null)
         {
             _health -= damage;
             if (IsDie())
             {
                 OnDie(attacker);
-                Release();
             }
         }
 
@@ -86,6 +86,11 @@ namespace Combat
         public virtual void OnAttack()
         {
             _attackWaitTimer = 1f / AttackSpeed;
+        }
+
+        public virtual bool CanTarget()
+        {
+            return !IsDie();
         }
 
         protected virtual void ProcessAttackWaitTimer()

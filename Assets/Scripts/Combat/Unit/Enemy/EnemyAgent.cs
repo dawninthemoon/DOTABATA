@@ -32,9 +32,18 @@ namespace Combat
             _targeter.FindTarget(combatManager.CharacterManager);
 
             var currentTarget = _targeter.CurrentTarget;
-            if (Vector2.Distance(currentTarget.GetPosition(), _self.GetPosition()) < _aiData.attackRange)
+            if (currentTarget == null)
             {
-                OnAttackRequested?.Invoke(currentTarget);
+                return;
+            }
+
+            bool isInAttackRange = Vector2.Distance(currentTarget.GetPosition(), _self.GetPosition()) < _aiData.attackRange;
+            if (isInAttackRange)
+            {
+                if (_self.CanAttack())
+                {
+                    OnAttackRequested?.Invoke(currentTarget);
+                }
             }
             else
             {

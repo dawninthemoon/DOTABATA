@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Combat
@@ -8,6 +9,7 @@ namespace Combat
     {
         public enum BodyState
         {
+            Undefined,
             Idle,
             Move,
             Freeze,
@@ -31,12 +33,16 @@ namespace Combat
         public Transform BulletTransform { get; private set; }
         public BodyState CurrentState { get; private set; }
         private int _defaultAnimationIndex;
+        private BodyState _prevState;
 
         private void Start()
         {
+            _prevState = BodyState.Undefined;
             CurrentState = BodyState.Idle;
             _defaultAnimationIndex = -1;
 
+            bodyAnimator.ChangeAnimation(BodyState.Idle.ToString(), resetIndex: true);
+            armAnimator.SetActiveState(true);
             armAnimator.SetEndCallback("Fire", ChangeToIdle);
         }
 
@@ -56,22 +62,26 @@ namespace Combat
             ChangeBodyDirection();
             void ChangeBodyDirection()
             {
-                int animationIndex = Mathf.Clamp(Mathf.FloorToInt(angle / 180f * 3f), 0, SuffixArray.Length - 1);
-
                 string animationName = CurrentState.ToString();
-                if (_defaultAnimationIndex != animationIndex)
-                {
-                    _defaultAnimationIndex = animationIndex;
-                }
 
                 if (CurrentState == BodyState.Idle || CurrentState == BodyState.Move)
                 {
+                    int animationIndex = Mathf.Clamp(Mathf.FloorToInt(angle / 180f * 3f), 0, SuffixArray.Length - 1);
+                    if (_defaultAnimationIndex != animationIndex)
+                    {
+                        _defaultAnimationIndex = animationIndex;
+                    }
+
                     animationName += SuffixArray[_defaultAnimationIndex];
                 }
-                bodyAnimator.ChangeAnimation(animationName, resetIndex: (CurrentState != BodyState.Move));
 
-                Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
-                bodyAnimator.transform.localScale = bodyScale;
+                bodyAnimator.ChangeAnimation(animationName, resetIndex: (CurrentState == BodyState.Idle));
+
+                if (CurrentState != BodyState.Down)
+                {
+                    Vector2 bodyScale = new Vector3(Mathf.Sign(diff.x), 1f, 1f);
+                    bodyAnimator.transform.localScale = bodyScale;
+                }
             }
         }
 
@@ -87,6 +97,13 @@ namespace Combat
                 armAnimator.ChangeAnimation(armState.ToString(), resetIndex: true);
                 break;
             }
+        }
+
+        public void ChangeToDown()
+        {
+            CurrentState = BodyState.Down;
+            armAnimator.SetActiveState(false);
+            bodyAnimator.ChangeAnimation(CurrentState.ToString(), resetIndex: true);
         }
 
         private void ChangeToIdle()

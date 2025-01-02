@@ -12,6 +12,7 @@ namespace Combat
         [SerializeField]
         private EnemyRenderer enemyRenderer;
         protected EnemyAgent _agent;
+        protected Vector2 _direction;
 
         protected StaticDataEnemy _data;
         public StaticDataEnemy Data => _data;
@@ -21,12 +22,15 @@ namespace Combat
         public override float AttackSpeed => _data.attackSpeed;
         public override int Damage => AttackPower;
 
+        public Vector2 Direction => _direction;
         public override TargetFaction Faction => TargetFaction.Enemy;
+        private EnemyMeleeAttack _meleeAttack;
 
         private void Awake()
         {
             _agent = GetComponent<EnemyAgent>();
             _agent.Initialize(targeter, this, _data.attackRange);
+            _meleeAttack = new();
         }
 
         private void OnEnable()
@@ -45,7 +49,7 @@ namespace Combat
         {
             _data = StaticDataManager.Instance.GetEnemyDataByKey(enemyKey);
             gameObject.SetActive(true);
-            enemyRenderer.ChangeState(EnemyRenderer.State.Idle);
+            enemyRenderer.ChangeState(EnemyRenderer.State.Idle, true);
 
             InitializeStatus();
         }
@@ -57,18 +61,28 @@ namespace Combat
 
         private void OnMovementRequested(Vector2 dir)
         {
-            transform.position += (Vector3)dir * _data.moveSpeed * Time.deltaTime;
+            if (enemyRenderer.CurrentState == EnemyRenderer.State.Attack)
+            {
+                return;
+            }
 
-            enemyRenderer.ChangeState(EnemyRenderer.State.Move);
+            _direction = dir;
+            transform.position += (Vector3)_direction * _data.moveSpeed * Time.deltaTime;
+
+            enemyRenderer.ChangeState(EnemyRenderer.State.Move, false);
         }
 
         private void OnAttackRequested(ITargetable target)
         {
-            enemyRenderer.ChangeState(EnemyRenderer.State.Idle);
+            enemyRenderer.ChangeState(EnemyRenderer.State.Attack, true);
+            _meleeAttack.RequestAttack(this);
+            OnAttack();
         }
 
         private void Update()
         {  
+            ProcessAttackWaitTimer();
+
             _agent.Progress(_combatManager);
             enemyRenderer.UpdateAnimator(targeter.CurrentTarget);
         }

@@ -9,5 +9,6 @@ namespace Combat
         public TargetFaction Faction { get; }
         public Vector2 GetPosition();
         public event System.Action<UnitBase> OnDisappear;
+        public bool CanTarget();
     }
 }

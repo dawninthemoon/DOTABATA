@@ -62,6 +62,11 @@ namespace Combat
 
         public override void Progress()
         {
+            if (IsDie())
+            {
+                return;
+            }
+
             base.Progress();
 
             var moveAction = _actionManager.GetActionInstance(this, InputType.Direction) as MovementAction;
@@ -90,6 +95,16 @@ namespace Combat
             characterRenderer.ProcessInput(_inputStatus.direction, armState);
 
             ProcessAttackWaitTimer();
+        }
+
+        public override void ReceiveDamage(int damage, UnitBase attacker = null)
+        {
+            base.ReceiveDamage(damage, attacker);
+        }
+
+        protected override void OnDie(UnitBase attacker)
+        {
+            characterRenderer.ChangeToDown();
         }
 
         public virtual bool CanAttackWithWeapon()
