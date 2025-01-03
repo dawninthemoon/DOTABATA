@@ -33,6 +33,13 @@ namespace Combat
             armAnimator.SetEndCallback("Attack", ChangeToIdle);
         }
 
+        public void Reset()
+        {
+            _currentState = State.Idle;
+            animator.ChangeAnimation(_currentState.ToString());
+            armAnimator.ChangeAnimation(_currentState.ToString());
+        }
+
         public void ChangeState(State state, bool forceReset)
         {   
             if (_currentState == state && !forceReset)

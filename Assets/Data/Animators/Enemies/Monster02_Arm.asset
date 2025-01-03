@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94d3e9783ba771841a8afe9e6b25e1af, type: 3}
-  m_Name: MonsterA_Arm
+  m_Name: Monster02_Arm
   m_EditorClassIdentifier: 
   defaultAnimationName: Idle
   data:
   - animationName: Idle
-    clip: {fileID: 11400000, guid: 6c0a7e675ab4e7149bda310c66e7f099, type: 2}
+    clip: {fileID: 11400000, guid: 505fc45b5bfe8b748a2d1763c14a5516, type: 2}
   - animationName: Attack
-    clip: {fileID: 11400000, guid: de5a3672e7303014497a074603d077d6, type: 2}
+    clip: {fileID: 11400000, guid: 4b1739cfe50838a4595c43ef1d3b23e9, type: 2}

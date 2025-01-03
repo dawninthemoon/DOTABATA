@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a777b625b32f143be0ef9e4a6f43b8, type: 3}
+  m_Name: RangeArm_Fire
+  m_EditorClassIdentifier: 
+  framePerSec: 12
+  loop: 0
+  sprites:
+  - {fileID: 21300000, guid: 5d6df4bb34ac3a14eb900d1754cab78c, type: 3}
+  - {fileID: 21300000, guid: 41fbccd8c3769e34299f23486d97e028, type: 3}
+  - {fileID: 21300000, guid: 5c2a532f898392b459a68dab9ccc3bc1, type: 3}
+  - {fileID: 21300000, guid: fd596a9466a60e8499f786d0252ed2f3, type: 3}
+  - {fileID: 21300000, guid: f53d637e5c101b24aa0afe973830e0a0, type: 3}
+  - {fileID: 21300000, guid: 55d6678fd2e6c274b9b4a802011a1956, type: 3}
+  - {fileID: 21300000, guid: b2402749491f1254b8bbf60edbd59d59, type: 3}
+  - {fileID: 21300000, guid: cbc01689fe95b8948ae187ee7ee29a85, type: 3}
+  events: []

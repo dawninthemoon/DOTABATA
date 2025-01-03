@@ -1,22 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Core;
 using UnityEngine;
 
 namespace Combat
 {
     public class ProjectileManager : MonoBehaviour
     {
-        [SerializeField]
-        private BulletTest testBulletPrefab;
+        private static readonly string ProjectilePathBase = "Projectiles/";
 
-        private void Start()
+        public BulletTest CreateProjectile(string name, Vector3 pos)
         {
-            testBulletPrefab.gameObject.SetActive(false);
-        }
+            var prefab = AssetLoader.Instance.GetComponentObject<BulletTest>($"{ProjectilePathBase}{name}");
 
-        public BulletTest CreateProjectile(Vector3 pos)
-        {
-            var bullet = Instantiate(testBulletPrefab);
+            var bullet = Instantiate(prefab);
             bullet.transform.position = pos;
 
             return bullet;

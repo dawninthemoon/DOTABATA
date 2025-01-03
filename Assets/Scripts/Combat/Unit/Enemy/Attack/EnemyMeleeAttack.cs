@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class EnemyMeleeAttack
+    public class EnemyMeleeAttack : IEnemyAttack
     {
         private bool _isProcessing;
 
-        public void RequestAttack(EnemyUnit attacker)
+        public void RequestAttack(EnemyUnit attacker, CombatManager combatManager)
         {
             Vector2 center = attacker.GetPosition() + attacker.Direction * 40;
             float angle = Mathf.Atan2(attacker.Direction.y, attacker.Direction.x) * Mathf.Rad2Deg + 90f;

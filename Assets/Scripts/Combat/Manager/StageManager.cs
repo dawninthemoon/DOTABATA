@@ -26,6 +26,8 @@ namespace Combat
 
         [SerializeField]
         private SpawnArea[] spawnAreaList;
+        [SerializeField]
+        private VehicleTest vehicle;
         
         private int _currentWave;
         public int CurrentWave => _currentWave;
@@ -61,7 +63,15 @@ namespace Combat
             {
                 EnemyUnit enemyInstance = _combatManager.EnemyManager.CreateEnemy(selectedKey, _combatManager);
                 enemyInstance.Initialize(selectedKey);
-                enemyInstance.transform.position = GetRandomSpawnPosition();
+
+                if (enemyInstance.Data.spawnType == SpawnType.Air)
+                {
+                    enemyInstance.transform.position = GetRandomSpawnPosition();
+                }
+                else
+                {
+                    enemyInstance.transform.position = GetRandomVehiclePosition();
+                }
             }
         }
 
@@ -85,6 +95,11 @@ namespace Combat
             var area = spawnAreaList.GetRandomElement();
             Vector2 randPos = area.GetRandomPosition();
             return randPos;
+        }
+
+        public Vector2 GetRandomVehiclePosition()
+        {
+            return vehicle.GetRandomPosition();
         }
 
     #if UNITY_EDITOR

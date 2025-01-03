@@ -11,6 +11,7 @@ namespace Combat
         private EnemyTargeter targeter;
         [SerializeField]
         private EnemyRenderer enemyRenderer;
+        [SerializeField]
         protected EnemyAgent _agent;
         protected Vector2 _direction;
 
@@ -24,14 +25,7 @@ namespace Combat
 
         public Vector2 Direction => _direction;
         public override TargetFaction Faction => TargetFaction.Enemy;
-        private EnemyMeleeAttack _meleeAttack;
-
-        private void Awake()
-        {
-            _agent = GetComponent<EnemyAgent>();
-            _agent.Initialize(targeter, this, _data.attackRange);
-            _meleeAttack = new();
-        }
+        private IEnemyAttack _attackScript;
 
         private void OnEnable()
         {
@@ -49,9 +43,19 @@ namespace Combat
         {
             _data = StaticDataManager.Instance.GetEnemyDataByKey(enemyKey);
             gameObject.SetActive(true);
-            enemyRenderer.ChangeState(EnemyRenderer.State.Idle, true);
+            enemyRenderer.Reset();
 
             InitializeStatus();
+
+            if (_data.enemyAttackType == EnemyAttackType.Melee)
+            {
+                _attackScript = new EnemyMeleeAttack();
+            }
+            else
+            {
+                _attackScript = new EnemyRangeAttack();
+            }
+            _agent.Initialize(targeter, this, _data.attackRange);
         }
 
         private void InitializeStatus()
@@ -75,7 +79,7 @@ namespace Combat
         private void OnAttackRequested(ITargetable target)
         {
             enemyRenderer.ChangeState(EnemyRenderer.State.Attack, true);
-            _meleeAttack.RequestAttack(this);
+            _attackScript.RequestAttack(this, _combatManager);
             OnAttack();
         }
 

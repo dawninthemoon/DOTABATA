@@ -41,6 +41,11 @@ namespace Combat
         {
             _currentAnimationName = animatorData.defaultAnimationName;
             _spriteIndex = 0;
+            var clipInfo = FindClipInfo(_currentAnimationName);
+            if (clipInfo is not null)
+            {
+                _clipInfo = clipInfo;
+            }
         }
 
         private void Update()

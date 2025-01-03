@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94d3e9783ba771841a8afe9e6b25e1af, type: 3}
-  m_Name: MonsterA
+  m_Name: Monster02
   m_EditorClassIdentifier: 
   defaultAnimationName: Idle_Up
   data:

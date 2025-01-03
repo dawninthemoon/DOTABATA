@@ -11,7 +11,7 @@ namespace Combat
         [SerializeField]
         private Vector2 offset;
 
-        public Vector2 GetRandomArea()
+        public Vector2 GetRandomPosition()
         {
             Vector2 center = (Vector2)transform.position + offset;
 

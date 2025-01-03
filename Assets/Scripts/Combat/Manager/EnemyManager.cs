@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Core;
 using Game.StaticData;
 using Game.Utils;
 using UnityEngine;
@@ -9,9 +10,6 @@ namespace Combat
 {
     public class EnemyManager : MonoBehaviour
     {
-        [Header("Temp"), SerializeField]
-        private EnemyUnit enemyPrefab_Test;
-
         private ObjectPool<EnemyUnit> _enemyObjectPool;
         private List<EnemyUnit> _enemyList;
 
@@ -22,7 +20,8 @@ namespace Combat
 
         public EnemyUnit CreateEnemy(int enemyKey, CombatManager combatManager)
         {
-            EnemyUnit instance = Instantiate(enemyPrefab_Test);
+            var prefab = AssetLoader.Instance.GetComponentObject<EnemyUnit>($"{AssetLoader.EnemyPathBase}Enemy{enemyKey:D2}");
+            EnemyUnit instance = Instantiate(prefab);
 
             instance.SetDependency(combatManager);
             instance.Initialize(enemyKey);

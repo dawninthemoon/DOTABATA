@@ -10,6 +10,18 @@ namespace Game.StaticData
         Air,
     }
 
+    public enum SpawnType
+    {
+        Air,
+        Vehicle,
+    }
+
+    public enum EnemyAttackType
+    {
+        Melee,
+        Range,
+    }
+
     public class StaticDataEnemyList : StaticDataWrapper<StaticDataEnemy>
     {
         private Dictionary<int, StaticDataEnemy> _dataByKey;
@@ -39,5 +51,7 @@ namespace Game.StaticData
         public MonsterMoveType moveType;
         public float attackRange;
         public int spawnCost;
+        public SpawnType spawnType;
+        public EnemyAttackType enemyAttackType;
     }
 }
