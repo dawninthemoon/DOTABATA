@@ -10,18 +10,41 @@ namespace Combat
 {
     public class EnemyManager : MonoBehaviour
     {
-        private ObjectPool<EnemyUnit> _enemyObjectPool;
+        private Dictionary<int, ObjectPool<EnemyUnit>> _enemyObjectPool;
         private List<EnemyUnit> _enemyList;
 
         private void Awake()
         {
             _enemyList = new();
+            _enemyObjectPool = new();
+        }
+
+        public void Initialize(List<int> enemyList)
+        {
+            foreach (int enemyKey in enemyList)
+            {
+                if (!_enemyObjectPool.ContainsKey(enemyKey))
+                {
+                    int selectedKey = enemyKey;
+                    ObjectPool<EnemyUnit> enemyPool = new ObjectPool<EnemyUnit>(
+                        10,
+                        () => CreateEnemy(selectedKey),
+                        OnEnemyActive,
+                        OnEnemyDisable
+                    );
+
+                    _enemyObjectPool.Add(enemyKey, enemyPool);
+                }
+            }
         }
 
         public EnemyUnit CreateEnemy(int enemyKey, CombatManager combatManager)
         {
-            var prefab = AssetLoader.Instance.GetComponentObject<EnemyUnit>($"{AssetLoader.EnemyPathBase}Enemy{enemyKey:D2}");
-            EnemyUnit instance = Instantiate(prefab);
+            if (!_enemyObjectPool.TryGetValue(enemyKey, out var objectPool))
+            {
+                return null;
+            }
+            EnemyUnit instance = objectPool.GetObject();
 
             instance.SetDependency(combatManager);
             instance.Initialize(enemyKey);
@@ -57,6 +80,36 @@ namespace Combat
             }
 
             return selected;
+        }
+
+        public void OnEnemyDie(EnemyUnit enemy)
+        {
+            ReleaseEnemy(enemy);
+        }
+
+        private void ReleaseEnemy(EnemyUnit enemy)
+        {
+            if (_enemyObjectPool.TryGetValue(enemy.Data.keyIndex, out var objectPool))
+            {
+                objectPool.ReturnObject(enemy);
+            }
+        }
+
+        private EnemyUnit CreateEnemy(int enemyKey)
+        {
+            var prefab = AssetLoader.Instance.GetComponentObject<EnemyUnit>($"{AssetLoader.EnemyPathBase}Enemy{enemyKey:D2}");
+            EnemyUnit instance = Instantiate(prefab);
+            return instance;
+        }
+
+        private void OnEnemyActive(EnemyUnit enemy)
+        {
+            enemy.gameObject.SetActive(true);
+        }
+
+        private void OnEnemyDisable(EnemyUnit enemy)
+        {
+            enemy.gameObject.SetActive(false);
         }
     }
 }

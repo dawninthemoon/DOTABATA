@@ -90,5 +90,10 @@ namespace Combat
             _agent.Progress(_combatManager);
             enemyRenderer.UpdateAnimator(targeter.CurrentTarget);
         }
+
+        protected override void OnDie(UnitBase attacker)
+        {
+            _combatManager.EnemyManager.OnEnemyDie(this);
+        }
     }
 }

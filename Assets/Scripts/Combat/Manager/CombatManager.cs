@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Combat.Actions;
 using UnityEngine;
+using Game.StaticData;
 
 namespace Combat
 {
@@ -46,6 +47,9 @@ namespace Combat
         public void Initialize()
         {
             _stageManager.Initialize();
+
+            var stageData = StaticDataManager.Instance.GetStageByKey(0);
+            _enemyManager.Initialize(stageData.monsters);
 
             _myCharacter = _characterManager.CreateCharacter(0, this);
             _stageManager.StartStage(0);
