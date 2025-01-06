@@ -8,18 +8,30 @@ namespace Combat
     {
         public event System.Action<Vector2> OnMovementRequested;
         public event System.Action<ITargetable> OnAttackRequested;
-        public ITargetable CurrentTarget => _targeter.CurrentTarget;
+        public ITargetable CurrentTarget => _aiData.currentTarget;
 
-        private EnemyTargeter _targeter;
+        [SerializeField]
+        private ContextSolver movementSolver;
+        [SerializeField]
+        private EnemyTargeter targeter;
+        [SerializeField]
+        private ObstacleDetector obstacleDetector;
+        [SerializeField]
+        private List<SteeringBehaviour> steeringBehaviours;
+
         private EnemyUnit _self;
 
         private AIData _aiData = new();
 
-        public void Initialize(EnemyTargeter targeter, EnemyUnit self, float attackRange)
+        public void Initialize(EnemyUnit self, float attackRange, float agentRadius)
         {
-            _targeter = targeter;
             _self = self;
+
+            _aiData.agentRadius = agentRadius;
             _aiData.attackRange = attackRange;
+            _aiData.detectRange = 2000f;
+
+            targeter.Initialize(_aiData);
         }
 
         public void Progress(CombatManager combatManager)
@@ -29,9 +41,10 @@ namespace Combat
 
         private void PerformDetection(CombatManager combatManager) 
         {
-            _targeter.FindTarget(combatManager.CharacterManager);
+            targeter.FindTarget(combatManager.CharacterManager);
+            obstacleDetector.Detect(_aiData);
 
-            var currentTarget = _targeter.CurrentTarget;
+            var currentTarget = _aiData.currentTarget;
             if (currentTarget == null)
             {
                 return;
@@ -47,8 +60,12 @@ namespace Combat
             }
             else
             {
-                Vector3 dir = (currentTarget.GetPosition() - _self.GetPosition()).normalized;
-                OnMovementRequested?.Invoke(dir);
+                Vector2 solvedDirection = Vector2.zero;
+                if (_aiData.currentTarget != null) 
+                {
+                    solvedDirection = movementSolver.GetDirectionToMove(steeringBehaviours, _aiData);
+                }
+                OnMovementRequested?.Invoke(solvedDirection);
             }
         }
     }

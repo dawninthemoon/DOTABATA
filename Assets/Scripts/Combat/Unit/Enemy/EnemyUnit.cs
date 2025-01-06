@@ -8,8 +8,6 @@ namespace Combat
     public class EnemyUnit : UnitBase, ITargetable
     {
         [SerializeField]
-        private EnemyTargeter targeter;
-        [SerializeField]
         private EnemyRenderer enemyRenderer;
         [SerializeField]
         protected EnemyAgent _agent;
@@ -55,7 +53,7 @@ namespace Combat
             {
                 _attackScript = new EnemyRangeAttack();
             }
-            _agent.Initialize(targeter, this, _data.attackRange);
+            _agent.Initialize(this, _data.attackRange, GetComponent<CircleCollider2D>().radius);
         }
 
         private void InitializeStatus()
@@ -78,6 +76,11 @@ namespace Combat
 
         private void OnAttackRequested(ITargetable target)
         {
+            if (Direction == Vector2.zero)
+            {
+                _direction = (target.GetPosition() - GetPosition()).normalized;
+            }
+
             enemyRenderer.ChangeState(EnemyRenderer.State.Attack, true);
             _attackScript.RequestAttack(this, _combatManager);
             OnAttack();
@@ -88,7 +91,7 @@ namespace Combat
             ProcessAttackWaitTimer();
 
             _agent.Progress(_combatManager);
-            enemyRenderer.UpdateAnimator(targeter.CurrentTarget);
+            enemyRenderer.UpdateAnimator(Direction, _agent.CurrentTarget);
         }
 
         protected override void OnDie(UnitBase attacker)

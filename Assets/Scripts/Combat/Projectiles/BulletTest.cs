@@ -9,6 +9,8 @@ namespace Combat
     {
         [SerializeField]
         private ColliderTargeter targeter;
+        [SerializeField]
+        private float lifeTime;
 
         private Vector3 _dir;
         private int _damage;
@@ -27,6 +29,8 @@ namespace Combat
             _damage = damage;
             _moveSpeed = moveSpeed;
             _initialized = true;
+
+            lifeTime = 0f;
         }
 
         private void Update()
@@ -34,6 +38,12 @@ namespace Combat
             if (!_initialized)
             {
                 return;
+            }
+
+            lifeTime -= Time.deltaTime;
+            if (lifeTime <= 0f)
+            {
+                Release();
             }
 
             transform.position += _dir * _moveSpeed * Time.deltaTime;

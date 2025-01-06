@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using Game.Core;
 
 namespace Combat
 {
     public class CharacterManager : MonoBehaviour
     {
-        [SerializeField, Header("Temp")]
-        private CharacterUnit characterPrefab;
-
         private List<CharacterUnit> _characterList;
 
         private void Awake()
@@ -24,6 +22,7 @@ namespace Combat
 
         public CharacterUnit CreateCharacter(int characterKey, CombatManager combatManager)
         {
+            var characterPrefab = AssetLoader.Instance.GetComponentObject<CharacterUnit>($"Prefabs/Character/Character{characterKey:D2}");
             var characterUnit = Instantiate(characterPrefab);
             
             characterUnit.SetDependency(combatManager);

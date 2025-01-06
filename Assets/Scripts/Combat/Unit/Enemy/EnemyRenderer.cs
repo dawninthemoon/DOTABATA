@@ -51,14 +51,15 @@ namespace Combat
             armAnimator.ChangeAnimation(state.ToString());
         }
 
-        public void UpdateAnimator(ITargetable target)
+        public void UpdateAnimator(Vector2 dir, ITargetable target)
         {
             Vector2 diff = Vector2.right;
             float angle = 0f;
+
             if (target != null)
             {
                 diff = target.GetPosition() - (Vector2)transform.position;
-                angle = Vector2.Angle(Vector2.down, diff);
+                angle = Vector2.Angle(Vector2.down, dir);
             }
             
             ChangeArmDirection();

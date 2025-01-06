@@ -12,7 +12,6 @@ namespace Combat
             var bullet = combatManager.ProjectileManager.CreateProjectile("EnemyBullet", bulletPos);
 
             bullet.Initialize(attacker.Direction, attacker.Damage, 200f);
-
         }
     }
 }

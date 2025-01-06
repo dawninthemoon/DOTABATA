@@ -6,27 +6,26 @@ using UnityEngine;
 
 namespace Combat
 {
-    public class EnemyTargeter : TargeterBase
+    public class EnemyTargeter : MonoBehaviour
     {
-        private float _detectRange;
+        private AIData _aiData;
 
-        public void Initialize(float detectRange)
+        public void Initialize(AIData aiData)
         {
-            Reset();
-            _detectRange = detectRange;
+            _aiData = aiData;
         }
 
         public void FindTarget(CharacterManager characterManager)
         {
-            if (_currentTarget != null && !_currentTarget.CanTarget())
+            if (_aiData.currentTarget != null && !_aiData.currentTarget.CanTarget())
             {
-                _currentTarget = null;
+                _aiData.currentTarget = null;
             }
 
             var characterList = characterManager.GetCharacterList();
             if (characterList.Count == 0)
             {
-                _currentTarget = null;
+                _aiData.currentTarget = null;
                 return;
             }
 
@@ -34,7 +33,7 @@ namespace Combat
             {
                 if (target.CanTarget())
                 {
-                    _currentTarget = target;
+                    _aiData.currentTarget = target;
                 }
             }
         }

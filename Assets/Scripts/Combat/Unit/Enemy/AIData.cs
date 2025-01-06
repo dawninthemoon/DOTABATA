@@ -6,7 +6,12 @@ namespace Combat
 {
     public class AIData
     {
+        public float agentRadius;
+
         public ITargetable currentTarget;
         public float attackRange;
+        public float detectRange;
+        
+        public List<Collider2D> obstacles;
     }
 }
