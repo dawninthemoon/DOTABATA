@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 7579154148009629970}
   - component: {fileID: 27770389365505666}
   - component: {fileID: 4346185729259752501}
+  - component: {fileID: 6028625478652285322}
   - component: {fileID: 6726687607253030970}
   - component: {fileID: 8915833222928440242}
   m_Layer: 7
@@ -412,7 +413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectRoot: {fileID: 3084025008840415134}
   enemyRenderer: {fileID: 2573291138180712958}
-  _agent: {fileID: 4346185729259752501}
+  agent: {fileID: 4346185729259752501}
+  raycastController: {fileID: 6028625478652285322}
 --- !u!114 &4346185729259752501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,6 +433,21 @@ MonoBehaviour:
   steeringBehaviours:
   - {fileID: 4902867228293826603}
   - {fileID: 3814715541738201551}
+--- !u!114 &6028625478652285322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313525148043539256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87bcfbebaa4ad74c8df9a7116f4c27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!58 &6726687607253030970
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -12,11 +12,14 @@ namespace Combat
         private CharacterRenderer characterRenderer;
         [SerializeField]
         private ColliderTargeter targeter;
+        [SerializeField]
+        private RaycastController raycastController;
 
         private InputStatus _inputStatus;
         public override TargetFaction Faction => TargetFaction.Character;
 
-        public override int MaxHP => _data.hp;
+        public override int MaxHP => _data.hp * 100000;
+//        public override int MaxHP => _data.hp;
         public override int AttackPower => _weapon.Data.attack;
         public override float AttackSpeed => _weapon.Data.attackSpeed;
         public override int Damage => AttackPower;
@@ -48,6 +51,8 @@ namespace Combat
 
             targeter.Reset();
             targeter.SetDetectRange(100f);
+
+            raycastController.Initialize(GetComponent<BoxCollider2D>().size * 0.5f);
         }
 
         private void InitializeStatus()
@@ -58,6 +63,12 @@ namespace Combat
         public void SetInput(InputStatus status)
         {
             _inputStatus = status;
+        }
+
+        public void Move(Vector2 moveAmount)
+        {
+            moveAmount = raycastController.ProcessMovement(GetPosition(), moveAmount);
+            AddPosition(moveAmount);
         }
 
         public override void Progress()

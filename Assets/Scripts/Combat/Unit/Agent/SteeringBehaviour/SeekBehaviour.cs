@@ -12,9 +12,9 @@ namespace Combat
 
         public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData) 
         {
-            if (aiData.currentTarget != null) 
+            if (aiData.detectedTarget != null) 
             {
-                _targetPositionCached = aiData.currentTarget.GetPosition();
+                _targetPositionCached = aiData.detectedTarget.GetPosition();
             }
             else
             {
@@ -23,7 +23,7 @@ namespace Combat
 
             if (Vector2.Distance(transform.position, _targetPositionCached) < aiData.agentRadius * 0.5f) 
             {
-                aiData.currentTarget = null;
+                //aiData.detectedTarget = null;
                 return (danger, interest);
             }
 

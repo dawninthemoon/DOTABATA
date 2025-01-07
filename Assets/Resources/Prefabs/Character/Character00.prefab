@@ -119,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1439354114185839358}
   - component: {fileID: 8602306456947512209}
+  - component: {fileID: 3235814611733384800}
   - component: {fileID: 1776346320244204745}
   - component: {fileID: 7197287991413529597}
   m_Layer: 6
@@ -160,6 +161,22 @@ MonoBehaviour:
   _effectRoot: {fileID: 4271916118675367551}
   characterRenderer: {fileID: 2038132654849517589}
   targeter: {fileID: 7711756337237795903}
+  raycastController: {fileID: 3235814611733384800}
+--- !u!114 &3235814611733384800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366831547321920427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87bcfbebaa4ad74c8df9a7116f4c27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!61 &1776346320244204745
 BoxCollider2D:
   m_ObjectHideFlags: 0

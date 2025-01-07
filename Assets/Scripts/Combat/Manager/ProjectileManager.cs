@@ -12,7 +12,6 @@ namespace Combat
         public BulletTest CreateProjectile(string name, Vector3 pos)
         {
             var prefab = AssetLoader.Instance.GetComponentObject<BulletTest>($"{ProjectilePathBase}{name}");
-
             var bullet = Instantiate(prefab);
             bullet.transform.position = pos;
 

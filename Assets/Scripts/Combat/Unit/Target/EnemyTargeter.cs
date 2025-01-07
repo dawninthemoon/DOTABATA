@@ -17,15 +17,15 @@ namespace Combat
 
         public void FindTarget(CharacterManager characterManager)
         {
-            if (_aiData.currentTarget != null && !_aiData.currentTarget.CanTarget())
+            if (_aiData.detectedTarget != null && !_aiData.detectedTarget.CanTarget())
             {
-                _aiData.currentTarget = null;
+                _aiData.detectedTarget = null;
             }
 
             var characterList = characterManager.GetCharacterList();
             if (characterList.Count == 0)
             {
-                _aiData.currentTarget = null;
+                _aiData.detectedTarget = null;
                 return;
             }
 
@@ -33,7 +33,7 @@ namespace Combat
             {
                 if (target.CanTarget())
                 {
-                    _aiData.currentTarget = target;
+                    _aiData.detectedTarget = target;
                 }
             }
         }

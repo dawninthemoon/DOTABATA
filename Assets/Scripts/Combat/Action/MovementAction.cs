@@ -15,8 +15,9 @@ namespace Combat.Actions
 
         public override void Execute(CharacterUnit actor)
         {
-            Vector2 moveVector = _direction.normalized * actor.MoveSpeed; 
-            actor.AddPosition(moveVector * Time.deltaTime);
+            Vector2 dir = _direction.normalized;
+            Vector2 moveVector = dir * actor.MoveSpeed * Time.deltaTime;
+            actor.Move(moveVector);
         }
     }
 }

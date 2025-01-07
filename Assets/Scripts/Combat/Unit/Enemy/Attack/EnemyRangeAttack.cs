@@ -8,10 +8,11 @@ namespace Combat
     {
         public void RequestAttack(EnemyUnit attacker, CombatManager combatManager)
         {
-            Vector2 bulletPos = attacker.GetPosition() + attacker.Direction * 40f;
+            Vector2 dir = (attacker.SelectedTarget.GetPosition() - attacker.GetPosition()).normalized;
+            Vector2 bulletPos = attacker.GetPosition() + dir * 40f;
             var bullet = combatManager.ProjectileManager.CreateProjectile("EnemyBullet", bulletPos);
 
-            bullet.Initialize(attacker.Direction, attacker.Damage, 200f);
+            bullet.Initialize(dir, attacker.Damage, 200f);
         }
     }
 }

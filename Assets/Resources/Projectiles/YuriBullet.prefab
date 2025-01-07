@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targeter: {fileID: 793996855840378170}
+  lifeTime: 10
 --- !u!212 &2154248183518351812
 SpriteRenderer:
   m_ObjectHideFlags: 0

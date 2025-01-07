@@ -8,7 +8,8 @@ namespace Combat
     {
         public float agentRadius;
 
-        public ITargetable currentTarget;
+        public ITargetable detectedTarget;
+        public ITargetable selectedTarget;
         public float attackRange;
         public float detectRange;
         

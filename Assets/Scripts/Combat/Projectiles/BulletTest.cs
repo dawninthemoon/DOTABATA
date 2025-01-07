@@ -17,6 +17,8 @@ namespace Combat
         private float _moveSpeed;
         private bool _initialized;
 
+        private float _remainTime;
+
         private void Awake()
         {
             _initialized = false;
@@ -25,12 +27,13 @@ namespace Combat
         public void Initialize(Vector3 dir, int damage, float moveSpeed)
         {
             gameObject.SetActive(true);
+            
             _dir = dir;
             _damage = damage;
             _moveSpeed = moveSpeed;
             _initialized = true;
 
-            lifeTime = 0f;
+            _remainTime = lifeTime;
         }
 
         private void Update()
@@ -40,8 +43,8 @@ namespace Combat
                 return;
             }
 
-            lifeTime -= Time.deltaTime;
-            if (lifeTime <= 0f)
+            _remainTime -= Time.deltaTime;
+            if (_remainTime <= 0f)
             {
                 Release();
             }

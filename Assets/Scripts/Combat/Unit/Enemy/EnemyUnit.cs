@@ -10,7 +10,10 @@ namespace Combat
         [SerializeField]
         private EnemyRenderer enemyRenderer;
         [SerializeField]
-        protected EnemyAgent _agent;
+        protected EnemyAgent agent;
+        [SerializeField]
+        private RaycastController raycastController;
+
         protected Vector2 _direction;
 
         protected StaticDataEnemy _data;
@@ -22,19 +25,20 @@ namespace Combat
         public override int Damage => AttackPower;
 
         public Vector2 Direction => _direction;
+        public ITargetable SelectedTarget => agent.SelectedTarget;
         public override TargetFaction Faction => TargetFaction.Enemy;
         private IEnemyAttack _attackScript;
 
         private void OnEnable()
         {
-            _agent.OnMovementRequested += OnMovementRequested;
-            _agent.OnAttackRequested += OnAttackRequested;
+            agent.OnMovementRequested += OnMovementRequested;
+            agent.OnAttackRequested += OnAttackRequested;
         }
 
         private void OnDisable()
         {
-            _agent.OnMovementRequested -= OnMovementRequested;
-            _agent.OnAttackRequested -= OnAttackRequested;
+            agent.OnMovementRequested -= OnMovementRequested;
+            agent.OnAttackRequested -= OnAttackRequested;
         }
 
         public void Initialize(int enemyKey)
@@ -53,7 +57,10 @@ namespace Combat
             {
                 _attackScript = new EnemyRangeAttack();
             }
-            _agent.Initialize(this, _data.attackRange, GetComponent<CircleCollider2D>().radius);
+
+            float radius = GetComponent<CircleCollider2D>().radius;
+            agent.Initialize(this, _data.attackRange, radius);
+            raycastController.Initialize(Vector2.one * radius);
         }
 
         private void InitializeStatus()
@@ -69,20 +76,28 @@ namespace Combat
             }
 
             _direction = dir;
-            transform.position += (Vector3)_direction * _data.moveSpeed * Time.deltaTime;
+
+            Vector2 moveAmount = _direction * _data.moveSpeed * Time.deltaTime;
+            moveAmount = raycastController.ProcessMovement(GetPosition(), moveAmount);
+            
+            transform.position += (Vector3)moveAmount;
 
             enemyRenderer.ChangeState(EnemyRenderer.State.Move, false);
         }
 
-        private void OnAttackRequested(ITargetable target)
+        private void OnAttackRequested()
         {
-            if (Direction == Vector2.zero)
+            if (SelectedTarget == null)
             {
-                _direction = (target.GetPosition() - GetPosition()).normalized;
+                return;
             }
 
             enemyRenderer.ChangeState(EnemyRenderer.State.Attack, true);
             _attackScript.RequestAttack(this, _combatManager);
+
+            Vector2 dir = (SelectedTarget.GetPosition() - GetPosition()).normalized;
+            enemyRenderer.UpdateAnimator(dir, agent.SelectedTarget);
+
             OnAttack();
         }
 
@@ -90,8 +105,8 @@ namespace Combat
         {  
             ProcessAttackWaitTimer();
 
-            _agent.Progress(_combatManager);
-            enemyRenderer.UpdateAnimator(Direction, _agent.CurrentTarget);
+            agent.Progress(_combatManager);
+            enemyRenderer.UpdateAnimator(Direction, agent.DetectedTarget);
         }
 
         protected override void OnDie(UnitBase attacker)
