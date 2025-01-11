@@ -28,12 +28,16 @@ namespace Combat
         private SpawnArea[] spawnAreaList;
         [SerializeField]
         private VehicleTest vehicle;
+        [SerializeField]
+        private int minWaveStartCost = 1;
         
         private int _currentWave;
         public int CurrentWave => _currentWave;
         public int WaveDisplay => _currentWave + 1;
 
         private bool _waveProcessing;
+        private float _remainNextWaveSec;
+
         private StaticDataStage _stage;
         private CombatManager _combatManager;
 
@@ -56,6 +60,7 @@ namespace Combat
         public void StartWave(int waveKey)
         {
             _currentWave = waveKey;
+            _remainNextWaveSec = -1f;
             _waveProcessing = true;
 
             var selected = _combatManager.EnemyManager.SelectEnemy(_stage.stageKey, GetCurrentCost());
@@ -82,6 +87,27 @@ namespace Combat
                 return;
             }
 
+            int remainActiveCost = _combatManager.EnemyManager.GetActiveEnemyCostSum();
+    
+            if (remainActiveCost == 0)
+            {
+                StartWave(_currentWave + 1);
+            }
+            else if (remainActiveCost <= minWaveStartCost)
+            {
+                if (_remainNextWaveSec > 0f)
+                {
+                    _remainNextWaveSec -= Time.deltaTime;
+                    if (_remainNextWaveSec <= 0f)
+                    {
+                        StartWave(_currentWave + 1);
+                    }
+                }
+                else
+                {
+                    _remainNextWaveSec = remainActiveCost;
+                }
+            }
         }
 
         public int GetCurrentCost()

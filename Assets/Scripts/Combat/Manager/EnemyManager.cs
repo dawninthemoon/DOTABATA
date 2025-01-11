@@ -87,8 +87,23 @@ namespace Combat
             ReleaseEnemy(enemy);
         }
 
+        public int GetActiveEnemyCostSum()
+        {
+            int sum = 0;
+            foreach (var enemy in _enemyList)
+            {
+                sum += enemy.Data.spawnCost;
+            }
+            return sum;
+        }
+
         private void ReleaseEnemy(EnemyUnit enemy)
         {
+            if (_enemyList.Contains(enemy))
+            {
+                _enemyList.Remove(enemy);
+            }
+
             if (_enemyObjectPool.TryGetValue(enemy.Data.keyIndex, out var objectPool))
             {
                 objectPool.ReturnObject(enemy);

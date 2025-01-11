@@ -57,6 +57,8 @@ namespace Combat
 
         private void Update()
         {
+            _stageManager.ProcessWave();
+
             _inputProcessor.ProcessInput();
             
             _myCharacter.SetInput(_inputProcessor.Status);

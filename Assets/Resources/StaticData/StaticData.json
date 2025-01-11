@@ -30,7 +30,7 @@
       "spareMagazines": 4,
       "reloadTime": 1.2,
       "attack": 6,
-      "attackSpeed": 1,
+      "attackSpeed": 5,
       "bulletSpeed": 1000,
       "bulletRange": 1500,
       "knockbackPower": 0,
