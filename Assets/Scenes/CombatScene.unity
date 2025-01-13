@@ -676,6 +676,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1087815320}
+  - component: {fileID: 1087815323}
   - component: {fileID: 1087815321}
   - component: {fileID: 1087815322}
   m_Layer: 9
@@ -729,7 +730,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -797,6 +798,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1087815323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087815319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c86967b2bb9f8544bb73e894e009864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1088571957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,6 +1511,7 @@ MonoBehaviour:
     bottomRight: {x: 320, y: -180}
     offset: {x: 0, y: 0}
   vehicle: {fileID: 1919175302}
+  minWaveStartCost: 1
 --- !u!1 &1762934399
 GameObject:
   m_ObjectHideFlags: 0

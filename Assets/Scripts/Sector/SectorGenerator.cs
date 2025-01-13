@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sector
 {
@@ -13,6 +14,11 @@ namespace Sector
 
         private static readonly int[] DirectonRow = { -1, -1, -1, 0, 0, 1, 1, 1 };
         private static readonly int[] DirectonColumn = { -1, 0, 1, -1, 1, -1, 0, 1 };
+        
+        private void Awake()
+        {
+            nodePrefab.gameObject.SetActive(false);
+        }
 
         public List<SectorNode> GenerateNodes(SectorGrid sectorGrid, SectorAdjustNodes adjustNodes)
         {
@@ -20,37 +26,30 @@ namespace Sector
             bool[, ] nodeGrid = new bool[sectorGrid.RowCount, sectorGrid.ColumnCount];
             adjustNodes.CreateList(sectorGrid.RowCount * sectorGrid.ColumnCount);
 
-            int startNodeKey = -1;
-            Rowcol startRowcol = new Rowcol();
+            Rowcol startRowcol = new Rowcol(Random.Range(0, sectorGrid.RowCount), 0);
+            var startNode = CreateNode(startRowcol.row, startRowcol.column, sectorGrid, nodeGrid);
+            startNode.GetComponent<Image>().color = Color.yellow;
+            nodeList.Add(startNode);
+
+            for (int i = 0; i < DirectonRow.Length; ++i)
+            {
+                int row = startRowcol.row + DirectonRow[i];
+                int col = startRowcol.column + DirectonColumn[i];
+                if (IsValidNode(row, col, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
+                {
+                    var newNode = CreateNode(row, col, sectorGrid, nodeGrid);
+                    nodeList.Add(newNode);
+                }
+            }
 
             for (int row = 0; row < sectorGrid.RowCount; ++row)
             {
                 for (int col = 0; col < sectorGrid.ColumnCount; ++col)
                 {
-                    if (Random.value < 0.7f)
+                    if (!nodeGrid[row, col] && Random.value < 0.7f)
                     {
-                        SectorNode newNode = Instantiate(nodePrefab, nodeParent);
-                        newNode.Initialize(row * sectorGrid.ColumnCount + col, row, col);
-
-                        if (startNodeKey == -1)
-                        {
-                            startNodeKey = row * sectorGrid.ColumnCount + col;
-                            startRowcol = new Rowcol() { row = row, column = col };
-                        }
-
-                        Vector2 topLeft = sectorGrid.GetGridTopLeft(row, col);
-                        Vector2 bottomRight = sectorGrid.GetGridBottomRight(row, col);
-
-                        topLeft += new Vector2(10f, -10f);
-                        bottomRight += new Vector2(-10f, 10f);
-
-                        float randX = Random.Range(topLeft.x, bottomRight.x);
-                        float randY = Random.Range(topLeft.y, bottomRight.y);
-
-                        newNode.transform.localPosition = new Vector3(randX, randY);
+                        var newNode = CreateNode(row, col, sectorGrid, nodeGrid);
                         nodeList.Add(newNode);
-
-                        nodeGrid[row, col] = true;
                     }
                 }
             }
@@ -58,7 +57,7 @@ namespace Sector
             for (int i = 0; i < nodeList.Count; ++i)
             {
                 var target = nodeList[i];
-                if (target.NodeKey == startNodeKey)
+                if (target.NodeKey == startNode.NodeKey)
                 {
                     continue;
                 }
@@ -87,6 +86,8 @@ namespace Sector
                 }
             }
 
+            nodeList[nodeList.Count - 1].GetComponent<Image>().color = Color.red;
+
             return nodeList;
 
             void AdjustNodes(int originRow, int originCol)
@@ -105,6 +106,26 @@ namespace Sector
                     }
                 }
             }
+        }
+
+        private SectorNode CreateNode(int row, int column, SectorGrid sectorGrid, bool[,] nodeGrid)
+        {
+            SectorNode newNode = Instantiate(nodePrefab, nodeParent);
+            newNode.Initialize(row * sectorGrid.ColumnCount + column, row, column);
+
+            Vector2 topLeft = sectorGrid.GetGridTopLeft(row, column);
+            Vector2 bottomRight = sectorGrid.GetGridBottomRight(row, column);
+
+            topLeft += new Vector2(10f, -10f);
+            bottomRight += new Vector2(-10f, 10f);
+
+            float randX = Random.Range(topLeft.x, bottomRight.x);
+            float randY = Random.Range(topLeft.y, bottomRight.y);
+
+            newNode.transform.localPosition = new Vector3(randX, randY);
+
+            nodeGrid[row, column] = true;
+            return newNode;
         }
 
         private bool IsValidDestination(Rowcol start, Rowcol destination, int maxRow, int maxCol, bool[, ] nodes)

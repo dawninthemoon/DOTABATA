@@ -55,6 +55,13 @@ namespace Combat
             }
         }
 
+        public void ReloadImmediate()
+        {
+            _isReloading = false;
+            _remainMagazines = MaxMagazines;
+            _remainSpareMagazines = SpareMagazines;
+        }
+
         public bool TryReload()
         {
             bool succeed = false;

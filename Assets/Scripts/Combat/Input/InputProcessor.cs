@@ -26,7 +26,8 @@ namespace Combat
             input.y = Input.GetAxisRaw(VerticalAxis);
 
             _status.direction = input;
-            _status.mouseDown = Input.GetMouseButtonDown(0);
+            _status.mouse0 = Input.GetMouseButton(0);
+            _status.interaction = Input.GetKeyDown(KeyCode.E);
         }
     }
 }

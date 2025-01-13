@@ -21,6 +21,12 @@
       "actionType": 1,
       "inputType": 1,
       "characterKey": 0
+    },
+    {
+      "keyIndex": 2,
+      "actionType": 2,
+      "inputType": 2,
+      "characterKey": 0
     }
   ],
   "StaticDataWeapon": [

@@ -13,6 +13,7 @@ public enum InputType
 {
     Direction = 0,
     LeftClick = 1,
+    Interact = 2,
 }
 
 public enum ActionType 
@@ -20,4 +21,5 @@ public enum ActionType
     None = -1,
     DefaultMove = 0,
     Fire = 1,
+    Interact = 2,
 }
