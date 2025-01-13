@@ -85,7 +85,7 @@ namespace Combat
             moveAction.Execute(this);
                 
             CharacterRenderer.ArmState armState = CharacterRenderer.ArmState.Idle;
-            if (_inputStatus.mouseDown)
+            if (_inputStatus.mouse0)
             {
                 if (_weapon.CanAttack())
                 {
@@ -102,6 +102,10 @@ namespace Combat
                         armState = CharacterRenderer.ArmState.Reload;
                     }
                 }
+            }
+            if (_inputStatus.interaction)
+            {
+                _actionManager.GetActionInstance(this, InputType.Interact).Execute(this);
             }
             characterRenderer.ProcessInput(_inputStatus.direction, armState);
 

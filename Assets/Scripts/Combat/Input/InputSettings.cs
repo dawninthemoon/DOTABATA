@@ -7,12 +7,14 @@ namespace Combat
     public class InputStatus
     {
         public Vector2 direction;
-        public bool mouseDown;
+        public bool mouse0;
+        public bool interaction;
 
         public void Reset()
         {
             direction = Vector2.zero;
-            mouseDown = false;
+            mouse0 = false;
+            interaction = false;
         }
     }
 }

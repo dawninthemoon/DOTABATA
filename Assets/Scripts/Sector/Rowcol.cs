@@ -6,4 +6,10 @@ public struct Rowcol
 {
     public int row;
     public int column;
+
+    public Rowcol(int r, int c)
+    {
+        row = r;
+        column = c;
+    }
 }

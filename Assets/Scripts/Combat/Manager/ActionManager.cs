@@ -23,6 +23,7 @@ namespace Combat.Actions
             {
                 { ActionType.DefaultMove, new MovementAction()},
                 { ActionType.Fire, new FireAction() },
+                { ActionType.Interact, new Interaction() },
             };
 
             foreach (var action in _actionDictionary.Values)
