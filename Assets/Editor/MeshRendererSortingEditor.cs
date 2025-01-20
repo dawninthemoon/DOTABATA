@@ -16,8 +16,6 @@ public class MeshRendererSortingEditor : Editor
         base.OnInspectorGUI();
 
         MeshRenderer renderer = target as MeshRenderer;
-
-
         var layers = SortingLayer.layers;
 
         EditorGUILayout.BeginHorizontal();
@@ -35,6 +33,7 @@ public class MeshRendererSortingEditor : Editor
         if (EditorGUI.EndChangeCheck())
         {
             renderer.sortingOrder = order;
+            EditorUtility.SetDirty(renderer);
         }
         EditorGUILayout.EndHorizontal();
 

@@ -11,9 +11,13 @@ namespace Combat
         [SerializeField]
         private CharacterRenderer characterRenderer;
         [SerializeField]
+        private CharacterUI characterUI;
+        [SerializeField]
         private ColliderTargeter targeter;
         [SerializeField]
         private RaycastController raycastController;
+        [SerializeField]
+        private InteractiveArea interactiveArea;
 
         private InputStatus _inputStatus;
         public override TargetFaction Faction => TargetFaction.Character;
@@ -49,6 +53,7 @@ namespace Combat
 
             InitializeStatus();
 
+            interactiveArea.Reset();
             targeter.Reset();
             targeter.SetDetectRange(100f);
 
@@ -77,6 +82,8 @@ namespace Combat
             {
                 return;
             }
+
+            characterUI.SetInteractionState(interactiveArea.Selected != null);
 
             base.Progress();
 
