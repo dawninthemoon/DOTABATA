@@ -22,7 +22,7 @@ namespace Combat
         public Transform EffectRoot => (_effectRoot != null) ? _effectRoot : transform;
         private float _attackWaitTimer;
         protected CombatManager _combatManager;
-        public event System.Action<UnitBase> OnDisappear;
+        public event System.Action<ITargetable> OnDisappear;
 
         protected virtual void Start()
         {

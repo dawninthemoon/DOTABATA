@@ -31,6 +31,7 @@ namespace Combat
             _aiData.agentRadius = agentRadius;
             _aiData.attackRange = attackRange;
             _aiData.detectRange = 2000f;
+            _aiData.targetType = self.Data.targetType;
 
             targeter.Initialize(_aiData);
         }
@@ -42,7 +43,7 @@ namespace Combat
 
         private void PerformDetection(CombatManager combatManager) 
         {
-            targeter.FindTarget(combatManager.CharacterManager);
+            targeter.FindTarget(combatManager);
             obstacleDetector.Detect(_aiData);
 
             var detectedTarget = _aiData.detectedTarget;

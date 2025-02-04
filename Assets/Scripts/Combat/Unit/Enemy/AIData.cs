@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.StaticData;
 using UnityEngine;
 
 namespace Combat
@@ -12,6 +13,7 @@ namespace Combat
         public ITargetable selectedTarget;
         public float attackRange;
         public float detectRange;
+        public EnemyTargetType targetType;
         
         public List<Collider2D> obstacles;
     }

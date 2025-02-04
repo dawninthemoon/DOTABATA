@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Combat;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using Game.StaticData;
 
 namespace Combat
 {
@@ -15,17 +16,30 @@ namespace Combat
             _aiData = aiData;
         }
 
-        public void FindTarget(CharacterManager characterManager)
+        public void FindTarget(CombatManager combatManager)
         {
             if (_aiData.detectedTarget != null && !_aiData.detectedTarget.CanTarget())
             {
                 _aiData.detectedTarget = null;
             }
 
+            switch (_aiData.targetType)
+            {
+            case EnemyTargetType.OnlyCharacter:
+                FindTarget_OnlyCharacter(combatManager.CharacterManager);
+                break;
+            case EnemyTargetType.OnlyCore:
+                FindTarget_OnlyCore(combatManager.VehicleManager);
+                break;
+            }
+        }
+
+        private void FindTarget_OnlyCharacter(CharacterManager characterManager)
+        {
             var characterList = characterManager.GetCharacterList();
             if (characterList.Count == 0)
             {
-                _aiData.detectedTarget = null;
+                _aiData.selectedTarget = _aiData.detectedTarget = null;
                 return;
             }
 
@@ -35,6 +49,18 @@ namespace Combat
                 {
                     _aiData.detectedTarget = target;
                 }
+            }
+        }
+        
+        private void FindTarget_OnlyCore(VehicleManager vehicleManager)
+        {
+            if (vehicleManager.Core.CanTarget())
+            {
+                _aiData.detectedTarget = vehicleManager.Core;
+            }
+            else
+            {
+                _aiData.selectedTarget = _aiData.detectedTarget = null;
             }
         }
     }

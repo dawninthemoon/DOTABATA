@@ -8,7 +8,8 @@ namespace Combat
     {
         public TargetFaction Faction { get; }
         public Vector2 GetPosition();
-        public event System.Action<UnitBase> OnDisappear;
+        public event System.Action<ITargetable> OnDisappear;
         public bool CanTarget();
+        public void ReceiveDamage(int damage, UnitBase attacker = null);
     }
 }

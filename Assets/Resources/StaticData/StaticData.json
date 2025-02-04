@@ -54,7 +54,8 @@
       "attackRange": 40,
       "spawnCost": 1,
       "spawnType": 0,
-      "enemyAttackType": 0
+      "enemyAttackType": 0,
+      "targetType": 0
     },
     {
       "keyIndex": 1,
@@ -66,7 +67,21 @@
       "attackRange": 100,
       "spawnCost": 2,
       "spawnType": 1,
-      "enemyAttackType": 1
+      "enemyAttackType": 1,
+      "targetType": 1
+    },
+    {
+      "keyIndex": 2,
+      "hp": 20,
+      "attack": 10,
+      "moveSpeed": 100,
+      "attackSpeed": 1,
+      "moveType": 0,
+      "attackRange": 100,
+      "spawnCost": 2,
+      "spawnType": 1,
+      "enemyAttackType": 1,
+      "targetType": 1
     }
   ],
   "StaticDataStage": [

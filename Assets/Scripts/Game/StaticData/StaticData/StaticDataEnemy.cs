@@ -4,24 +4,6 @@ using System.Collections.Generic;
 
 namespace Game.StaticData
 {
-    public enum MonsterMoveType
-    {
-        Ground,
-        Air,
-    }
-
-    public enum SpawnType
-    {
-        Air,
-        Vehicle,
-    }
-
-    public enum EnemyAttackType
-    {
-        Melee,
-        Range,
-    }
-
     public class StaticDataEnemyList : StaticDataWrapper<StaticDataEnemy>
     {
         private Dictionary<int, StaticDataEnemy> _dataByKey;
@@ -53,5 +35,31 @@ namespace Game.StaticData
         public int spawnCost;
         public SpawnType spawnType;
         public EnemyAttackType enemyAttackType;
+        public EnemyTargetType targetType;
+    }
+
+    public enum MonsterMoveType
+    {
+        Ground,
+        Air,
+    }
+
+    public enum SpawnType
+    {
+        Air,
+        Vehicle,
+    }
+
+    public enum EnemyAttackType
+    {
+        Melee,
+        Range,
+    }
+
+    public enum EnemyTargetType
+    {
+        OnlyCharacter = 0,
+        OnlyCore = 1,
+        All = 2,
     }
 }

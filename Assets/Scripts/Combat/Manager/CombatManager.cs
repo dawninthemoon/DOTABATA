@@ -26,6 +26,9 @@ namespace Combat
 
         private ProjectileManager _projectileManager;
         public ProjectileManager ProjectileManager => _projectileManager;
+
+        private VehicleManager _vehicleManager;
+        public VehicleManager VehicleManager => _vehicleManager;
     #endregion
 
         private CharacterUnit _myCharacter;
@@ -38,6 +41,8 @@ namespace Combat
             _effectManager = GetComponentInChildren<EffectManager>();
             _projectileManager = GetComponentInChildren<ProjectileManager>();
             _stageManager = GetComponentInChildren<StageManager>();
+            _vehicleManager = GetComponentInChildren<VehicleManager>();
+            
             _actionManager = new(this);
             _inputProcessor = new();
 
@@ -50,6 +55,8 @@ namespace Combat
 
             var stageData = StaticDataManager.Instance.GetStageByKey(0);
             _enemyManager.Initialize(stageData.monsters);
+
+            _vehicleManager.Initialize();
 
             _myCharacter = _characterManager.CreateCharacter(0, this);
             _stageManager.StartStage(0);
