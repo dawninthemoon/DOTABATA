@@ -47,6 +47,7 @@ namespace Combat
             _inputProcessor = new();
 
             _stageManager.SetDependency(this);
+            _vehicleManager.SetDependency(this);
         }
 
         public void Initialize()

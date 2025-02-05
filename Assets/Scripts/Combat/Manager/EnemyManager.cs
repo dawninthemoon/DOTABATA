@@ -10,6 +10,10 @@ namespace Combat
 {
     public class EnemyManager : MonoBehaviour
     {
+        [SerializeField]
+        private EnemyVehicle enemyVehicle;
+        public EnemyVehicle EnemyVehicle => enemyVehicle;
+
         private Dictionary<int, ObjectPool<EnemyUnit>> _enemyObjectPool;
         private List<EnemyUnit> _enemyList;
 
@@ -36,6 +40,8 @@ namespace Combat
                     _enemyObjectPool.Add(enemyKey, enemyPool);
                 }
             }
+
+            enemyVehicle.Initialize();
         }
 
         public EnemyUnit CreateEnemy(int enemyKey, CombatManager combatManager)

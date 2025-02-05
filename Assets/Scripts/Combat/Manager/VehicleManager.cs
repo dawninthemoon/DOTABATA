@@ -10,9 +10,21 @@ namespace Combat
         private VehicleCore vehicleCore;
         public VehicleCore Core => vehicleCore;
 
+        [SerializeField]
+        private PlayerTurret playerTurret;
+
+        private CombatManager _combatManager;
+
         public void Initialize()
         {
             vehicleCore.Initialize();
+            playerTurret.Initialize();
+        }
+
+        public void SetDependency(CombatManager combatManager)
+        {
+            _combatManager = combatManager;
+            playerTurret.SetDependency(combatManager);
         }
     }
 }

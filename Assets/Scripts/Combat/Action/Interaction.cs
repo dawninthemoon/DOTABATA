@@ -17,5 +17,29 @@ namespace Combat.Actions
                 }
             }
         }
+        
+        public void Progress(CharacterUnit actor)
+        {
+            var colliders = Physics2D.OverlapCircleAll(actor.GetPosition(), 16f);
+            foreach (var collider in colliders)
+            {
+                if (collider.TryGetComponent(out IProgressiveInteractable interactable))
+                {
+                    interactable.InteractProgress(actor);
+                }
+            }
+        }
+
+        public void InteractionEnd(CharacterUnit actor)
+        {
+            var colliders = Physics2D.OverlapCircleAll(actor.GetPosition(), 16f);
+            foreach (var collider in colliders)
+            {
+                if (collider.TryGetComponent(out IProgressiveInteractable interactable))
+                {
+                    interactable.InteractEnd(actor);
+                }
+            }
+        }
     }
 }

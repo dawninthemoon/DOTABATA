@@ -8,4 +8,10 @@ namespace Combat
     {
         public void Interact(CharacterUnit characterUnit);        
     }
+
+    public interface IProgressiveInteractable
+    {
+        public void InteractProgress(CharacterUnit characterUnit);
+        public void InteractEnd(CharacterUnit characterUnit);
+    }
 }

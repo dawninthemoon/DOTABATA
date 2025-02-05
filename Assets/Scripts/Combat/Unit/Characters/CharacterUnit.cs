@@ -110,10 +110,21 @@ namespace Combat
                     }
                 }
             }
+
+            var interactionInstance = _actionManager.GetActionInstance(this, InputType.Interact) as Interaction;
             if (_inputStatus.interaction)
             {
-                _actionManager.GetActionInstance(this, InputType.Interact).Execute(this);
+                interactionInstance.Execute(this);
             }
+            if (_inputStatus.interactionHolding)
+            {
+                interactionInstance.Progress(this);
+            }
+            if (_inputStatus.interactionEnd)
+            {
+                interactionInstance.InteractionEnd(this);
+            }
+
             characterRenderer.ProcessInput(_inputStatus.direction, armState);
 
             ProcessAttackWaitTimer();

@@ -28,6 +28,8 @@ namespace Combat
             _status.direction = input;
             _status.mouse0 = Input.GetMouseButton(0);
             _status.interaction = Input.GetKeyDown(KeyCode.E);
+            _status.interactionHolding = Input.GetKey(KeyCode.E);
+            _status.interactionEnd = Input.GetKeyUp(KeyCode.E);
         }
     }
 }
