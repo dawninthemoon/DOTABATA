@@ -11,8 +11,11 @@ namespace Combat
         private float _interactingTime;
         private bool _isProcessing;
         private int _remainShells;
+        private float _attackWaitTimer;
 
         private static readonly float TargetInteractingTime = 2f;
+        //private static readonly float FireCooldown = 20f;
+        private static readonly float FireCooldown = 2f;
 
         private CombatManager _combatManager;
 
@@ -24,6 +27,7 @@ namespace Combat
             _isInteracting = false;
             _interactingTime = 0f;
             _isProcessing = false;
+            _attackWaitTimer = 0f;
         }
 
         public void SetDependency(CombatManager combatManager)
@@ -69,22 +73,61 @@ namespace Combat
             var target = _combatManager.EnemyManager.EnemyVehicle;
             if (target != null && target.CurrentHP >= 0)
             {
-                ProcessAttack(target);
+                if (target.CanTarget())
+                {
+                    ProcessAttack(target);
+                }
             }
         }
 
         private void ProcessAttack(EnemyVehicle target)
         {
-            Vector2 diff = target.HitPoint.position - transform.position;
-            float radian = Mathf.Atan2(diff.y, diff.x);
-            float degree = radian * Mathf.Rad2Deg;
-            float myDegree = transform.localRotation.z;
+            Vector2 diff = (target.HitPoint.GetPosition() - (Vector2)transform.position).normalized;
+            float myRadian = GetBulletDegree() * Mathf.Deg2Rad;
+            Vector2 dir = new Vector2(Mathf.Cos(myRadian), Mathf.Sin(myRadian)).normalized;
 
-            if (Mathf.Abs(myDegree - degree) > 5f)
+            Debug.DrawRay(transform.position, dir * 100f, Color.green);
+
+            float dot = Vector2.Dot(diff, dir);
+            if (Mathf.Abs(1f - dot) > 0.0001f)
             {
                 float rotateAmount = -angleRate * Time.deltaTime;
                 transform.Rotate(0f, 0f, rotateAmount);
             }
+            else
+            {
+                ProcessFire();
+            }
+        }
+
+        private void ProcessFire()
+        {
+            if (_attackWaitTimer > 0f)
+            {
+                _attackWaitTimer -= Time.deltaTime;
+            }
+
+            if (_attackWaitTimer <= 0f)
+            {
+                Fire();
+            }
+        }
+
+        private void Fire()
+        {
+            _attackWaitTimer = FireCooldown;
+
+            float radian = GetBulletDegree() * Mathf.Deg2Rad;
+            Vector3 dir = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian)).normalized;
+
+            Vector3 firePos = transform.position + (Vector3)dir;
+            var projectile = _combatManager.ProjectileManager.CreateProjectile("AllyTurretBullet", firePos);
+            projectile.Initialize(dir, 1, 1000);
+        }
+
+        private float GetBulletDegree()
+        {
+            return transform.localRotation.eulerAngles.z + 90f;
         }
     }
 }

@@ -49,7 +49,6 @@ namespace Combat
                 Release();
             }
 
-
             transform.position += _dir * _moveSpeed * Time.deltaTime;
             var targetUnit = targeter.CurrentTarget;
             if (targetUnit != null)

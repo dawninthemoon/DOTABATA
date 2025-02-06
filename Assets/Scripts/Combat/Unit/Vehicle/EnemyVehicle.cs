@@ -7,7 +7,7 @@ namespace Combat
     public class EnemyVehicle : MonoBehaviour
     {
         [field: SerializeField]
-        public Transform HitPoint { get; private set; }
+        public EnemyVehicleHitPoint HitPoint { get; private set; }
 
         private static readonly int MaxHP = 2;
 
@@ -16,12 +16,31 @@ namespace Combat
 
         private void Awake()
         {
-            
+            HitPoint.SetDependency(this);
         }
         
         public void Initialize()
         {
             _currentHP = MaxHP;
+        }
+
+        public void ReceiveDamage(int damage, UnitBase attacker)
+        {
+            _currentHP -= damage;
+            if (_currentHP <= 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            _currentHP = 0;
+        }
+
+        public bool CanTarget()
+        {
+            return _currentHP > 0;
         }
     }
 }
