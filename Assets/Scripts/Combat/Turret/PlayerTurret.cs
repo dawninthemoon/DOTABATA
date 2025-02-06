@@ -62,6 +62,11 @@ namespace Combat
             _isProcessing = true;
             _remainShells = 1;
         }
+
+        public bool CanAttack()
+        {
+            return _remainShells > 0;
+        }
         
         private void Update()
         {
@@ -73,7 +78,7 @@ namespace Combat
             var target = _combatManager.EnemyManager.EnemyVehicle;
             if (target != null && target.CurrentHP >= 0)
             {
-                if (target.CanTarget())
+                if (CanAttack() && target.CanTarget())
                 {
                     ProcessAttack(target);
                 }
@@ -123,6 +128,8 @@ namespace Combat
             Vector3 firePos = transform.position + (Vector3)dir;
             var projectile = _combatManager.ProjectileManager.CreateProjectile("AllyTurretBullet", firePos);
             projectile.Initialize(dir, 1, 1000);
+
+            _remainShells -= 1;
         }
 
         private float GetBulletDegree()
