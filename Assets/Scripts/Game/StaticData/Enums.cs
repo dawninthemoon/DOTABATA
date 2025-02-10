@@ -7,8 +7,8 @@ public enum TargetFaction
     None = -1,
     Character = 0,
     Enemy = 1,
-    AllyTurret = 2,
-    EnemyTurret = 3,
+    AllyVehicleCore = 2,
+    EnemyVehicle = 3,
 }
 
 public enum InputType

@@ -9,7 +9,7 @@ namespace Combat
         private int _currentHP;
         public int CurrentHP => _currentHP;
 
-        public TargetFaction Faction { get => TargetFaction.Character; }
+        public TargetFaction Faction { get => TargetFaction.AllyVehicleCore; }
         public event System.Action<ITargetable> OnDisappear;
 
         private static readonly int MaxHP = 4;

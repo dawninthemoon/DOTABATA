@@ -74,7 +74,7 @@ TrailRenderer:
   m_SortingLayerID: -421254703
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -158,9 +158,9 @@ GameObject:
   - component: {fileID: 2154248183518351812}
   - component: {fileID: 2862347905681672706}
   - component: {fileID: 793996855840378170}
-  - component: {fileID: -8088249457547060538}
+  - component: {fileID: -6401068097849932815}
   m_Layer: 0
-  m_Name: YuriBullet
+  m_Name: EnemyTurretBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,8 +295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4783b93993e2c374290bd26b3af27912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectFaction: 1
---- !u!50 &-8088249457547060538
+  detectFaction: 2
+--- !u!50 &-6401068097849932815
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0

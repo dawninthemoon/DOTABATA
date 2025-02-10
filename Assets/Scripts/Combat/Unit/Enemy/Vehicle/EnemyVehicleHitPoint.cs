@@ -6,7 +6,7 @@ namespace Combat
 {
     public class EnemyVehicleHitPoint : MonoBehaviour, ITargetable
     {
-        public TargetFaction Faction { get => TargetFaction.EnemyTurret; }
+        public TargetFaction Faction { get => TargetFaction.EnemyVehicle; }
         public event System.Action<ITargetable> OnDisappear;
 
         private EnemyVehicle _owner;

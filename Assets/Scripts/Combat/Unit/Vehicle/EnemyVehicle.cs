@@ -8,6 +8,8 @@ namespace Combat
     {
         [field: SerializeField]
         public EnemyVehicleHitPoint HitPoint { get; private set; }
+        [SerializeField]
+        private EnemyTurret turret;
 
         private static readonly int MaxHP = 2;
 
@@ -22,6 +24,12 @@ namespace Combat
         public void Initialize()
         {
             _currentHP = MaxHP;
+            turret.Initialize();
+        }
+
+        public void SetDependency(CombatManager combatManager)
+        {
+            turret.SetDependency(combatManager);
         }
 
         public void ReceiveDamage(int damage, UnitBase attacker)

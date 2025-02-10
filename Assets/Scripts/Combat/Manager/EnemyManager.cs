@@ -44,6 +44,11 @@ namespace Combat
             enemyVehicle.Initialize();
         }
 
+        public void SetDependency(CombatManager combatManager)
+        {
+            enemyVehicle.SetDependency(combatManager);
+        }
+
         public EnemyUnit CreateEnemy(int enemyKey, CombatManager combatManager)
         {
             if (!_enemyObjectPool.TryGetValue(enemyKey, out var objectPool))

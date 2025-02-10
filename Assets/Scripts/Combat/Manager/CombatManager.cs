@@ -48,6 +48,7 @@ namespace Combat
 
             _stageManager.SetDependency(this);
             _vehicleManager.SetDependency(this);
+            _enemyManager.SetDependency(this);
         }
 
         public void Initialize()
@@ -60,7 +61,7 @@ namespace Combat
             _vehicleManager.Initialize();
 
             _myCharacter = _characterManager.CreateCharacter(0, this);
-            _stageManager.StartStage(0);
+            //_stageManager.StartStage(0);
         }
 
         private void Update()
