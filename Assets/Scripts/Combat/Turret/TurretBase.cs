@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Utils;
 using UnityEngine;
 
 namespace Combat
@@ -76,7 +77,9 @@ namespace Combat
             
             if (Mathf.Abs(1f - dot) > 0.0001f)
             {
-                float rotateAmount = -angleRate * Time.deltaTime;
+                float crossProduct = ExMath.Cross(diff, dir);
+                float sign = -Mathf.Sign(crossProduct);
+                float rotateAmount = angleRate * sign * Time.deltaTime;
                 transform.Rotate(0f, 0f, rotateAmount);
             }
             else

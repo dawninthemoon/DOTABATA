@@ -117,6 +117,12 @@ namespace Game.Utils
         public static bool BitmaskContains(this int mask, int other) {
             return ((mask & (1 << other)) != 0);
         }
+
+        public static float Cross(Vector2 v1, Vector2 v2)
+        {
+            float crossProduct = v1.x * v2.y - v1.y * v2.x;
+            return crossProduct;
+        }
     }
 
     public static class ExEnum {
