@@ -16,10 +16,10 @@ namespace Combat
         public CharacterManager CharacterManager => _characterManager;
 
         private EffectManager _effectManager;
-        private EffectManager EffectManager => _effectManager;
+        public EffectManager EffectManager => _effectManager;
 
         private StageManager _stageManager;
-        private StageManager WaveManager => _stageManager;
+        public StageManager WaveManager => _stageManager;
 
         private ActionManager _actionManager;
         public ActionManager ActionManager => _actionManager;
@@ -48,6 +48,7 @@ namespace Combat
 
             _stageManager.SetDependency(this);
             _vehicleManager.SetDependency(this);
+            _projectileManager.SetDependency(this);
             _enemyManager.SetDependency(this);
         }
 
@@ -61,7 +62,7 @@ namespace Combat
             _vehicleManager.Initialize();
 
             _myCharacter = _characterManager.CreateCharacter(0, this);
-            //_stageManager.StartStage(0);
+            _stageManager.StartStage(0);
         }
 
         private void Update()

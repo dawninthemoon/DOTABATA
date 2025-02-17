@@ -26,3 +26,9 @@ public enum ActionType
     Interact = 2,
     ProgressiveInteract = 3,
 }
+
+public enum SpriteDirection
+{
+    Right = 0,
+    Left = 1,
+}

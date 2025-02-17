@@ -96,25 +96,30 @@ namespace Game.Utils
         }
     }
 
-    public static class ExMath {
-        public static float GetDegreeBetween(Vector2 from, Vector2 to) {
+    public static class ExMath 
+    {
+        public static float GetDegreeBetween(Vector2 from, Vector2 to) 
+        {
             Vector2 diff = to - from;
             float radian = Mathf.Atan2(diff.y, diff.x);
             return radian * Mathf.Rad2Deg;
         }
 
-        public static Vector2 GetRotatedPos(Vector2 origin, Vector2 point, float radian) {
+        public static Vector2 GetRotatedPos(Vector2 origin, Vector2 point, float radian) 
+        {
             float rotatedX = (Mathf.Cos(radian) * (point.x - origin.x)) + (Mathf.Sin(radian) * (point.y - origin.y)) + origin.x;
             float rotatedY = (Mathf.Cos(radian) * (point.y - origin.y)) - (Mathf.Sin(radian) * (point.x - origin.x)) + origin.y;
             return new Vector2(rotatedX, rotatedY);
         }
 
-        public static int AddBitMask(this int mask, int targetMask) {
+        public static int AddBitMask(this int mask, int targetMask) 
+        {
             int newmMask = mask | (1 << targetMask);
             return newmMask;
         }
 
-        public static bool BitmaskContains(this int mask, int other) {
+        public static bool BitmaskContains(this int mask, int other) 
+        {
             return ((mask & (1 << other)) != 0);
         }
 
@@ -125,18 +130,24 @@ namespace Game.Utils
         }
     }
 
-    public static class ExEnum {
-        public static T Parse<T>(string str) where T : System.Enum {
+    public static class ExEnum 
+    {
+        public static T Parse<T>(string str) where T : System.Enum 
+        {
             T enumValue = (T)System.Enum.Parse(typeof(T), str);
             return enumValue;
         }
     }
 
-    public static class ExKey {
-        public static KeyCode GetPressedKey() {
+    public static class ExKey 
+    {
+        public static KeyCode GetPressedKey() 
+        {
             KeyCode result = KeyCode.None;
-            for (KeyCode key = KeyCode.None; key < KeyCode.Joystick8Button19; key++) {
-                if (Input.GetKeyDown(key)) {
+            for (KeyCode key = KeyCode.None; key < KeyCode.Joystick8Button19; key++) 
+            {
+                if (Input.GetKeyDown(key)) 
+                {
                     result = key;
                     break;
                 }
@@ -145,28 +156,34 @@ namespace Game.Utils
         }
     }
 
-    public static class ExString {
+    public static class ExString 
+    {
         private static readonly string RegexContainsPrefix = "^.*(";
         private static readonly string RegexContainsSuffix = ").*";
-        public static bool Contains(string str, string pattern) {
+        public static bool Contains(string str, string pattern) 
+        {
             return Regex.Match(str, RegexContainsPrefix + pattern + RegexContainsSuffix).Success;
         }
     }
 
-    public static class ExMouse {
-        public static Vector3 GetMouseWorldPosition() {
+    public static class ExMouse 
+    {
+        public static Vector3 GetMouseWorldPosition() 
+        {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             worldPosition.z = 0f;
             return worldPosition;
         }
 
-        public static bool IsMouseOverCollider(Collider2D collider) {
+        public static bool IsMouseOverCollider(Collider2D collider) 
+        {
             Vector3 mousePosition = GetMouseWorldPosition();
             bool? isOverlaped = Physics2D.OverlapPoint(mousePosition)?.Equals(collider);
             return isOverlaped.HasValue ? isOverlaped.Value : false;
         }
 
-        public static Collider2D GetOverlapedCollider(string layerName) {
+        public static Collider2D GetOverlapedCollider(string layerName) 
+        {
             int layerMask = LayerMask.NameToLayer(layerName);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, 100f, (1 << layerMask));
@@ -174,37 +191,51 @@ namespace Game.Utils
         }
     }
 
-    public static class ExUnity {
-        public static void ToggleGameObject(this GameObject obj) {
+    public static class ExUnity 
+    {
+        public static void ToggleGameObject(this GameObject obj) 
+        {
             obj.SetActive(!obj.activeSelf);
+        }
+
+        public static void SetLocalScaleX(this Transform transform, float scaleX)
+        {
+            transform.localScale = transform.localScale.ChangeXPos(scaleX);
         }
     }
 
-    public static class ExCollection {
-        public static T GetRandomElement<T>(this IList<T> list) {
+    public static class ExCollection 
+    {
+        public static T GetRandomElement<T>(this IList<T> list) 
+        {
             T result = default(T);
             int numOfElements = list.Count;
-            if (numOfElements > 0) {
+            if (numOfElements > 0) 
+            {
                 int randomIndex = Random.Range(0, numOfElements);
                 result = list[randomIndex];
             }
             return result;
         }
 
-        public static T1 GetRandomKey<T1, T2>(this Dictionary<T1, T2> dict) {
+        public static T1 GetRandomKey<T1, T2>(this Dictionary<T1, T2> dict) 
+        {
             T1 result = default(T1);
             int numOfElements = dict.Count;
-            if (numOfElements > 0) {
+            if (numOfElements > 0) 
+            {
                 int randomIndex = Random.Range(0, numOfElements);
                 result = dict.ElementAt(randomIndex).Key;
             }
             return result;
         }
 
-        public static T2 GetRandomValue<T1, T2>(this Dictionary<T1, T2> dict) {
+        public static T2 GetRandomValue<T1, T2>(this Dictionary<T1, T2> dict)
+         {
             T2 result = default(T2);
             int numOfElements = dict.Count;
-            if (numOfElements > 0) {
+            if (numOfElements > 0) 
+            {
                 int randomIndex = Random.Range(0, numOfElements);
                 result = dict.ElementAt(randomIndex).Value;
             }
@@ -212,30 +243,36 @@ namespace Game.Utils
         }
     }
     public static class ExParser {
-        public static bool ParseBoolOrDefault(string value) {
+        public static bool ParseBoolOrDefault(string value) 
+        {
             if (!bool.TryParse(value, out bool result)) {
                 result = default(bool);
             }
             return result;
         }
 
-        public static int ParseIntOrDefault(string value) {
+        public static int ParseIntOrDefault(string value) 
+        {
             if (!int.TryParse(value, out int result)) {
                 result = default(int);
             }
             return result;
         }
 
-        public static float ParseFloatOrDefault(string value) {
+        public static float ParseFloatOrDefault(string value) 
+        {
             if (!float.TryParse(value, out float result)) {
                 result = default(float);
             }
             return result;
         }
 
-        public static T ParseEnumOrDefault<T>(string value) where T : System.Enum {
+        public static T ParseEnumOrDefault<T>(string value) where T : System.Enum 
+        {
             if ((value != null) && System.Enum.IsDefined(typeof(T), value))
+            {
                 return ExEnum.Parse<T>(value);
+            }
             return default(T);
         }
     }

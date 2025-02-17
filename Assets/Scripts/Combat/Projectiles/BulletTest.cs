@@ -19,9 +19,16 @@ namespace Combat
 
         private float _remainTime;
 
+        private CombatManager _combatManager;
+
         private void Awake()
         {
             _initialized = false;
+        }
+
+        public void SetDependency(CombatManager combatManager)
+        {
+            _combatManager = combatManager;
         }
 
         public void Initialize(Vector3 dir, int damage, float moveSpeed)
@@ -61,6 +68,9 @@ namespace Combat
         private void Release()
         {
             _initialized = false;
+
+            _combatManager.EffectManager.CreateEffect("BulletDestroy", transform.position);
+
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
