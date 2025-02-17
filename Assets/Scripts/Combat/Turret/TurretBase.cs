@@ -7,6 +7,9 @@ namespace Combat
 {
     public abstract class TurretBase : MonoBehaviour
     {
+        [SerializeField]
+        protected SpriteAnimator animator;
+
         protected bool _isInteracting;
         protected bool _isProcessing;
         protected int _remainShells;
@@ -111,7 +114,7 @@ namespace Combat
 
         protected virtual void OnAttack()
         {
-            
+            animator.ChangeAnimation("Fire", true);
         }
 
         protected float GetBulletDegree()

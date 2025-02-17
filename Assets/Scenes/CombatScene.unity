@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 956099892}
   - component: {fileID: 956099893}
   - component: {fileID: 956099894}
+  - component: {fileID: 956099896}
   - component: {fileID: 956099895}
   m_Layer: 0
   m_Name: Turret
@@ -653,6 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141fd2707278e6e4788d781938feb25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 956099896}
   angleRate: 20
 --- !u!61 &956099895
 BoxCollider2D:
@@ -699,6 +701,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 98.83562, y: 80.170395}
   m_EdgeRadius: 0
+--- !u!114 &956099896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956099891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63dc8842dd62ef1459d5d9da7c80bf70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 956099893}
+  animatorData: {fileID: 11400000, guid: f6c08048bb5745b409df76c0fa2803ac, type: 2}
 --- !u!1 &1079044831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,6 +2068,7 @@ GameObject:
   - component: {fileID: 2136870286}
   - component: {fileID: 2136870287}
   - component: {fileID: 2136870288}
+  - component: {fileID: 2136870289}
   m_Layer: 0
   m_Name: EnemyTurret
   m_TagString: Untagged
@@ -2138,7 +2155,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ccf0070df335e45afa03851032c228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 2136870289}
   angleRate: 20
+--- !u!114 &2136870289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136870285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63dc8842dd62ef1459d5d9da7c80bf70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 2136870287}
+  animatorData: {fileID: 11400000, guid: f6c08048bb5745b409df76c0fa2803ac, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
