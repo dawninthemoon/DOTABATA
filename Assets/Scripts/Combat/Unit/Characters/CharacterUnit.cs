@@ -122,8 +122,9 @@ namespace Combat
             var moveAction = _actionManager.GetActionInstance(this, InputType.Direction) as MovementAction;
             moveAction.SetDirection(_inputStatus.direction);
             moveAction.Execute(this);
-                
+            
             CharacterRenderer.ArmState armState = CharacterRenderer.ArmState.Idle;
+            bool reloadSucceed = false;
             if (_inputStatus.mouse0)
             {
                 if (_weapon.CanAttack())
@@ -136,19 +137,23 @@ namespace Combat
                 }
                 else
                 {
-                    if (_weapon.TryReload())
-                    {
-                        armState = CharacterRenderer.ArmState.Reload;
-                    }
+                    reloadSucceed = _weapon.TryReload();
                 }
             }
 
             if (_inputStatus.reload)
             {
-                if (_weapon.TryReload())
-                {
-                    armState = CharacterRenderer.ArmState.Reload;
-                }
+                reloadSucceed = _weapon.TryReload();
+            }
+
+            if (reloadSucceed)
+            {
+                armState = CharacterRenderer.ArmState.Reload;
+                characterUI.OnReloadStart();
+            }
+            else if (!_weapon.IsReloading)
+            {
+                characterUI.OnReloadEnd();
             }
 
             characterRenderer.ProcessInput(_inputStatus.direction, armState);

@@ -24,6 +24,8 @@ namespace Combat
         protected int _remainSpareMagazines;
         private bool _isReloading;
 
+        public bool IsReloading => _isReloading;
+
         public virtual void Initialize(int weaponKey, CharacterUnit owner)
         {
             _owner = owner;
