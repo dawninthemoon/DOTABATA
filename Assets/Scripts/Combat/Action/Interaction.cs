@@ -6,39 +6,61 @@ namespace Combat.Actions
 {
     public class Interaction : ActionBase
     {
-        public override void Execute(CharacterUnit actor)
+        private List<IInteractable> _overlapedInteractableList;
+        private List<IProgressiveInteractable> _overlapedProgressiveInteractableList;
+
+        public Interaction()
         {
+            _overlapedInteractableList = new();
+            _overlapedProgressiveInteractableList = new();
+        }
+
+        public bool CanInteract()
+        {
+            return (_overlapedInteractableList.Count + _overlapedProgressiveInteractableList.Count) > 0;
+        }
+
+        public void OverlapColliders(CharacterUnit actor)
+        {
+            _overlapedInteractableList.Clear();
+            _overlapedProgressiveInteractableList.Clear();
+
             var colliders = Physics2D.OverlapCircleAll(actor.GetPosition(), 16f);
             foreach (var collider in colliders)
             {
                 if (collider.TryGetComponent(out IInteractable interactable))
                 {
-                    interactable.Interact(actor);
+                    _overlapedInteractableList.Add(interactable);
                 }
+
+                if (collider.TryGetComponent(out IProgressiveInteractable progressiveInteractable))
+                {
+                    _overlapedProgressiveInteractableList.Add(progressiveInteractable);
+                }
+            }
+        }
+
+        public override void Execute(CharacterUnit actor)
+        {
+            foreach (var interactable in _overlapedInteractableList)
+            {
+                interactable.Interact(actor);
             }
         }
         
         public void Progress(CharacterUnit actor)
         {
-            var colliders = Physics2D.OverlapCircleAll(actor.GetPosition(), 16f);
-            foreach (var collider in colliders)
+            foreach (var interactable in _overlapedProgressiveInteractableList)
             {
-                if (collider.TryGetComponent(out IProgressiveInteractable interactable))
-                {
-                    interactable.InteractProgress(actor);
-                }
+                interactable.InteractProgress(actor);
             }
         }
 
         public void InteractionEnd(CharacterUnit actor)
         {
-            var colliders = Physics2D.OverlapCircleAll(actor.GetPosition(), 16f);
-            foreach (var collider in colliders)
+            foreach (var interactable in _overlapedProgressiveInteractableList)
             {
-                if (collider.TryGetComponent(out IProgressiveInteractable interactable))
-                {
-                    interactable.InteractEnd(actor);
-                }
+                interactable.InteractEnd(actor);
             }
         }
     }

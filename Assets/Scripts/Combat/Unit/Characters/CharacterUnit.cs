@@ -83,10 +83,42 @@ namespace Combat
                 return;
             }
 
+            ProcessAttackWaitTimer();
+
             characterUI.SetInteractionState(interactiveArea.Selected != null);
 
             base.Progress();
 
+            var interactionInstance = _actionManager.GetActionInstance(this, InputType.Interact) as Interaction;
+            interactionInstance.OverlapColliders(this);
+
+            if (interactionInstance.CanInteract())
+            {
+                bool isInteracting = false;
+
+                if (_inputStatus.interaction)
+                {
+                    isInteracting = true;
+                    interactionInstance.Execute(this);
+                }
+                if (_inputStatus.interactionHolding)
+                {
+                    isInteracting = true;
+                    interactionInstance.Progress(this);
+                }
+                if (_inputStatus.interactionEnd)
+                {
+                    isInteracting = true;
+                    interactionInstance.InteractionEnd(this);
+                }
+
+                if (isInteracting)
+                {
+                    characterRenderer.ChangeToInteraction();
+                    return;
+                }
+            }
+            
             var moveAction = _actionManager.GetActionInstance(this, InputType.Direction) as MovementAction;
             moveAction.SetDirection(_inputStatus.direction);
             moveAction.Execute(this);
@@ -111,23 +143,15 @@ namespace Combat
                 }
             }
 
-            var interactionInstance = _actionManager.GetActionInstance(this, InputType.Interact) as Interaction;
-            if (_inputStatus.interaction)
+            if (_inputStatus.reload)
             {
-                interactionInstance.Execute(this);
-            }
-            if (_inputStatus.interactionHolding)
-            {
-                interactionInstance.Progress(this);
-            }
-            if (_inputStatus.interactionEnd)
-            {
-                interactionInstance.InteractionEnd(this);
+                if (_weapon.TryReload())
+                {
+                    armState = CharacterRenderer.ArmState.Reload;
+                }
             }
 
             characterRenderer.ProcessInput(_inputStatus.direction, armState);
-
-            ProcessAttackWaitTimer();
         }
 
         public override void ReceiveDamage(int damage, UnitBase attacker = null)

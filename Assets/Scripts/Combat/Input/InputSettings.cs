@@ -11,6 +11,7 @@ namespace Combat
         public bool interaction;
         public bool interactionHolding;
         public bool interactionEnd;
+        public bool reload;
 
         public void Reset()
         {
@@ -19,6 +20,7 @@ namespace Combat
             interaction = false;
             interactionHolding = false;
             interactionEnd = false;
+            reload = false;
         }
     }
 }

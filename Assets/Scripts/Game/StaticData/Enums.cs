@@ -24,7 +24,7 @@ public enum ActionType
     DefaultMove = 0,
     Fire = 1,
     Interact = 2,
-    ProgressiveInteract = 3,
+    Reload = 3,
 }
 
 public enum SpriteDirection

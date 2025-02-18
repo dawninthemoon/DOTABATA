@@ -12,6 +12,7 @@ namespace Combat
             Undefined,
             Idle,
             Move,
+            Interact,
             Freeze,
             Down,
         }
@@ -53,13 +54,17 @@ namespace Combat
             Vector2 diff = mousePosition - (Vector2)transform.position;
             float angle = Vector2.Angle(Vector2.down, diff);
 
-            ChangeArmDirection();
+            if (CurrentState != BodyState.Interact)
+            {
+                ChangeArmDirection();
+                ChangeBodyDirection();
+            }
+
             void ChangeArmDirection()
             {
                 armAnimator.Renderer.transform.localRotation = Quaternion.Euler(0f, 0f, angle);
             }
 
-            ChangeBodyDirection();
             void ChangeBodyDirection()
             {
                 string animationName = CurrentState.ToString();
@@ -90,6 +95,8 @@ namespace Combat
             bool isMoving = input.sqrMagnitude > 0f;
             CurrentState = isMoving ? BodyState.Move : BodyState.Idle;
 
+            armAnimator.SetActiveState(true);
+
             switch (armState)
             {
             case ArmState.Fire:
@@ -97,6 +104,13 @@ namespace Combat
                 armAnimator.ChangeAnimation(armState.ToString(), resetIndex: true);
                 break;
             }
+        }
+
+        public void ChangeToInteraction()
+        {
+            CurrentState = BodyState.Interact;
+            armAnimator.SetActiveState(false);
+            bodyAnimator.ChangeAnimation(CurrentState.ToString(), resetIndex: false);
         }
 
         public void ChangeToDown()
