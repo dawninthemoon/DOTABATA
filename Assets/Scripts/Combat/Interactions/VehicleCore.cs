@@ -6,7 +6,10 @@ namespace Combat
 {
     public class VehicleCore : MonoBehaviour, IInteractable, ITargetable
     {
+        private int _armorPlate;
         private int _currentHP;
+
+        public int ArmorPlate => _armorPlate;
         public int CurrentHP => _currentHP;
 
         public TargetFaction Faction { get => TargetFaction.AllyVehicleCore; }
@@ -17,6 +20,7 @@ namespace Combat
         public void Initialize()
         {
             _currentHP = MaxHP;
+            _armorPlate = 0;
         }
 
         public Vector2 GetPosition()
@@ -26,7 +30,7 @@ namespace Combat
 
         public void Interact(CharacterUnit characterUnit)
         {
-
+            characterUnit.UseArmorPlate(this);
         }
 
         public bool CanTarget()
@@ -36,12 +40,26 @@ namespace Combat
 
         public void ReceiveDamage(int damage, UnitBase attacker = null)
         {
-            _currentHP -= 1;
+            int finalDamage = damage;
+
+            if (_armorPlate > 0)
+            {
+                int blockedDamage = Mathf.Min(finalDamage, _armorPlate);
+                _armorPlate -= blockedDamage;
+                finalDamage -= blockedDamage;
+            }
+
+            _currentHP -= finalDamage;
 
             if (_currentHP <= 0)
             {
                 Die();
             }
+        }
+
+        public void AddArmorPlate(int additionalArmor)
+        {
+            _armorPlate += additionalArmor;
         }
 
         private void Die()

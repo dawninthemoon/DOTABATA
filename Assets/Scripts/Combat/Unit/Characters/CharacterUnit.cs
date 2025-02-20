@@ -22,12 +22,15 @@ namespace Combat
         private InputStatus _inputStatus;
         public override TargetFaction Faction => TargetFaction.Character;
 
+        private int _armorPlate;
+
         public override int MaxHP => _data.hp * 100000;
 //        public override int MaxHP => _data.hp;
         public override int AttackPower => _weapon.Data.attack;
         public override float AttackSpeed => _weapon.Data.attackSpeed;
         public override int Damage => AttackPower;
         public float MoveSpeed => _data.moveSpeed;
+        public int ArmorPlate => _armorPlate;
 
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
@@ -162,6 +165,17 @@ namespace Combat
         public override void ReceiveDamage(int damage, UnitBase attacker = null)
         {
             base.ReceiveDamage(damage, attacker);
+        }
+
+        public void AddArmorPlate(int additionalArmor)
+        {
+            _armorPlate += additionalArmor;
+        }
+
+        public void UseArmorPlate(VehicleCore core)
+        {
+            core.AddArmorPlate(_armorPlate);
+            _armorPlate = 0;
         }
 
         protected override void OnDie(UnitBase attacker)

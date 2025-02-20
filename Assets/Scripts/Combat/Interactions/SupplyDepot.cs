@@ -10,6 +10,7 @@ namespace Combat
         public void Interact(CharacterUnit characterUnit)
         {
             characterUnit.Weapon.ReloadImmediate();
+            characterUnit.AddArmorPlate(1);
         }
     }
 }
