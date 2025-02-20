@@ -8,11 +8,13 @@ namespace Combat
 {
     public class CharacterManager : MonoBehaviour
     {
+        private int _instanceIDSequence;
         private List<CharacterUnit> _characterList;
 
         private void Awake()
         {
             _characterList = new();
+            _instanceIDSequence = 0;
         }
 
         public List<CharacterUnit> GetCharacterList()
@@ -27,7 +29,7 @@ namespace Combat
             
             characterUnit.SetDependency(combatManager);
             characterUnit.SetActionManager(combatManager.ActionManager);
-            characterUnit.Initialize(characterKey);
+            characterUnit.Initialize(characterKey, _instanceIDSequence++);
 
             _characterList.Add(characterUnit);
             

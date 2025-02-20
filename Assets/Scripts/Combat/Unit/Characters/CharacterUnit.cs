@@ -23,6 +23,7 @@ namespace Combat
         public override TargetFaction Faction => TargetFaction.Character;
 
         private int _armorPlate;
+        private int _instanceID;
 
         public override int MaxHP => _data.hp * 100000;
 //        public override int MaxHP => _data.hp;
@@ -31,6 +32,7 @@ namespace Combat
         public override int Damage => AttackPower;
         public float MoveSpeed => _data.moveSpeed;
         public int ArmorPlate => _armorPlate;
+        public int InstanceID => _instanceID;
 
         private StaticDataCharacter _data;
         public StaticDataCharacter Data => _data;
@@ -46,9 +48,11 @@ namespace Combat
             _actionManager = actionManager;
         }
 
-        public void Initialize(int characterKey)
+        public void Initialize(int characterKey, int instanceID)
         {
             gameObject.SetActive(true);
+
+            _instanceID = instanceID;
 
             _data = StaticDataManager.Instance.GetCharacterDataByKey(characterKey);
             _weapon = new WeaponBase();
@@ -174,8 +178,10 @@ namespace Combat
 
         public void UseArmorPlate(VehicleCore core)
         {
-            core.AddArmorPlate(_armorPlate);
-            _armorPlate = 0;
+            int usedArmorPlate = Mathf.Min(_armorPlate, 4);
+            _armorPlate -= usedArmorPlate;
+
+            core.AddArmorPlate(usedArmorPlate);
         }
 
         protected override void OnDie(UnitBase attacker)
