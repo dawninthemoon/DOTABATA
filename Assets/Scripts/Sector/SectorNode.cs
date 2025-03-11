@@ -14,11 +14,11 @@ namespace Sector
         private int _nodeKey;
         public int NodeKey => _nodeKey;
 
-        private int _row;
-        private int _column;
+        private Rowcol _rowcol;
 
-        public int Row => _row;
-        public int Column => _column;
+        public Rowcol Rowcol => _rowcol;
+        public int Row => _rowcol.row;
+        public int Column => _rowcol.column;
 
         private void Awake()
         {
@@ -28,8 +28,7 @@ namespace Sector
         public void Initialize(int nodeKey, int row, int column)
         {
             _nodeKey = nodeKey;
-            _row = row;
-            _column = column;
+            _rowcol = new Rowcol(row, column);
             gameObject.SetActive(true);
         }
 

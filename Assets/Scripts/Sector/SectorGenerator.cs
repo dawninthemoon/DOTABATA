@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Game.Utils;
 
 namespace Sector
 {
@@ -22,19 +24,64 @@ namespace Sector
 
         public List<SectorNode> GenerateNodes(SectorGrid sectorGrid, SectorAdjustNodes adjustNodes)
         {
+            Dictionary<int, List<Rowcol>> availableCoords = new();
             List<SectorNode> nodeList = new();
             bool[, ] nodeGrid = new bool[sectorGrid.RowCount, sectorGrid.ColumnCount];
             adjustNodes.CreateList(sectorGrid.RowCount * sectorGrid.ColumnCount);
 
-            Rowcol startRowcol = new Rowcol(Random.Range(0, sectorGrid.RowCount), 0);
-            var startNode = CreateNode(startRowcol.row, startRowcol.column, sectorGrid, nodeGrid);
-            startNode.GetComponent<Image>().color = Color.yellow;
-            nodeList.Add(startNode);
+            foreach (var area in sectorGrid.AreaList)
+            {
+                for (int r = area.starts.row; r <= area.ends.row; ++r)
+                {
+                    for (int c = area.starts.column; c <= area.ends.column; ++c)
+                    {
+                        if (!availableCoords.ContainsKey(area.areaKey))
+                        {
+                            availableCoords.Add(area.areaKey, new());
+                        }
+                        availableCoords[area.areaKey].Add(new Rowcol(r, c));
+                    }
+                }
+            }
 
+            int startAreaKey = Random.Range(0, 2);
+            int endAreaKey = Random.Range(4, 5);
+
+            var startNode = GenerateStartNode(startAreaKey);
+            GenerateNodeByArea(1 - startAreaKey, 1);
+            GenerateNodeByArea(2, 2);
+            GenerateNodeByArea(3, 2);
+            GenerateNodeByArea(4, 2);
+            GenerateNodeByArea(5, 2);
+
+            SectorNode GenerateStartNode(int startAreaKey)
+            {
+                var startCoord = availableCoords[startAreaKey].SelectOne();
+                
+                var startNode = CreateNode(startCoord, sectorGrid, nodeGrid);
+                startNode.GetComponent<Image>().color = Color.yellow;
+                nodeList.Add(startNode);
+
+                return startNode;
+            }
+
+            void GenerateNodeByArea(int areaKey, int maxSize)
+            {
+                int size = maxSize;
+                for (int i = 0; i < size; ++i)
+                {
+                    var coord = availableCoords[areaKey].SelectOne();
+                
+                    var startNode = CreateNode(coord, sectorGrid, nodeGrid);
+                    nodeList.Add(startNode);
+                }
+            }
+
+/*
             for (int i = 0; i < DirectonRow.Length; ++i)
             {
-                int row = startRowcol.row + DirectonRow[i];
-                int col = startRowcol.column + DirectonColumn[i];
+                int row = startNode.Row + DirectonRow[i];
+                int col = startNode.Column + DirectonColumn[i];
                 if (IsValidNode(row, col, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
                 {
                     var newNode = CreateNode(row, col, sectorGrid, nodeGrid);
@@ -63,7 +110,7 @@ namespace Sector
                 }
                 
                 Rowcol dest = new Rowcol() { row = target.Row, column = target.Column };
-                if (!IsValidDestination(startRowcol, dest, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
+                if (!IsValidDestination(startNode.Rowcol, dest, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
                 {
                     nodeGrid[dest.row, dest.column] = false;
 
@@ -87,6 +134,7 @@ namespace Sector
             }
 
             nodeList[nodeList.Count - 1].GetComponent<Image>().color = Color.red;
+*/
 
             return nodeList;
 
@@ -106,6 +154,11 @@ namespace Sector
                     }
                 }
             }
+        }
+
+        private SectorNode CreateNode(Rowcol rowcol, SectorGrid sectorGrid, bool[,] nodeGrid)
+        {
+            return CreateNode(rowcol.row, rowcol.column, sectorGrid, nodeGrid);
         }
 
         private SectorNode CreateNode(int row, int column, SectorGrid sectorGrid, bool[,] nodeGrid)

@@ -118,7 +118,7 @@ namespace Combat
 
         public Vector2 GetRandomSpawnPosition()
         {
-            var area = spawnAreaList.GetRandomElement();
+            var area = spawnAreaList.SelectOne();
             Vector2 randPos = area.GetRandomPosition();
             return randPos;
         }

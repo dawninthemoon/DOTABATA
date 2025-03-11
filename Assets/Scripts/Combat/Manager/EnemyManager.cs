@@ -79,7 +79,7 @@ namespace Combat
             List<int> selected = new();
             while (remainCost >= costMin)
             {
-                int randKey = enemyList.GetRandomElement();
+                int randKey = enemyList.SelectOne();
                 var randEnemy = StaticDataManager.Instance.GetEnemyDataByKey(randKey);
                 if (remainCost < randEnemy.spawnCost)
                 {

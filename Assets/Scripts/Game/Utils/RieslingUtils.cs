@@ -206,7 +206,7 @@ namespace Game.Utils
 
     public static class ExCollection 
     {
-        public static T GetRandomElement<T>(this IList<T> list) 
+        public static T SelectOne<T>(this IList<T> list) 
         {
             T result = default(T);
             int numOfElements = list.Count;
@@ -230,7 +230,7 @@ namespace Game.Utils
             return result;
         }
 
-        public static T2 GetRandomValue<T1, T2>(this Dictionary<T1, T2> dict)
+        public static T2 SelectOne<T1, T2>(this Dictionary<T1, T2> dict)
          {
             T2 result = default(T2);
             int numOfElements = dict.Count;

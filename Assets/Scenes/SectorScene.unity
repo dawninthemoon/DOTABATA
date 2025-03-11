@@ -597,8 +597,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0e2144c7eef8c46a29b8428f7b1075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rowCount: 4
-  columnCount: 7
+  areaList:
+  - areaKey: 0
+    starts:
+      row: 0
+      column: 0
+    ends:
+      row: 1
+      column: 0
+  - areaKey: 1
+    starts:
+      row: 2
+      column: 0
+    ends:
+      row: 3
+      column: 0
+  - areaKey: 2
+    starts:
+      row: 0
+      column: 1
+    ends:
+      row: 1
+      column: 2
+  - areaKey: 3
+    starts:
+      row: 2
+      column: 1
+    ends:
+      row: 3
+      column: 3
+  - areaKey: 4
+    starts:
+      row: 0
+      column: 3
+    ends:
+      row: 1
+      column: 4
+  - areaKey: 5
+    starts:
+      row: 2
+      column: 3
+    ends:
+      row: 3
+      column: 4
+  gridSize:
+    row: 4
+    column: 5
 --- !u!1 &1876989999
 GameObject:
   m_ObjectHideFlags: 0
