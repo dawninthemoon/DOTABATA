@@ -16,6 +16,9 @@ namespace Sector
 
         private static readonly int[] DirectonRow = { -1, -1, -1, 0, 0, 1, 1, 1 };
         private static readonly int[] DirectonColumn = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+        private static readonly float[] ProbByTypes = new float[] { 0.35f, 0.55f, 0.1f, };
+        private static readonly int[] MinNodeCountByTypes = new int[] { 1, 3, 1, };
         
         private void Awake()
         {
@@ -45,13 +48,13 @@ namespace Sector
 
             int startAreaKey = Random.Range(0, 2);
             Rowcol startCoord = availableCoords[startAreaKey].SelectOne();
-            SectorNode startNode = CreateNode(startCoord, sectorGrid, nodeGrid);
+            SectorNode startNode = CreateNodeByType(NodeType.Combat, startCoord, sectorGrid, nodeGrid);
             startNode.GetComponent<Image>().color = Color.yellow;
             nodeList.Add(startNode);
 
             int endAreaKey = Random.Range(4, 6);
             Rowcol endCoord = availableCoords[endAreaKey].SelectOne();
-            SectorNode endNode = CreateNode(endCoord, sectorGrid, nodeGrid);
+            SectorNode endNode = CreateNodeByType(NodeType.Combat, endCoord, sectorGrid, nodeGrid);
             endNode.GetComponent<Image>().color = Color.red;
             nodeList.Add(endNode);
 
@@ -158,7 +161,54 @@ namespace Sector
                 }
             }
 
+            ApplyNodeTypes();
+            void ApplyNodeTypes()
+            {
+                int usedCount = 0;
+                int currentNodeType = 0;
+
+                var shuffledNodeList = nodeList.Shuffle();
+                for (int i = 0; i < shuffledNodeList.Count; ++i)
+                {
+                    var node = shuffledNodeList[i];
+                    if (node.Rowcol == startCoord || node.Rowcol == endCoord)
+                    {
+                        continue;
+                    }
+
+                    NodeType selectedType = NodeType.Combat;
+                    if (currentNodeType < MinNodeCountByTypes.Length)
+                    {
+                        if (usedCount < MinNodeCountByTypes[currentNodeType])
+                        {
+                            selectedType = (NodeType)currentNodeType;
+                        }
+                        else
+                        {
+                            ++currentNodeType;
+                            usedCount = 0;
+                            --i;
+                            continue;
+                        }
+                        ++usedCount;
+                    }
+                    else
+                    {
+                        selectedType = SelectType();
+                    }
+
+                    node.ChangeNodeType(selectedType);
+                }
+            }
+
             return nodeList;
+        }
+
+        private SectorNode CreateNodeByType(NodeType type, Rowcol rowcol, SectorGrid sectorGrid, bool[,] nodeGrid)
+        {
+            SectorNode newNode = CreateNode(rowcol.row, rowcol.column, sectorGrid, nodeGrid);
+            newNode.ChangeNodeType(type);
+            return newNode;
         }
 
         private SectorNode CreateNode(Rowcol rowcol, SectorGrid sectorGrid, bool[,] nodeGrid)
@@ -186,44 +236,21 @@ namespace Sector
             return newNode;
         }
 
-        private bool IsValidDestination(Rowcol start, Rowcol destination, int maxRow, int maxCol, bool[, ] nodes)
+        private NodeType SelectType()
         {
-            bool isValid = false;
+            float randValue = Random.value;
 
-            bool[, ] visit = new bool[maxRow, maxCol];
-            Stack<Rowcol> bfsStack = new();
-
-            bfsStack.Push(new Rowcol() { row = start.row, column = start.column });
-            visit[start.row, start.column] = true;
-
-            while (bfsStack.Count > 0)
+            float sum = 0f;
+            for (int type = 0; type < ProbByTypes.Length; ++type)
             {
-                Rowcol rowcol = bfsStack.Pop();
-
-                for (int i = 0; i < DirectonRow.Length; ++i)
+                sum += ProbByTypes[type];
+                if (randValue <= sum)
                 {
-                    int newRow = rowcol.row + DirectonRow[i];
-                    int newCol = rowcol.column + DirectonColumn[i];
-                    if (IsValidNode(newRow, newCol, maxRow, maxCol, nodes))
-                    {
-                        if (newRow == destination.row && newCol == destination.column)
-                        {
-                            return true;
-                        }
-
-                        if (visit[newRow, newCol])
-                        {
-                            continue;
-                        }
-
-                        visit[newRow, newCol] = true;
-                        Rowcol destRowcol = new Rowcol() { row = newRow, column = newCol };
-                        bfsStack.Push(destRowcol);
-                    }
+                    return (NodeType)type;
                 }
             }
 
-            return isValid;
+            return NodeType.Shop;
         }
 
         private bool IsValidNode(int row, int column, int maxRow, int maxColumn, bool[, ] nodeGrid)

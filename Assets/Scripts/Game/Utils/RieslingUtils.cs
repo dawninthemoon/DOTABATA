@@ -241,6 +241,22 @@ namespace Game.Utils
             }
             return result;
         }
+
+        public static IList<T> Shuffle<T>(this IList<T> source)
+        {
+            List<T> list = new List<T>(source);
+            int n = list.Count;
+            
+            while (n > 1)
+            {
+                n--;
+                int k = Random.Range(0, n + 1);
+                T temp = list[k];
+                list[k] = list[n];
+                list[n] = temp;
+            }
+            return list;
+        }
     }
     public static class ExParser {
         public static bool ParseBoolOrDefault(string value) 

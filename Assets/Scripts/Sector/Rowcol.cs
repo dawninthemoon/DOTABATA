@@ -13,4 +13,21 @@ public struct Rowcol
         row = r;
         column = c;
     }
+
+    public static bool operator ==(Rowcol a, Rowcol b)
+    {
+        return a.row == b.row && a.column == b.column;
+    }
+
+    public static bool operator !=(Rowcol a, Rowcol b)
+    {
+        return !(a == b);
+    }
+    public override bool Equals(object obj)
+    {
+        if (!(obj is Rowcol))
+            return false;
+
+        return this == (Rowcol)obj;
+    }
 }
