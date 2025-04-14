@@ -21,139 +21,144 @@ namespace Sector
         {
             nodePrefab.gameObject.SetActive(false);
         }
-
+        
         public List<SectorNode> GenerateNodes(SectorGrid sectorGrid, SectorAdjustNodes adjustNodes)
         {
-            Dictionary<int, List<Rowcol>> availableCoords = new();
-            List<SectorNode> nodeList = new();
-            bool[, ] nodeGrid = new bool[sectorGrid.RowCount, sectorGrid.ColumnCount];
+            int totalNodes = Random.Range(10, 15);
+            List<SectorNode> nodeList = new List<SectorNode>();
+            bool[,] nodeGrid = new bool[sectorGrid.RowCount, sectorGrid.ColumnCount];
             adjustNodes.CreateList(sectorGrid.RowCount * sectorGrid.ColumnCount);
 
+            Dictionary<int, List<Rowcol>> availableCoords = new Dictionary<int, List<Rowcol>>();
             foreach (var area in sectorGrid.AreaList)
             {
-                for (int r = area.starts.row; r <= area.ends.row; ++r)
+                List<Rowcol> coords = new List<Rowcol>();
+                for (int r = area.starts.row; r <= area.ends.row; r++)
                 {
-                    for (int c = area.starts.column; c <= area.ends.column; ++c)
+                    for (int c = area.starts.column; c <= area.ends.column; c++)
                     {
-                        if (!availableCoords.ContainsKey(area.areaKey))
-                        {
-                            availableCoords.Add(area.areaKey, new());
-                        }
-                        availableCoords[area.areaKey].Add(new Rowcol(r, c));
+                        coords.Add(new Rowcol(r, c));
                     }
                 }
+                availableCoords.Add(area.areaKey, coords);
             }
 
             int startAreaKey = Random.Range(0, 2);
-            int endAreaKey = Random.Range(4, 5);
+            Rowcol startCoord = availableCoords[startAreaKey].SelectOne();
+            SectorNode startNode = CreateNode(startCoord, sectorGrid, nodeGrid);
+            startNode.GetComponent<Image>().color = Color.yellow;
+            nodeList.Add(startNode);
 
-            var startNode = GenerateStartNode(startAreaKey);
-            GenerateNodeByArea(1 - startAreaKey, 1);
-            GenerateNodeByArea(2, 2);
-            GenerateNodeByArea(3, 2);
-            GenerateNodeByArea(4, 2);
-            GenerateNodeByArea(5, 2);
+            int endAreaKey = Random.Range(4, 6);
+            Rowcol endCoord = availableCoords[endAreaKey].SelectOne();
+            SectorNode endNode = CreateNode(endCoord, sectorGrid, nodeGrid);
+            endNode.GetComponent<Image>().color = Color.red;
+            nodeList.Add(endNode);
 
-            SectorNode GenerateStartNode(int startAreaKey)
+            Rowcol current = startCoord;
+            List<Rowcol> backbone = new List<Rowcol>();
+            while (!(current.row == endCoord.row && current.column == endCoord.column))
             {
-                var startCoord = availableCoords[startAreaKey].SelectOne();
-                
-                var startNode = CreateNode(startCoord, sectorGrid, nodeGrid);
-                startNode.GetComponent<Image>().color = Color.yellow;
-                nodeList.Add(startNode);
+                List<Rowcol> candidates = new List<Rowcol>();
+                int dr = endCoord.row - current.row;
+                int dc = endCoord.column - current.column;
+                int stepRow = (dr > 0) ? 1 : (dr < 0) ? -1 : 0;
+                int stepCol = (dc > 0) ? 1 : (dc < 0) ? -1 : 0;
 
-                return startNode;
+                if (stepRow != 0 && stepCol != 0)
+                {
+                    candidates.Add(new Rowcol(current.row + stepRow, current.column));
+                    candidates.Add(new Rowcol(current.row, current.column + stepCol));
+                    candidates.Add(new Rowcol(current.row + stepRow, current.column + stepCol));
+                }
+                else if (stepRow != 0)
+                {
+                    candidates.Add(new Rowcol(current.row + stepRow, current.column));
+                }
+                else if (stepCol != 0)
+                {
+                    candidates.Add(new Rowcol(current.row, current.column + stepCol));
+                }
+
+                candidates = candidates.Where(c => c.row >= 0 && c.row < sectorGrid.RowCount && c.column >= 0 && c.column < sectorGrid.ColumnCount).ToList();
+                
+                if (candidates.Count == 0)
+                {
+                    break;
+                }
+
+                Rowcol nextStep = candidates[Random.Range(0, candidates.Count)];
+                backbone.Add(nextStep);
+                current = nextStep;
             }
 
-            void GenerateNodeByArea(int areaKey, int maxSize)
+            foreach (var coord in backbone)
             {
-                int size = maxSize;
-                for (int i = 0; i < size; ++i)
+                if (!nodeGrid[coord.row, coord.column])
                 {
-                    var coord = availableCoords[areaKey].SelectOne();
-                
-                    var startNode = CreateNode(coord, sectorGrid, nodeGrid);
-                    nodeList.Add(startNode);
+                    SectorNode node = CreateNode(coord, sectorGrid, nodeGrid);
+                    nodeList.Add(node);
                 }
             }
 
-/*
-            for (int i = 0; i < DirectonRow.Length; ++i)
+            while (nodeList.Count < totalNodes)
             {
-                int row = startNode.Row + DirectonRow[i];
-                int col = startNode.Column + DirectonColumn[i];
-                if (IsValidNode(row, col, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
+                List<Rowcol> frontier = new List<Rowcol>();
+                for (int r = 0; r < sectorGrid.RowCount; r++)
                 {
-                    var newNode = CreateNode(row, col, sectorGrid, nodeGrid);
-                    nodeList.Add(newNode);
-                }
-            }
-
-            for (int row = 0; row < sectorGrid.RowCount; ++row)
-            {
-                for (int col = 0; col < sectorGrid.ColumnCount; ++col)
-                {
-                    if (!nodeGrid[row, col] && Random.value < 0.7f)
+                    for (int c = 0; c < sectorGrid.ColumnCount; c++)
                     {
-                        var newNode = CreateNode(row, col, sectorGrid, nodeGrid);
-                        nodeList.Add(newNode);
+                        if (!nodeGrid[r, c])
+                        {
+                            for (int i = 0; i < 8; i++)
+                            {
+                                int nr = r + DirectonRow[i];
+                                int nc = c + DirectonColumn[i];
+                                
+                                if (nr >= 0 && nr < sectorGrid.RowCount && nc >= 0 && nc < sectorGrid.ColumnCount && nodeGrid[nr, nc])
+                                {
+                                    frontier.Add(new Rowcol(r, c));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (frontier.Count == 0)
+                {
+                    break;
+                }
+
+                Rowcol selected = frontier[Random.Range(0, frontier.Count)];
+                SectorNode newNode = CreateNode(selected, sectorGrid, nodeGrid);
+                nodeList.Add(newNode);
+            }
+
+            for (int r = 0; r < sectorGrid.RowCount; r++)
+            {
+                for (int c = 0; c < sectorGrid.ColumnCount; c++)
+                {
+                    if (nodeGrid[r, c])
+                    {
+                        int nodeKey = r * sectorGrid.ColumnCount + c;
+
+                        for (int d = 0; d < 8; d++)
+                        {
+                            int nr = r + DirectonRow[d];
+                            int nc = c + DirectonColumn[d];
+
+                            if (IsValidNode(nr, nc, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
+                            {
+                                int targetKey = nr * sectorGrid.ColumnCount + nc;
+                                adjustNodes.AdjustNode(nodeKey, targetKey);
+                            }
+                        }
                     }
                 }
             }
-
-            for (int i = 0; i < nodeList.Count; ++i)
-            {
-                var target = nodeList[i];
-                if (target.NodeKey == startNode.NodeKey)
-                {
-                    continue;
-                }
-                
-                Rowcol dest = new Rowcol() { row = target.Row, column = target.Column };
-                if (!IsValidDestination(startNode.Rowcol, dest, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
-                {
-                    nodeGrid[dest.row, dest.column] = false;
-
-                    nodeList.RemoveAt(i--);
-                    target.gameObject.SetActive(false);
-                    DestroyImmediate(target.gameObject);
-                    continue;
-                }
-            }
-
-            for (int row = 0; row < sectorGrid.RowCount; ++row)
-            {
-                int vertexCount = 0;
-                for (int col = 0; col < sectorGrid.ColumnCount; ++col)
-                {
-                    if (nodeGrid[row, col])
-                    {
-                        AdjustNodes(row, col);
-                    }
-                }
-            }
-
-            nodeList[nodeList.Count - 1].GetComponent<Image>().color = Color.red;
-*/
 
             return nodeList;
-
-            void AdjustNodes(int originRow, int originCol)
-            {
-                int nodeKey = originRow * sectorGrid.ColumnCount + originCol;
-
-                for (int i = 0; i < DirectonRow.Length; ++i)
-                {
-                    int newRow = originRow + DirectonRow[i];
-                    int newCol = originCol + DirectonColumn[i];
-
-                    if (IsValidNode(newRow, newCol, sectorGrid.RowCount, sectorGrid.ColumnCount, nodeGrid))
-                    {
-                        int targetKey = newRow * sectorGrid.ColumnCount + newCol;
-                        adjustNodes.AdjustNode(nodeKey, targetKey);
-                    }
-                }
-            }
         }
 
         private SectorNode CreateNode(Rowcol rowcol, SectorGrid sectorGrid, bool[,] nodeGrid)
