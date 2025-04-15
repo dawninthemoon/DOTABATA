@@ -40,6 +40,9 @@ namespace Combat
         protected WeaponBase _weapon;
         public WeaponBase Weapon => _weapon;
 
+        protected ActiveSkillAction _activeSkill;
+        public ActiveSkillAction ActiveSkill => _activeSkill;
+
         public Transform BulletTransform => characterRenderer.BulletTransform;
         protected ActionManager _actionManager;
 
@@ -131,7 +134,6 @@ namespace Combat
             moveAction.Execute(this);
             
             CharacterRenderer.ArmState armState = CharacterRenderer.ArmState.Idle;
-            bool reloadSucceed = false;
             if (_inputStatus.mouse0)
             {
                 if (_weapon.CanAttack())
@@ -144,21 +146,29 @@ namespace Combat
                 }
                 else
                 {
-                    reloadSucceed = _weapon.TryReload();
+                    var reloadAction = _actionManager.GetActionInstance(this, InputType.Reload) as ReloadAction;
+                    reloadAction.Execute(this);
                 }
             }
 
             if (_inputStatus.reload)
             {
-                reloadSucceed = _weapon.TryReload();
+                var reloadAction = _actionManager.GetActionInstance(this, InputType.Reload) as ReloadAction;
+                reloadAction.Execute(this);
             }
 
-            if (reloadSucceed)
+            if (_inputStatus.activeSkill)
+            {
+                var skillAction = _actionManager.GetActionInstance(this, InputType.ActiveSkill) as ActiveSkillAction;
+                skillAction.Execute(this);
+            }
+
+            if (_weapon.IsReloading)
             {
                 armState = CharacterRenderer.ArmState.Reload;
                 characterUI.OnReloadStart();
             }
-            else if (!_weapon.IsReloading)
+            else
             {
                 characterUI.OnReloadEnd();
             }

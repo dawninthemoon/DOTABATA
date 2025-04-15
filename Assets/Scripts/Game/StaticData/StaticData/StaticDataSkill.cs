@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using System;
 
 namespace Game.StaticData
 {
-    public class StaticDataCharacterList : StaticDataWrapper<StaticDataCharacter>
+    public class StaticDataSkillList : StaticDataWrapper<StaticDataSkill>
     {
-        private Dictionary<int, StaticDataCharacter> _dataByKey;
-        public Dictionary<int, StaticDataCharacter> DataByKey => _dataByKey;
+        private Dictionary<int, StaticDataSkill> _dataByKey;
+        public Dictionary<int, StaticDataSkill> DataByKey => _dataByKey;
 
         protected override void OnInitialized()
         {
@@ -23,14 +24,11 @@ namespace Game.StaticData
     }
 
     [Serializable]
-    public class StaticDataCharacter
+    public class StaticDataSkill
     {
         public int keyIndex;
-        public int hp;
-        public int attack;
-        public float moveSpeed;
-        public float attackSpeed;
-        public int weaponKey;
-        public int activeSkillKey;
+        public float cooldown;
+        public float value1;
+        public float value2;
     }
 }

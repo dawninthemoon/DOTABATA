@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace Combat.Actions
 {
-    public class ReloadAction : ActionBase
+    public class YuriActiveSkill : ActiveSkillAction
     {
         public override void Execute(CharacterUnit actor)
         {
-            actor.Weapon.TryReload();
+            base.Execute(actor);
+            Debug.Log($"[Execute] {GetType().Name}");   
         }
     }
 }

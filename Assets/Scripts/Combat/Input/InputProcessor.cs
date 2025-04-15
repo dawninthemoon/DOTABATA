@@ -31,6 +31,7 @@ namespace Combat
             _status.interactionHolding = Input.GetKey(KeyCode.E);
             _status.interactionEnd = Input.GetKeyUp(KeyCode.E);
             _status.reload = Input.GetKeyDown(KeyCode.R);
+            _status.activeSkill = Input.GetKeyDown(KeyCode.Space);
         }
     }
 }

@@ -6,7 +6,8 @@
       "attack": 10,
       "moveSpeed": 100,
       "attackSpeed": 1,
-      "weaponKey": 0
+      "weaponKey": 0,
+      "activeSkillKey": 0
     }
   ],
   "StaticDataCharacterAction": [
@@ -33,6 +34,12 @@
       "actionType": 3,
       "inputType": 3,
       "characterKey": 0
+    },
+    {
+      "keyIndex": 4,
+      "actionType": 4,
+      "inputType": 4,
+      "characterKey": 0
     }
   ],
   "StaticDataWeapon": [
@@ -47,6 +54,14 @@
       "bulletRange": 1500,
       "knockbackPower": 0,
       "spreadDegree": 3
+    }
+  ],
+  "StaticDataSkill": [
+    {
+      "keyIndex": 0,
+      "cooldown": 10,
+      "value1": 1000,
+      "value2": 10
     }
   ],
   "StaticDataEnemy": [

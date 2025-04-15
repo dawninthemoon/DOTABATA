@@ -16,6 +16,8 @@ public enum InputType
     Direction = 0,
     LeftClick = 1,
     Interact = 2,
+    Reload = 3,
+    ActiveSkill = 4,
 }
 
 public enum ActionType 
@@ -25,6 +27,7 @@ public enum ActionType
     Fire = 1,
     Interact = 2,
     Reload = 3,
+    ActiveSkill = 4,
 }
 
 public enum SpriteDirection

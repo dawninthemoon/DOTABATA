@@ -16,6 +16,7 @@ namespace Game.StaticData
         private StaticDataCharacterActionList _characterActionList = new();
         private StaticDataWeaponList _weaponList = new();
         private StaticDataStageList _stageList = new();
+        private StaticDataSkillList _skillList = new();
 
         public void Initialize()
         {
@@ -27,6 +28,7 @@ namespace Game.StaticData
             _characterActionList.LoadData(jObject);
             _weaponList.LoadData(jObject);
             _stageList.LoadData(jObject);
+            _skillList.LoadData(jObject);
         }
 
     #region Get
@@ -58,6 +60,11 @@ namespace Game.StaticData
         public StaticDataStage GetStageByKey(int stageKey)
         {
             return _stageList.DataByKey.TryGetValue(stageKey, out var data) ? data : null;
+        }
+
+        public StaticDataSkill GetSkillByKey(int skillKey)
+        {
+            return _skillList.DataByKey.TryGetValue(skillKey, out var data) ? data : null;
         }
     #endregion
     }

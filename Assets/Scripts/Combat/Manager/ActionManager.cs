@@ -24,6 +24,8 @@ namespace Combat.Actions
                 { ActionType.DefaultMove, new MovementAction()},
                 { ActionType.Fire, new FireAction() },
                 { ActionType.Interact, new Interaction() },
+                { ActionType.Reload, new ReloadAction() },
+                { ActionType.ActiveSkill, new YuriActiveSkill() },
             };
 
             foreach (var action in _actionDictionary.Values)

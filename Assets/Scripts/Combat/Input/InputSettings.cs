@@ -12,6 +12,7 @@ namespace Combat
         public bool interactionHolding;
         public bool interactionEnd;
         public bool reload;
+        public bool activeSkill;
 
         public void Reset()
         {
