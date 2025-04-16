@@ -68,7 +68,7 @@ namespace Combat
             }
         }
 
-        protected virtual bool IsDie()
+        public virtual bool IsDie()
         {
             return _health <= 0;
         }

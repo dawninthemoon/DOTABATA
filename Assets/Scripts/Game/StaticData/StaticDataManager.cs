@@ -66,6 +66,11 @@ namespace Game.StaticData
         {
             return _skillList.DataByKey.TryGetValue(skillKey, out var data) ? data : null;
         }
+
+        public StaticDataSkill GetSkillByActionKey(int actionKey)
+        {
+            return _skillList.DataByActionKey.TryGetValue(actionKey, out var data) ? data : null;
+        }
     #endregion
     }
 }

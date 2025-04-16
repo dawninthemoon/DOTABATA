@@ -14,5 +14,20 @@ namespace Combat.Actions
         }
 
         public abstract void Execute(CharacterUnit actor);
+
+        public virtual bool CanMove()
+        {
+            return true;
+        }
+
+        public virtual bool CanAttack()
+        {
+            return true;
+        }
+
+        public virtual bool CanInteract()
+        {
+            return true;
+        }
     }
 }

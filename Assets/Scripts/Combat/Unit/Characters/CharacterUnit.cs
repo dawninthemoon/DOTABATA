@@ -68,6 +68,8 @@ namespace Combat
             targeter.SetDetectRange(100f);
 
             raycastController.Initialize(GetComponent<BoxCollider2D>().size * 0.5f);
+
+            _activeSkill = _actionManager.GetActionInstance(this, InputType.ActiveSkill) as ActiveSkillAction;
         }
 
         private void InitializeStatus()
@@ -92,6 +94,8 @@ namespace Combat
             {
                 return;
             }
+
+            ControlInput();
 
             ProcessAttackWaitTimer();
 
@@ -132,7 +136,7 @@ namespace Combat
             var moveAction = _actionManager.GetActionInstance(this, InputType.Direction) as MovementAction;
             moveAction.SetDirection(_inputStatus.direction);
             moveAction.Execute(this);
-            
+        
             CharacterRenderer.ArmState armState = CharacterRenderer.ArmState.Idle;
             if (_inputStatus.mouse0)
             {
@@ -159,8 +163,7 @@ namespace Combat
 
             if (_inputStatus.activeSkill)
             {
-                var skillAction = _actionManager.GetActionInstance(this, InputType.ActiveSkill) as ActiveSkillAction;
-                skillAction.Execute(this);
+                _activeSkill.Execute(this);
             }
 
             if (_weapon.IsReloading)
@@ -208,6 +211,48 @@ namespace Combat
         {
             base.OnAttack();
             _weapon.OnAttack();
+        }
+
+        private void ControlInput()
+        {
+            if (!CanMove())
+            {
+                _inputStatus.direction = Vector2.zero;
+            }
+
+            if (!CanAttack())
+            {
+                _inputStatus.mouse0 = false;
+            }
+
+            if (!CanInteract())
+            {
+                if (_inputStatus.interaction || _inputStatus.interactionHolding)
+                {
+                    _inputStatus.interactionEnd = true;
+                }
+                _inputStatus.interaction = false;
+                _inputStatus.interactionHolding = false;
+            }
+        }
+
+        public bool CanMove()
+        {
+            bool canMove = (_activeSkill?.CanMove() ?? true);
+            return canMove;
+        }
+
+        public override bool CanAttack()
+        {
+            bool canAttack = base.CanAttack()
+                                && (_activeSkill?.CanAttack() ?? true);
+            return canAttack;
+        }
+
+        public bool CanInteract()
+        {
+            bool canMove = (_activeSkill?.CanInteract() ?? true);
+            return canMove;
         }
     }
 }
