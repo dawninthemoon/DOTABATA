@@ -15,10 +15,10 @@ MonoBehaviour:
   framePerSec: 10
   loop: 0
   sprites:
-  - {fileID: 21300000, guid: 73d5e01e1cf794b4e8f740cee65632b9, type: 3}
-  - {fileID: 21300000, guid: 68845838ad1f16741957677735ea4b5a, type: 3}
-  - {fileID: 21300000, guid: c135b73eb61b78f43b94a09e0b632f99, type: 3}
-  - {fileID: 21300000, guid: da1884cf6f3a8bd4db6493792d4df0a9, type: 3}
-  - {fileID: 21300000, guid: fecadb0b71014b74a95823a4a78886ce, type: 3}
-  - {fileID: 21300000, guid: 170158722914de441ba48f420e094077, type: 3}
+  - {fileID: 21300000, guid: 705cc35732984e84faf92edffe95fa7e, type: 3}
+  - {fileID: 21300000, guid: b87f907db2ddb754ab6947fbd78d2702, type: 3}
+  - {fileID: 21300000, guid: 7088e27abfe727949afa767c686da8e4, type: 3}
+  - {fileID: 21300000, guid: 0a1d62765eb76394e9a89912282ea4ac, type: 3}
+  - {fileID: 21300000, guid: 6985dcc3f03eb694ab68f401db3591f9, type: 3}
+  - {fileID: 21300000, guid: c540e3b93d51e9142922ee41cf3c7cf6, type: 3}
   events: []

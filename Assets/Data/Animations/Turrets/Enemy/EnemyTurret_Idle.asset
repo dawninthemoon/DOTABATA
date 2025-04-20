@@ -15,5 +15,5 @@ MonoBehaviour:
   framePerSec: 10
   loop: 0
   sprites:
-  - {fileID: 21300000, guid: 2c7f81e09fb5a8345a623b5ec474575e, type: 3}
+  - {fileID: 21300000, guid: 4d5ac379beb9e3949b3d7550c1150945, type: 3}
   events: []
