@@ -108,6 +108,11 @@ namespace Combat
             return sum;
         }
 
+        public EnemyUnit[] GetEnemyArray()
+        {
+            return _enemyList.ToArray();
+        }
+
         private void ReleaseEnemy(EnemyUnit enemy)
         {
             if (_enemyList.Contains(enemy))

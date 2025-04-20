@@ -59,6 +59,8 @@ namespace Combat
             var stageData = StaticDataManager.Instance.GetStageByKey(0);
             _enemyManager.Initialize(stageData.monsters);
 
+            _actionManager.Initialize();
+
             _vehicleManager.Initialize();
 
             _myCharacter = _characterManager.CreateCharacter(0, this);

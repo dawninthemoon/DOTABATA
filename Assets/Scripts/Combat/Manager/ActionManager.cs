@@ -14,7 +14,6 @@ namespace Combat.Actions
         public ActionManager(CombatManager combatManager)
         {
             _combatManager = combatManager;
-            Initialize();
         }
 
         public void Initialize()
@@ -28,9 +27,15 @@ namespace Combat.Actions
                 { ActionType.ActiveSkill, new YuriActiveSkill() },
             };
 
-            foreach (var action in _actionDictionary.Values)
+            foreach (var actionPair in _actionDictionary)
             {
+                var action = actionPair.Value;
                 action.SetDependency(_combatManager);
+
+                if (action is IActiveSkill activeSkill)
+                {
+                    activeSkill.Initialize(StaticDataManager.Instance.GetSkillByActionKey((int)actionPair.Key));
+                }
             }
         }
 

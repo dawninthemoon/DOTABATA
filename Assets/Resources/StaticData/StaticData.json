@@ -59,8 +59,9 @@
   "StaticDataSkill": [
     {
       "keyIndex": 0,
+      "actionKey": 4,
       "cooldown": 10,
-      "value1": 1000,
+      "value1": 8,
       "value2": 10
     }
   ],
